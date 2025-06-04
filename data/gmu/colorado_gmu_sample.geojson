@@ -1,0 +1,73 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "GMUID": "12",
+        "NAME": "GMU 12"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -105.8,
+              39.9
+            ],
+            [
+              -105.5,
+              39.9
+            ],
+            [
+              -105.5,
+              39.6
+            ],
+            [
+              -105.8,
+              39.6
+            ],
+            [
+              -105.8,
+              39.9
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GMUID": "201",
+        "NAME": "GMU 201"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -106.3,
+              39.7
+            ],
+            [
+              -106.0,
+              39.7
+            ],
+            [
+              -106.0,
+              39.4
+            ],
+            [
+              -106.3,
+              39.4
+            ],
+            [
+              -106.3,
+              39.7
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

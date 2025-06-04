@@ -1,0 +1,98 @@
+# Hunting Sightings Channel Configuration
+
+# Target GMUs to monitor
+target_gmus:
+  - "12"
+  - "28"
+  - "37"
+  - "38"
+  - "39"
+  - "201"
+
+# Game species to track
+game_species:
+  elk:
+    keywords: ["elk", "bull", "cow", "wapiti", "bugle", "bugling"]
+    enabled: true
+  deer:
+    keywords: ["deer", "buck", "doe", "muley", "mule deer", "whitetail", "white-tail"]
+    enabled: true
+  bear:
+    keywords: ["bear", "black bear", "griz", "grizzly", "bruin"]
+    enabled: true
+  pronghorn:
+    keywords: ["pronghorn", "antelope", "speed goat"]
+    enabled: true
+  bighorn_sheep:
+    keywords: ["bighorn", "sheep", "ram", "ewe"]
+    enabled: true
+  mountain_goat:
+    keywords: ["mountain goat", "goat", "billy", "nanny"]
+    enabled: true
+
+# Data sources configuration
+sources:
+  fourteeners:
+    name: "14ers.com"
+    enabled: true
+    rate_limit: 1.0  # seconds between requests
+    lookback_days: 30  # for initial scrape only
+  
+  summitpost:
+    name: "SummitPost.org"
+    enabled: true
+    rate_limit: 2.0
+    lookback_days: 30
+  
+  reddit:
+    name: "Reddit"
+    enabled: true
+    rate_limit: 1.0
+    subreddits:
+      - "14ers"
+      - "coloradohikers"
+      - "ColoradoHunting"
+    lookback_days: 30
+  
+  hiking_project:
+    name: "Hiking Project"
+    enabled: false  # Will enable in Milestone 4
+    rate_limit: 1.0
+    lookback_days: 30
+
+# Database configuration
+database:
+  type: "postgresql"
+  host: "localhost"
+  port: 5432
+  name: "hunting_sightings"
+  # user and password should be in .env file
+
+# Email configuration
+email:
+  enabled: true
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+  use_tls: true
+  # sender and password should be in .env file
+  recipients:
+    - "digest@example.com"
+  send_time: "06:00"  # 6 AM Mountain Time
+  timezone: "America/Denver"
+
+# Scraping schedule
+schedule:
+  daily_scrape_time: "02:00"  # 2 AM Mountain Time
+  timezone: "America/Denver"
+
+# Data retention
+retention:
+  sightings_months: 12
+  raw_html_days: 30
+
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/hunting_sightings.log"
+  max_size: "10MB"
+  backup_count: 5

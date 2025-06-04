@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Mount Elbert",
+    "lat": 39.1178,
+    "lon": -106.4453,
+    "elevation": 14440,
+    "source": "14ers.com",
+    "trail_type": "peak",
+    "gmu_units": []
+  },
+  {
+    "name": "Mount Massive",
+    "lat": 39.1875,
+    "lon": -106.4757,
+    "elevation": 14428,
+    "source": "14ers.com",
+    "trail_type": "peak",
+    "gmu_units": []
+  },
+  {
+    "name": "Mount Harvard",
+    "lat": 38.9244,
+    "lon": -106.3208,
+    "elevation": 14421,
+    "source": "14ers.com",
+    "trail_type": "peak",
+    "gmu_units": []
+  },
+  {
+    "name": "Blanca Peak",
+    "lat": 37.5775,
+    "lon": -105.4856,
+    "elevation": 14351,
+    "source": "14ers.com",
+    "trail_type": "peak",
+    "gmu_units": []
+  },
+  {
+    "name": "La Plata Peak",
+    "lat": 39.0294,
+    "lon": -106.4729,
+    "elevation": 14343,
+    "source": "14ers.com",
+    "trail_type": "peak",
+    "gmu_units": []
+  },
+  {
+    "name": "Mount Evans via Summit Lake",
+    "lat": 39.5883,
+    "lon": -105.6438,
+    "source": "summitpost.org",
+    "trail_type": "route",
+    "gmu_units": []
+  },
+  {
+    "name": "Grays Peak Standard Route",
+    "lat": 39.6339,
+    "lon": -105.8169,
+    "source": "summitpost.org",
+    "trail_type": "route",
+    "gmu_units": []
+  }
+]
