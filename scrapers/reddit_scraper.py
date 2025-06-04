@@ -6,6 +6,10 @@ import os
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from loguru import logger
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Note: PRAW will be used when API credentials are available
 try:
@@ -34,12 +38,25 @@ class RedditScraper(BaseScraper):
             os.getenv('REDDIT_USER_AGENT')
         ]):
             try:
+                # For read-only access (no user authentication needed)
                 self.reddit = praw.Reddit(
                     client_id=os.getenv('REDDIT_CLIENT_ID'),
                     client_secret=os.getenv('REDDIT_CLIENT_SECRET'),
-                    user_agent=os.getenv('REDDIT_USER_AGENT')
+                    user_agent=os.getenv('REDDIT_USER_AGENT'),
+                    check_for_async=False
                 )
-                logger.info("Reddit API initialized successfully")
+                # Set to read-only mode
+                self.reddit.read_only = True
+                
+                # Test the connection
+                try:
+                    # Simple test to verify authentication
+                    _ = self.reddit.subreddit('test').id
+                    logger.info("Reddit API initialized successfully in read-only mode")
+                except Exception as auth_error:
+                    logger.warning(f"Reddit API authentication failed: {auth_error}")
+                    logger.warning("Falling back to simulation mode")
+                    self.reddit = None
             except Exception as e:
                 logger.error(f"Failed to initialize Reddit API: {e}")
                 self.reddit = None
