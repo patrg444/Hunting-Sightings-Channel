@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Login | 14ers.com</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=yes">
+<meta name="robots" content="noindex, nofollow">
+<meta name="Description" content="You need to log into 14ers.com to view this page. Registration is free!">
+<meta name="keywords" content="14ers Login, 14ers.com Login, Log In, Log On">
+<meta name="copyright" content="Copyright &copy; 2025 14ers.com, 14ers Inc. All rights reserved.">
+<meta property="og:site_name" content="14ers.com">
+<meta property="og:title" content="Login">
+<meta property="og:type" content="website">
+<meta property="og:updated_time" content="2025-06-01T01:21:57+00:00">
+<meta property="og:url" content="https://www.14ers.com/php14ers/loginviaforum.php">
+<meta property="og:image" content="https://www.14ers.com/images/site_logomain_400x400.png">
+<meta property="og:description" content="You need to log into 14ers.com to view this page. Registration is free!">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="/css/site.css?m=202505251732">
+<link rel="stylesheet" type="text/css" href="/css/siteheader.css?m=202505101131">
+<link rel="stylesheet" type="text/css" href="/css/sitefooter.css?m=202502110422">
+<link rel="stylesheet" type="text/css" href="/css/colors.css?m=202505251732">
+<link rel="stylesheet" type="text/css" href="/scripts/vendor/jquery-ui-v1.13.2/jquery-ui.css?m=202301040738">
+<link rel="stylesheet" type="text/css" href="/css/jquery_uioverrides.css?m=202505070706">
+<script src="/scripts/vendor/jquery-v3.7.1/jquery-3.7.1.min.js?m=202301010000"></script>
+<script>var jqy = jQuery.noConflict();</script>
+<script src="/scripts/vendor/jquery-ui-v1.13.2/jquery-ui.min.js?m=202301010000"></script>
+<script src="/scripts/cookwork.js?m=20220202135259"></script>
+<script src="/scripts/mainhdri_202310.js?m=20250210f"></script>
+</head>
+
+<body class="MainText1">
+
+<div id="pageoverlay" class="pageoverlay"></div>
+<div id="siteheader">
+  <div id="siteheader-logo">
+   <a target="_top" tabindex="-1" href="/" title="14ers.com Home"><img src="/images/site_logo.svg" alt="logo" width="130" height="50"></a>
+  </div>
+
+  <div id="hamburger" class="hamburger-menu" onclick="menuExpand();return false">
+   <span></span><span></span><span></span>
+  </div>
+
+</div>
+
+  <div id="siteheader-login" tabindex="0">
+   <a href="/php14ers/loginviaforum.php" class="newLoginLink" title="Log In">Log In&nbsp;<span class="fas fa-sign-in-alt"></span></a>
+  </div>
+
+<div id="siteheader-menuwrap">
+<ul><li class="menu_topitem"><a href="/14ers">Peaks</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/14ers">Colorado 14ers</a></li><li><a href="/13ers">Colorado 13ers</a></li><li><a href="/map.php">Map</a></li><li class="sep nomobile"></li><li><a href="/what-are-14ers">What are 14ers?</a></li><li><a href="/php14ers/panoramas.php">360° Summit Panoramas</a></li><li class="nomobile"><a href="/php14ers/exportpeaks.php">Export Peaks to GPX/KML/CSV</a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/routes.php">Climbing</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li class="mm_column_header"><span>Routes</span></li><li><a href="/routes.php">14er Routes</a></li><li><a href="/easiest-14ers">Easiest 14ers</a></li><li><a href="/routes_bydifficulty.php">14er Routes by Difficulty</a></li><li><a href="/routes_byriskfactor.php">14er Routes by Risk Factor</a></li><li><a href="/php14ers/routeselector.php">14er Route Selection Tool</a></li><li><a href="/13ers">13er Routes</a></li><li><a href="/php14ers/gpxlib_main.php">GPX Library</a></li><li><a href="/php14ers/cellreportmain.php">Cell Phone Reception</a></li><li><a href="/php14ers/timesmain.php">User Climb Times</a></li></ul></div><div class="mm_submenu_columnlist_div"><ul><li class="mm_column_header"><span>Getting Started</span></li><li><a href="/getting-started">Climbing 14ers</a></li><li><a href="/14ers-faq">14er FAQ</a></li><li><a href="/safety.php">Mountaineering Safety</a></li><li><a href="/difficultyratings.php">Difficulty Rating System</a></li><li><a href="/gearlist.php">Gear List</a></li><li><a href="/winter-14ers-for-beginners">Climbing 14ers in Winter</a></li><li><a href="/php14ers/peakusage.php">14er Crowds</a></li><li class="external-icon"><a href="https://lnt.org/why/7-principles/">Leave no Trace (LNT) <i class="fas fa-external-link-alt"></i></a></li></ul></div><div class="mm_submenu_columnlist_div"><ul><li class="mm_column_header"><span>Weather</span></li><li class="external-icon"><a href="/php14ers/weather.php">Peak Forecasts <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://www.wunderground.com/wundermap/?lat=39.04157&lon=-106.09080">WunderMap <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://www.star.nesdis.noaa.gov/GOES/index.php">Satellite Imagery <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://www.weather.gov/forecastmaps/">National Maps <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://nwcc-apps.sc.egov.usda.gov/basin-plots/?state=CO">CO Snow/Water Plots <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://nwcc-apps.sc.egov.usda.gov/imap/#version=169&elements=&networks=!&states=!&counties=!&hucs=&minElevation=&maxElevation=&elementSelectType=any&activeOnly=true&activeForecastPointsOnly=true&hucLabels=false&hucIdLabels=false&hucParameterLabels=true&stationLabels=&overlays=&hucOverlays=&basinOpacity=75&basinNoDataOpacity=25&basemapOpacity=100&maskOpacity=0&mode=data&openSections=dataElement,parameter,date,basin,options,elements,location,networks&controlsOpen=true&popup=&popupMulti=&popupBasin=&base=esriNgwm&displayType=station&basinType=6&dataElement=WTEQ&depth=-8&parameter=PCTMED&frequency=DAILY&duration=I&customDuration=&dayPart=E&monthPart=E&forecastPubDay=1&forecastExceedance=50&useMixedPast=true&seqColor=1&divColor=7&scaleType=D&scaleMin=&scaleMax=&referencePeriodType=POR&referenceBegin=1991&referenceEnd=2020&minimumYears=20&hucAssociations=true&relativeDate=-1&lat=38.979&lon=-105.554&zoom=8.0">CO SNOTEL Sites <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://www.timeanddate.com/sun/usa/denver">Sunrise/Sunset <i class="fas fa-external-link-alt"></i></a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/php14ers/peakstatus_main.php">Peak Conditions</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/php14ers/peakstatus_main.php">View Peak Conditions</a></li><li><a href="/php14ers/peakstatus_add.php">Post a Condition Update</a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/php14ers/tripmain.php">Trip Reports</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/php14ers/tripmain.php">View Trip Reports</a></li><li><a href="/php14ers/addreport.php">Add a Trip Report</a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/php14ers/trailheadsmain.php">Trailheads</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/php14ers/trailheadsmain.php">View Trailheads</a></li><li><a href="/php14ers/threportadd.php">Post a TH Status Update</a></li><li class="sep nomobile"></li><li><a href="/php14ers/cellreportmain.php">Update TH Cell Phone Reception</a></li><li><a href="/php14ers/trailheads_bydifficulty.php">14er THs by Road Difficulty</a></li><li><a href="/map.php?trailheads=yes">14er THs on Map</a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/php14ers/checklistgroups.php">Checklists</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/php14ers/checklists.php?peaktype=14ers">14er User Checklists</a></li><li><a href="/php14ers/checklists.php?peaktype=13ers">13er User Checklists</a></li><li><a href="/php14ers/checklistgroups.php">Checklist Statistics</a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/forum/index.php">Forum</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/forum/index.php">Enter the Forum</a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="#">More</a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/search.php">Search the Site</a></li><li><a href="/contact.php">Contact Site Admin</a></li><li><a href="/php14ers/store.php">14ers.com Store</a></li><li><a href="/support.php">Support</a></li><li><a href="/about.php">About</a></li><li class="sep nomobile"></li><li><a href="/mobileapp.php">14ers.com Mobile App</a></li><li><a href="/mobileapp-faq">App FAQ</a></li><li class="sep nomobile"></li><li><a href="/links.php">Recommended Links</a></li><li class="external-icon"><a href="https://www.instagram.com/14erscom/">14ers.com on Instagram <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://www.facebook.com/groups/82338447841/">14ers.com on Facebook <i class="fas fa-external-link-alt"></i></a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/php14ers/weather.php"><i class="fa-solid fa-cloud-sun fa-lg"></i></a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/php14ers/weather.php">NWS Peak Forecasts</a></li><li class="external-icon"><a href="https://www.mountain-forecast.com/">Mountain Forecast <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://www.wunderground.com/wundermap/?lat=39.04157&lon=-106.09080">WunderMap <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://maps.cotrip.org/@-106.88862,39.37883,8?show=roadWork,winterDriving,roadReports">CDOT Road Conditions <i class="fas fa-external-link-alt"></i></a></li></ul></div></div></li></ul></li><li class="menu_topitem"><a href="/php14ers/store.php"><i class="fa-solid fa-shirt fa-lg"></i></a><ul class="mm_submenu"><li><div class="mm_submenu_divwrap"><div class="mm_submenu_columnlist_div"><ul><li><a href="/php14ers/store.php">14ers.com Store</a></li><li class="external-icon"><a href="https://www.avantlink.com/click.php?tt=ml&ti=3402&pw=55331">REI.com <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://outdoortrailmaps.com/">OutdoorTrailMaps.com <i class="fas fa-external-link-alt"></i></a></li><li class="external-icon"><a href="https://www.peakmarker.com">Peakmarker.com <i class="fas fa-external-link-alt"></i></a></li></ul></div></div></li></ul></li></ul>
+</div>
+
+
+<div id="wrap">
+
+<div class="breadcrumb" id="breadcrumbwrap">
+  <ul class="breadcrumb">
+   <li><a href="/">Home</a></li>
+   <li><a href="#">Login</a></li>
+  </ul>
+</div>
+
+<a id="top" accesskey="t"></a>
+
+<script src="/scripts/modalpopupmessage.js?date=20230101"></script>
+
+<div id="dialog_Message" class="MainText1" style="display:none;max-height:450px !important;"></div>
+
+<style>
+	.buttonInactive {
+		color:#D9D9D9 !important;
+		text-shadow: none;
+	}
+</style>
+
+<script>
+const cookieMessage = "Cookies are required to access member-only features like maps, checklists, forum posting, and your personal dashboard.<br><br>Before you can log in, you'll need change your browser settings to allow cookies and refresh this page.<br><br><a style='font-size:0.8em;' href='/cookiepolicy.php'>Cookie Policy</a></strong>";
+	
+function handleLogin() {
+	const cookie = Get_Cookie('14erscom_testcookie');
+	if (!cookie) {
+		  jqy("#loginButton").addClass("buttonInactive");
+		  messageDialog('Cookies Required!', cookieMessage);
+		  return false;
+	  } else {
+		let loginForm = document.getElementById('loginForm');
+        let userNameField = document.getElementById('userNameField');
+        let passwordField = document.getElementById('passwordField');
+        let redirectField = document.getElementById('redirectField');
+		if (passwordField.value.length === 0) {
+			loginForm.setAttribute('action', '../forum/ucp.php?mode=login');
+			userNameField.setAttribute('name', 'userName');
+		} else {
+			const regExp = /\?/;
+			if(regExp.test(redirectField.value)) {
+				redirectField.value += '&';
+			} else {
+				redirectField.value += '?';
+			}
+		}
+		return true;
+	}
+}
+
+jqy(document).ready(function() {
+	jqy("[data-tooltip]").each(function(i, e) {
+		let tag = jqy(e);
+		if (tag.is("[title]") === false) {
+			tag.attr("title", "");
+		}
+	});
+	jqy(document).tooltip({
+		items: "[data-tooltip]",
+		position: { my: "left top+2", at: "left bottom", collision: "flipfit" },
+		content: function () {
+			return jqy(this).attr("data-tooltip");
+		}
+	});
+	
+	const cookie = Get_Cookie('14erscom_testcookie');
+	if (!cookie) {
+		jqy("#loginButton").addClass("buttonInactive");
+		messageDialog('Cookies Required!',cookieMessage);
+	}
+
+}); // end ready()
+</script>
+
+
+<div style="width:100%;clear:both;display:inline-block;margin-bottom:10px;">
+	
+<div id="siteloginpod">
+ <div class="siteloginform">
+  <form id="loginForm" action="../forum/ucp.php?mode=login" method="post" enctype="application/x-www-form-urlencoded" onSubmit="return handleLogin();" style="padding-top:0;margin-top:0;margin-bottom:0;padding-bottom:0;" accept-charset="UTF-8">
+   <input type="hidden" name="login" id="loginField" value="login">
+   <input type="hidden" name="redirect" id="redirectField" value="https://www.14ers.com">
+   <input name="form_token" id="form_token" value="ecc451ff489e1e14e039a3c9a5eae7fc5a25f37d" type="hidden">
+   <input type="hidden" name="sid" value="d8b7b159eb741dbf8b6d79004491c89a">
+   <input type="hidden" name="creation_time" value="1749029604">
+   <table>
+    <tr>
+     <td style="vertical-align:baseline;"><img src="../images/icon_key_large.png" style="width:32px;height:32px;
+     border:0;margin-top:25px;" title="14ers.com Login" alt="key"><td>
+     <td>
+      <table>
+       <tr><td><span class="bold1">Username</span></td></tr>
+       <tr><td><input type="text" name="username" id="userNameField" maxlength="25" size="17" class="textinput" tabindex="1"></td></tr>
+       <tr><td><span class="bold1">Password</span></td></tr>
+       <tr><td><input type="password" name="password" id="passwordField" maxlength="25" size="11" class="textinput" tabindex="2"></td></tr>
+       <tr><td><a class="forgotpass" href="/forum/ucp.php?mode=sendpassword" tabindex="4">I
+                   forgot my password</a></td></tr>
+       <tr><td><label for="autologin" class="forgotpass"><input style="vertical-align:bottom;" type="checkbox" name="autologin" id="autologin" tabindex="3">&nbsp;Remember Me</label></td></tr>
+       <tr><td><input type="submit" name="submit" id="loginButton" value="&nbsp;Log In&nbsp;" class="buttonf orangef" tabindex="5" style="margin-top:10px;"></td></tr>
+      </table>
+     </td>
+    </tr>
+   </table>
+  </form>
+ </div>
+</div>
+	
+<div style="float:left;text-align:left;clear:both;margin:5px 2px 2px 10px;">
+<img src="../images/icon_useradd_medium.png" style="width:24px;height:24px;border:0;margin-bottom:-3px;" alt="Register">&nbsp;<a href="/forum/ucp.php?mode=register" title="Create an account on 14ers.com">Not registered? It's Free!</a>
+<br>
+<br>
+<br>
+
+Problems logging in? Please use the site <a href="/contact.php">contact</a> page.
+</div>
+
+</div>
+
+<div style="width:100%;clear:both;">
+<table style="border:0;width:135px;" title="Click to Verify - We use GeoTrust SSL for secure e-commerce and confidential communications.">
+<tr>
+<td style="width:135px;text-align:center;vertical-align:top;">
+<br>
+<!-- DigiCert Seal HTML -->
+<div id="DigiCertClickID_GOjDhAq-"></div>
+<script>
+	var __dcid = __dcid || [];
+	__dcid.push({"cid":"DigiCertClickID_GOjDhAq-","tag":"GOjDhAq-"});
+	(function(){let cid=document.createElement("script");cid.async=true;cid.src="//seal.digicert.com/seals/cascade/seal.min.js";let s = document.getElementsByTagName("script");let ls = s[(s.length - 1)];ls.parentNode.insertBefore(cid, ls.nextSibling);}());
+</script>
+</td>
+</tr>
+</table>
+</div>
+
+<div style="width:100%;clear:both;margin-bottom:40px;"></div>
+
+
+<div class="push"></div>
+</div>
+
+<div id="sfooter">
+  <div class="footer-row">
+    <div class="footer-section">
+      <h3>14ers.com</h3>
+      <ul>
+        <li><a tabindex="0" href="/about.php">About</a></li>
+        <li><a tabindex="0" href="/support.php">Your Support</a></li>
+        <li><a tabindex="0" href="/search.php">Search the Site</a></li>
+        <li><a tabindex="0" href="/contact.php">Contact Site Admin</a></li>
+        <li><a tabindex="0" href="/privacypolicy.php">Privacy</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Social</h3>
+      <ul class="social-list">
+        <li><a tabindex="0" href="https://www.facebook.com/groups/82338447841/" title="14ers.com Facebook Group" rel="noopener"><span class="fab fa-facebook fa-lg"></span></a></li>
+        <li><a tabindex="0" href="https://www.instagram.com/14erscom/" title="14ers.com on Instagram" rel="noopener"><span class="fab fa-instagram fa-lg"></span></a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Mobile App</h3>
+      <ul>
+        <li><a tabindex="0" href="/mobileapp.php">More info</a></li>
+        <li><a tabindex="0" href="https://play.google.com/store/apps/details?id=com.fourteenerscom&amp;hl=en_US&amp;gl=US" rel="noopener"><img style="width:125px;height:37px;margin:0px;" src="/images/mobileapp_android.svg" alt="Google Play"></a></li>
+		<li><a tabindex="0" href="https://apps.apple.com/us/app/14ers-com/id519555294?ls=1" rel="noopener"><img style="width:125px;height:37px;margin:0px;" src="/images/mobileapp_apple.svg" alt="Apple App Store"></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-row" style="margin-bottom:10px;">
+    <div class="copyright">
+        <a tabindex="0" href="/disclaim.php">&copy; 2025 14ers.com<sup>&reg;</sup></a>, 14ers Inc.
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="/css/vendor/fontawesome-v6.2.0/css/all.css">
+
+</body>
+</html>
