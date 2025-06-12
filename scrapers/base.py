@@ -82,23 +82,25 @@ class BaseScraper(ABC):
         Returns:
             List of sighting dictionaries
         """
+        import re
+        
         sightings = []
         text_lower = text.lower()
         
         for species, keywords in self.game_species.items():
             for keyword in keywords:
                 keyword_lower = keyword.lower()
-                index = 0
                 
-                while True:
-                    # Find next occurrence of keyword
-                    index = text_lower.find(keyword_lower, index)
-                    if index == -1:
-                        break
+                # Use word boundary regex to match whole words only
+                # \b ensures we match word boundaries
+                pattern = r'\b' + re.escape(keyword_lower) + r'\b'
+                
+                for match in re.finditer(pattern, text_lower):
+                    index = match.start()
                     
-                    # Extract 50-character window around keyword
-                    start = max(0, index - 25)
-                    end = min(len(text), index + len(keyword) + 25)
+                    # Extract 100-character window around keyword for better context
+                    start = max(0, index - 50)
+                    end = min(len(text), index + len(keyword) + 50)
                     context = text[start:end].strip()
                     
                     # Validate it's a real sighting mention
@@ -111,10 +113,46 @@ class BaseScraper(ABC):
                             'source_type': self.source_name,
                             'extracted_at': datetime.utcnow()
                         })
-                    
-                    index += 1
         
         return sightings
+    
+    def _extract_potential_wildlife_mentions(self, text: str, url: str) -> List[Dict[str, Any]]:
+        """
+        Simplified extraction - just find posts mentioning wildlife species.
+        Let LLM decide if it's an actual sighting.
+        
+        Args:
+            text: Full text to analyze
+            url: Source URL
+            
+        Returns:
+            List of potential wildlife mentions for LLM validation
+        """
+        import re
+        
+        mentions = []
+        text_lower = text.lower()
+        
+        # Check if any wildlife species are mentioned
+        species_found = set()
+        for species, keywords in self.game_species.items():
+            for keyword in keywords:
+                pattern = r'\b' + re.escape(keyword.lower()) + r'\b'
+                if re.search(pattern, text_lower):
+                    species_found.add(species)
+                    break
+        
+        # If wildlife mentioned, return the full text for LLM analysis
+        if species_found:
+            mentions.append({
+                'full_text': text[:1500],  # Send up to 1500 chars
+                'species_mentioned': list(species_found),
+                'source_url': url,
+                'source_type': self.source_name,
+                'extracted_at': datetime.utcnow()
+            })
+        
+        return mentions
     
     def _validate_sighting_context(self, context: str, keyword: str) -> bool:
         """
@@ -134,30 +172,63 @@ class BaseScraper(ABC):
             'no wildlife',
             'hope to see',
             'looking for',
+            'wish i saw',
+            'wanted to see',
             'elk mountain',  # Place names
             'deer creek',
             'bear lake',
-            'goat rocks'
+            'goat rocks',
+            'sheep mountain',
+            'antelope canyon',
+            'ram\'s head',  # Gear/equipment
+            'deer valley',
+            'elk ridge',
+            'bear canyon',
+            'goat trail',
+            'no animals',
+            'didn\'t spot',
+            'failed to see',
+            'gear',  # Common gear discussions
+            'weight',
+            'pack',
+            'equipment'
         ]
         
         context_lower = context.lower()
+        
+        # Check for false positive phrases
         for phrase in false_positive_phrases:
             if phrase in context_lower:
                 return False
         
-        # Look for positive indicators
+        # Look for positive indicators - require at least one
         positive_indicators = [
             'saw', 'spotted', 'encountered', 'came across',
             'watched', 'found', 'ran into', 'crossing',
-            'grazing', 'feeding', 'bedded', 'tracks'
+            'grazing', 'feeding', 'bedded', 'tracks',
+            'sighting', 'observed', 'startled', 'spooked',
+            'jumped', 'flushed', 'viewing', 'herd of',
+            'group of', 'fresh sign', 'droppings', 'scat',
+            'wandered', 'appeared', 'emerged', 'approached'
         ]
         
+        has_positive_indicator = False
         for indicator in positive_indicators:
             if indicator in context_lower:
-                return True
+                has_positive_indicator = True
+                break
         
-        # Default to including it (can refine later)
-        return True
+        # Also check for patterns like "X elk", "X deer" (number + animal)
+        import re
+        # Check if there's a number before the keyword (within 10 characters)
+        keyword_index = context_lower.find(keyword.lower())
+        if keyword_index > 0:
+            before_keyword = context_lower[max(0, keyword_index-10):keyword_index]
+            if re.search(r'\b\d+\s*$', before_keyword):
+                has_positive_indicator = True
+        
+        # Require positive indicator for validation
+        return has_positive_indicator
     
     @abstractmethod
     def scrape(self, lookback_days: int = 1) -> List[Dict[str, Any]]:

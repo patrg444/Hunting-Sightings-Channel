@@ -16,12 +16,12 @@ class TrailProcessor:
     Handles trail data aggregation and processing from multiple sources.
     """
     
-    def __init__(self, trail_data_path: str = "data/trails/colorado_trails.json"):
+    def __init__(self, trail_data_path: str = "data/trails/colorado_trails_index.csv"):
         """
         Initialize the trail processor.
         
         Args:
-            trail_data_path: Path to store/load aggregated trail data
+            trail_data_path: Path to store/load aggregated trail data (supports .csv or .json)
         """
         self.trail_data_path = Path(trail_data_path)
         self.trails = []
@@ -185,13 +185,19 @@ class TrailProcessor:
         logger.info(f"Saved {len(self.trails)} trails to {self.trail_data_path}")
     
     def load_trail_index(self) -> None:
-        """Load trail data from JSON file."""
+        """Load trail data from CSV or JSON file."""
         if not self.trail_data_path.exists():
             logger.warning(f"Trail index file not found: {self.trail_data_path}")
             return
         
-        with open(self.trail_data_path, 'r') as f:
-            self.trails = json.load(f)
+        # Check file extension and load accordingly
+        if self.trail_data_path.suffix == '.csv':
+            self._load_from_csv()
+        elif self.trail_data_path.suffix == '.json':
+            self._load_from_json()
+        else:
+            logger.error(f"Unsupported file format: {self.trail_data_path.suffix}")
+            return
         
         # Rebuild index
         self.trail_index = {}
@@ -200,6 +206,37 @@ class TrailProcessor:
             self.trail_index[normalized_name] = trail
         
         logger.info(f"Loaded {len(self.trails)} trails from {self.trail_data_path}")
+    
+    def _load_from_json(self) -> None:
+        """Load trail data from JSON file."""
+        with open(self.trail_data_path, 'r') as f:
+            self.trails = json.load(f)
+    
+    def _load_from_csv(self) -> None:
+        """Load trail data from CSV file."""
+        df = pd.read_csv(self.trail_data_path)
+        
+        # Convert DataFrame to list of dictionaries
+        self.trails = []
+        for _, row in df.iterrows():
+            trail_dict = {
+                'name': row['name'],
+                'lat': float(row['lat']),
+                'lon': float(row['lon']),
+                'source': 'OSM',  # Default source for CSV data
+                'trail_type': row.get('type', 'unknown')
+            }
+            
+            # Add optional fields if present
+            if 'gmu' in row and pd.notna(row['gmu']):
+                trail_dict['gmu_units'] = [str(row['gmu'])]
+            else:
+                trail_dict['gmu_units'] = []
+            
+            if 'elevation' in row and pd.notna(row['elevation']):
+                trail_dict['elevation'] = float(row['elevation'])
+            
+            self.trails.append(trail_dict)
     
     def export_to_csv(self, output_path: str) -> None:
         """

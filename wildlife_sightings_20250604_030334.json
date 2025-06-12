@@ -1,0 +1,14 @@
+{
+  "search_date": "2025-06-04T03:03:34.289672",
+  "days_searched": 7,
+  "reports_analyzed": 4,
+  "reports_with_sightings": 1,
+  "total_sightings": 1,
+  "sightings": [
+    {
+      "species": "bear",
+      "raw_text": "lanketed with fresh ball-bearing pebbles. The first is",
+      "keyword_matched": "bear",
+      "source_url": "https://www.14ers.com/php14ers/tripreport.php?trip=23045",
+      "source_type": "14ers.com",
+      "extracted_at": 

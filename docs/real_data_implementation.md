@@ -2,17 +2,17 @@
 
 ## Current Status
 
-### ✅ Reddit Scraper
+### Reddit Scraper
 - **API Integration**: Complete with PRAW
 - **Credentials**: Set up in .env file
 - **Status**: Currently falling back to simulation mode due to authentication
 - **Note**: Reddit app may need time to activate, or try recreating the app
 
-### 🟡 14ers.com Scraper
+### 14ers.com Scraper
 - **Current**: Using simulation mode with sample data
 - **To Implement**: Need to inspect actual HTML structure and update selectors
 
-### 🟡 SummitPost Scraper
+### SummitPost Scraper
 - **Current**: Using simulation mode with sample data
 - **To Implement**: Need to parse actual route descriptions and comments
 
@@ -51,10 +51,10 @@ python scripts/sightings_cli.py --lookback 7
 
 ## Current Features Working
 
-- ✅ Keyword extraction (50-char window)
-- ✅ False positive filtering
-- ✅ Species normalization
-- ✅ Date filtering
-- ✅ GMU mapping (ready for real polygon data)
-- ✅ Multiple source aggregation
-- ✅ Graceful fallback on API failures
+- Keyword extraction (50-char window)
+- False positive filtering
+- Species normalization
+- Date filtering
+- GMU mapping (ready for real polygon data)
+- Multiple source aggregation
+- Graceful fallback on API failures

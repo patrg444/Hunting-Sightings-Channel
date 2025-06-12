@@ -1,0 +1,46 @@
+[
+  {
+    "species": "Black Bear",
+    "location": {
+      "lat": 39.6822866997,
+      "lon": -105.1923677,
+      "accuracy": null,
+      "place_guess": "Morrison, CO 80465, USA"
+    },
+    "observed_date": "2025-05-30",
+    "observed_time": "12:29",
+    "observer": {
+      "username": "tinylongwing",
+      "name": "Lauren Helton"
+    },
+    "description": null,
+    "photo_url": "https://inaturalist-open-data.s3.amazonaws.com/photos/513008561/medium.jpg",
+    "quality_grade": "research",
+    "inaturalist_id": 285411172,
+    "inaturalist_url": "https://www.inaturalist.org/observations/285411172",
+    "source_type": "inaturalist",
+    "confidence": 1.0
+  },
+  {
+    "species": "Black Bear",
+    "location": {
+      "lat": 38.9491339899,
+      "lon": -105.3746358217,
+      "accuracy": 5,
+      "place_guess": "Pike and San Isabel National Forests, Florissant, CO, US"
+    },
+    "observed_date": "2025-05-29",
+    "observed_time": "10:23",
+    "observer": {
+      "username": "tsunami_097",
+      "name": null
+    },
+    "description": "",
+    "photo_url": "https://inaturalist-open-data.s3.amazonaws.com/photos/512479147/medium.jpg",
+    "quality_grade": "research",
+    "inaturalist_id": 285127424,
+    "inaturalist_url": "https://www.inaturalist.org/observations/285127424",
+    "source_type": "inaturalist",
+    "confidence": 1.0
+  }
+]

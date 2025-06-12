@@ -1,0 +1,48 @@
+{
+  "stats": {
+    "total": 150,
+    "with_any_location": 99,
+    "with_gmu": 0,
+    "with_county": 0,
+    "with_coordinates": 0,
+    "with_elevation": 0,
+    "with_location_name": 99,
+    "colorado_specific": 2
+  },
+  "unique_gmus": [],
+  "unique_counties": [],
+  "unique_locations": [
+    "parents\u2019 property in TX",
+    "near greenhouse",
+    "Kazabazua, Quebec",
+    "property"
+  ],
+  "sample_colorado_sightings": [
+    {
+      "species": "deer",
+      "confidence": 1.0,
+      "llm_validated": true,
+      "reddit_post_title": "My first and second roebuck",
+      "sighting_date": "2025-06-01 11:30:25",
+      "subreddit": "Hunting",
+      "post_id": "1l0w53t",
+      "source_url": "https://www.reddit.com/gallery/1l0w53t",
+      "source_type": "reddit",
+      "raw_text": "My first and second roebuck I have the pleasure of hunting these two beautiful roebuck in the same day. My first ever roebuck (pic 1&2) shot at 110 meters at sunrise and my second one (a very special ...",
+      "location_description": "Hunting roebuck in Colorado"
+    },
+    {
+      "species": "deer",
+      "confidence": 1.0,
+      "llm_validated": true,
+      "reddit_post_title": "My first and second roebuck",
+      "sighting_date": "2025-06-01 11:30:25",
+      "subreddit": "Hunting",
+      "post_id": "1l0w53t",
+      "source_url": "https://www.reddit.com/gallery/1l0w53t",
+      "source_type": "reddit",
+      "raw_text": "My first and second roebuck I have the pleasure of hunting these two beautiful roebuck in the same day. My first ever roebuck (pic 1&2) shot at 110 meters at sunrise and my second one (a very special ...",
+      "location_description": "Hunting roebuck in Colorado"
+    }
+  ]
+}

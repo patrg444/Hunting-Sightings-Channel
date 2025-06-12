@@ -20,6 +20,7 @@ except ImportError:
     logger.warning("PRAW not available - Reddit scraper will use simulation mode")
 
 from .base import BaseScraper
+from .llm_validator import LLMValidator
 
 
 class RedditScraper(BaseScraper):
@@ -30,6 +31,7 @@ class RedditScraper(BaseScraper):
     def __init__(self):
         super().__init__(source_name="reddit", rate_limit=1.0)
         self.reddit = None
+        self.validator = LLMValidator()  # Initialize LLM validator with caching
         
         # Initialize Reddit instance if credentials are available
         if PRAW_AVAILABLE and all([
@@ -38,13 +40,29 @@ class RedditScraper(BaseScraper):
             os.getenv('REDDIT_USER_AGENT')
         ]):
             try:
-                # For read-only access (no user authentication needed)
-                self.reddit = praw.Reddit(
-                    client_id=os.getenv('REDDIT_CLIENT_ID'),
-                    client_secret=os.getenv('REDDIT_CLIENT_SECRET'),
-                    user_agent=os.getenv('REDDIT_USER_AGENT'),
-                    check_for_async=False
-                )
+                user_agent = os.getenv('REDDIT_USER_AGENT')
+                
+                # Check if it's an installed app (uses client_credentials)
+                if 'installed:' in user_agent.lower():
+                    # For installed apps - read-only access without password
+                    self.reddit = praw.Reddit(
+                        client_id=os.getenv('REDDIT_CLIENT_ID'),
+                        client_secret=os.getenv('REDDIT_CLIENT_SECRET'),
+                        user_agent=user_agent,
+                        check_for_async=False
+                    )
+                    logger.info("Using installed app authentication (client_credentials)")
+                else:
+                    # For script apps - requires username/password
+                    # Fall back to read-only mode for now
+                    self.reddit = praw.Reddit(
+                        client_id=os.getenv('REDDIT_CLIENT_ID'),
+                        client_secret=os.getenv('REDDIT_CLIENT_SECRET'),
+                        user_agent=user_agent,
+                        check_for_async=False
+                    )
+                    logger.info("Using script app authentication")
+                
                 # Set to read-only mode
                 self.reddit.read_only = True
                 
@@ -56,6 +74,8 @@ class RedditScraper(BaseScraper):
                 except Exception as auth_error:
                     logger.warning(f"Reddit API authentication failed: {auth_error}")
                     logger.warning("Falling back to simulation mode")
+                    logger.warning("For script apps, password authentication is required but not configured")
+                    logger.warning("Consider creating an 'installed app' for read-only access")
                     self.reddit = None
             except Exception as e:
                 logger.error(f"Failed to initialize Reddit API: {e}")
@@ -73,8 +93,18 @@ class RedditScraper(BaseScraper):
         """
         all_sightings = []
         
-        # Target subreddits from config
-        subreddits = ['14ers', 'coloradohikers', 'ColoradoHunting']
+        # Target subreddits - hunting-focused for better wildlife sighting coverage
+        subreddits = [
+            'cohunting',          # Colorado-specific hunting hub
+            'elkhunting',         # ~70% Colorado elk content
+            'Hunting',            # Search for Colorado-specific posts
+            'bowhunting',         # Bow hunters post lots of real-time sightings
+            'trailcam',           # Trail-cam dumps with EXIF coords
+            'Colorado',           # General state sub with wildlife pics
+            'ColoradoSprings',    # Front Range wildlife sightings
+            'RMNP',              # Rocky Mountain National Park
+            'coloradohikers'      # Keep for incidental sightings
+        ]
         
         for subreddit_name in subreddits:
             sightings = self._scrape_subreddit(subreddit_name, lookback_days)
@@ -85,17 +115,19 @@ class RedditScraper(BaseScraper):
     
     def _scrape_subreddit(self, subreddit_name: str, lookback_days: int) -> List[Dict[str, Any]]:
         """
-        Scrape a single subreddit for wildlife sightings.
+        Scrape a single subreddit for wildlife sightings with caching and LLM validation.
         
         Args:
             subreddit_name: Name of the subreddit
             lookback_days: Number of days to look back
             
         Returns:
-            List of sightings from this subreddit
+            List of validated sightings from this subreddit
         """
         sightings = []
         cutoff_date = datetime.now() - timedelta(days=lookback_days)
+        cache_hits = 0
+        new_posts = 0
         
         if self.reddit:
             # Use actual Reddit API
@@ -109,39 +141,103 @@ class RedditScraper(BaseScraper):
                     if post_date < cutoff_date:
                         continue
                     
-                    # Extract from title and selftext
-                    text = f"{submission.title} {submission.selftext}"
-                    post_sightings = self._extract_sightings_from_text(text, submission.url)
+                    post_id = f"reddit_{submission.id}"
+                    content = f"{submission.title} {submission.selftext}"
                     
-                    # Add metadata
-                    for sighting in post_sightings:
-                        sighting['reddit_post_title'] = submission.title
-                        sighting['sighting_date'] = post_date
-                        sighting['subreddit'] = subreddit_name
+                    # Check cache first
+                    if not self.validator.should_process_post(post_id, content):
+                        # Use cached results
+                        cached_sightings = self.validator.get_cached_sightings(post_id)
+                        sightings.extend(cached_sightings)
+                        cache_hits += 1
+                        continue
                     
-                    sightings.extend(post_sightings)
+                    # Process new/changed posts
+                    new_posts += 1
                     
-                    # Also check top comments
+                    # Use simplified extraction - find any wildlife mentions
+                    potential_mentions = self._extract_potential_wildlife_mentions(content, submission.url)
+                    
+                    if potential_mentions:
+                        # Analyze full text with LLM
+                        for mention in potential_mentions:
+                            analysis = self.validator.analyze_full_text_for_sighting(
+                                mention['full_text'], 
+                                mention['species_mentioned']
+                            )
+                            
+                            if analysis and analysis.get('is_sighting'):
+                                # Create validated sighting with location data
+                                sighting = {
+                                    'species': analysis['species'],
+                                    'confidence': analysis['confidence'],
+                                    'llm_validated': True,
+                                    'reddit_post_title': submission.title,
+                                    'sighting_date': post_date,
+                                    'subreddit': subreddit_name,
+                                    'post_id': submission.id,
+                                    'source_url': mention['source_url'],
+                                    'source_type': 'reddit',
+                                    'raw_text': mention['full_text'][:200] + '...' if len(mention['full_text']) > 200 else mention['full_text']
+                                }
+                                
+                                # Add location data from LLM analysis
+                                location_fields = ['gmu_number', 'county', 'location_name', 'coordinates', 'elevation', 'location_description']
+                                for field in location_fields:
+                                    if field in analysis:
+                                        sighting[field] = analysis[field]
+                                
+                                sightings.append(sighting)
+                        
+                        # Update cache with results
+                        self.validator.update_cache(post_id, content, sightings)
+                    else:
+                        # No wildlife mentions at all
+                        self.validator.update_cache(post_id, content, [])
+                    
+                    # Also check top comments (with caching)
                     submission.comments.replace_more(limit=0)
                     for comment in submission.comments[:10]:  # Top 10 comments
+                        comment_id = f"reddit_comment_{comment.id}"
+                        comment_content = comment.body
+                        
+                        # Check cache for comment
+                        if not self.validator.should_process_post(comment_id, comment_content):
+                            cached_comment_sightings = self.validator.get_cached_sightings(comment_id)
+                            sightings.extend(cached_comment_sightings)
+                            continue
+                        
+                        # Process new comment
                         comment_sightings = self._extract_sightings_from_text(
-                            comment.body, 
+                            comment_content, 
                             f"https://reddit.com{comment.permalink}"
                         )
                         
-                        for sighting in comment_sightings:
-                            sighting['reddit_post_title'] = submission.title
-                            sighting['sighting_date'] = datetime.fromtimestamp(comment.created_utc)
-                            sighting['subreddit'] = subreddit_name
-                            sighting['is_comment'] = True
-                        
-                        sightings.extend(comment_sightings)
+                        if comment_sightings:
+                            validated_comment_sightings = self.validator.validate_sightings_batch(comment_sightings)
+                            
+                            for sighting in validated_comment_sightings:
+                                sighting['reddit_post_title'] = submission.title
+                                sighting['sighting_date'] = datetime.fromtimestamp(comment.created_utc)
+                                sighting['subreddit'] = subreddit_name
+                                sighting['is_comment'] = True
+                                sighting['comment_id'] = comment.id
+                            
+                            sightings.extend(validated_comment_sightings)
+                            self.validator.update_cache(comment_id, comment_content, validated_comment_sightings)
+                        else:
+                            self.validator.update_cache(comment_id, comment_content, [])
+                
+                logger.info(f"r/{subreddit_name}: Processed {new_posts} new posts, {cache_hits} from cache")
                         
             except Exception as e:
                 logger.error(f"Error scraping r/{subreddit_name}: {e}")
         else:
             # Simulation mode with sample data
-            sightings.extend(self._get_simulated_posts(subreddit_name))
+            simulated = self._get_simulated_posts(subreddit_name)
+            # Validate simulated sightings too
+            validated = self.validator.validate_sightings_batch(simulated)
+            sightings.extend(validated)
         
         return sightings
     

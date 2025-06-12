@@ -1,6 +1,6 @@
 """
 Real scraper for 14ers.com trip reports to extract wildlife sightings.
-This version actually scrapes the website.
+This version actually scrapes the website with updated parsing logic.
 """
 
 import re
@@ -16,6 +16,7 @@ from .base import BaseScraper
 class FourteenersRealScraper(BaseScraper):
     """
     Real scraper for 14ers.com trip reports and peak pages.
+    Updated to handle current HTML structure.
     """
     
     BASE_URL = "https://www.14ers.com"
@@ -49,6 +50,7 @@ class FourteenersRealScraper(BaseScraper):
     def _get_recent_trip_reports_real(self, lookback_days: int) -> List[Dict[str, Any]]:
         """
         Get links to recent trip reports from the actual website.
+        Updated to parse current HTML structure.
         
         Args:
             lookback_days: Number of days to look back
@@ -70,29 +72,33 @@ class FourteenersRealScraper(BaseScraper):
         
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Find trip report links - look for all tables
-        tables = soup.find_all('table')
+        # Find the results table by ID
+        results_table = soup.find('table', id='resultsTable')
         
-        # Look for the reports table (usually has links to tripshow.php)
-        report_rows = []
-        for table in tables:
-            rows = table.find_all('tr')
-            for row in rows:
-                # Check if this row has a link to tripshow.php
-                link = row.find('a', href=lambda x: x and 'tripshow.php' in x if x else False)
-                if link:
-                    report_rows.append(row)
+        if not results_table:
+            logger.warning("Could not find results table with id='resultsTable'")
+            return reports
         
-        if not report_rows:
-            logger.warning("Could not find trip report rows")
+        # Get all rows except header
+        rows = results_table.find_all('tr')[1:]  # Skip header row
+        
+        if not rows:
+            logger.warning("No trip report rows found in results table")
             return reports
         
         cutoff_date = datetime.now() - timedelta(days=lookback_days)
         
-        for row in report_rows[:20]:  # Limit to recent 20 reports
+        for row in rows[:20]:  # Limit to recent 20 reports
             try:
-                # Find the link to the trip report
-                link_tag = row.find('a', href=lambda x: x and 'tripshow.php' in x if x else False)
+                cells = row.find_all('td')
+                if len(cells) < 8:  # Must have at least 8 columns
+                    continue
+                
+                # Second cell contains the link and report info
+                link_cell = cells[1]
+                
+                # Find the link to the trip report (tripreport.php)
+                link_tag = link_cell.find('a', href=re.compile(r'tripreport\.php\?trip=\d+'))
                 if not link_tag:
                     continue
                 
@@ -100,42 +106,51 @@ class FourteenersRealScraper(BaseScraper):
                 report_url = self.BASE_URL + '/php14ers/' + link_tag.get('href', '')
                 title = link_tag.get_text(strip=True)
                 
-                # Look for date in the row - it's typically in format M/D/YYYY
-                cells = row.find_all('td')
+                # Extract author - look for "By: username" pattern
+                link_text = link_cell.get_text()
+                author_match = re.search(r'By:\s*([^P\n]+?)(?:Peak|$)', link_text)
+                if author_match:
+                    author = author_match.group(1).strip()
+                else:
+                    author = "Unknown"
+                
+                # Extract peak names from third column (class="hide-10")
+                peak_cell = cells[2]
+                peaks = peak_cell.get_text(separator=', ', strip=True)
+                
+                # Extract climb date from fourth column (class="hide-7")
+                date_cell = cells[3]
+                date_text = date_cell.get_text(strip=True)
+                
+                # Parse the date
                 report_date = None
+                try:
+                    report_date = datetime.strptime(date_text, '%m/%d/%Y')
+                except:
+                    logger.debug(f"Could not parse date: {date_text}")
+                    continue
                 
-                for cell in cells:
-                    text = cell.get_text(strip=True)
-                    # Try to parse as date
-                    if '/' in text and len(text) < 15:
-                        try:
-                            report_date = datetime.strptime(text, '%m/%d/%Y')
-                            break
-                        except:
-                            try:
-                                # Try with 2-digit year
-                                report_date = datetime.strptime(text, '%m/%d/%y')
-                                break
-                            except:
-                                pass
-                
+                # Check if within lookback period
                 if report_date and report_date >= cutoff_date:
                     reports.append({
                         'url': report_url,
                         'title': title,
-                        'date': report_date
+                        'date': report_date,
+                        'peaks': peaks,
+                        'author': author
                     })
                     
             except Exception as e:
                 logger.debug(f"Error parsing row: {e}")
                 continue
         
-        logger.info(f"Found {len(reports)} recent trip reports")
+        logger.info(f"Found {len(reports)} recent trip reports within {lookback_days} days")
         return reports
     
     def _extract_sightings_from_report(self, report: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
         Extract wildlife sightings from a single trip report.
+        Updated to parse current HTML structure.
         
         Args:
             report: Trip report metadata
@@ -153,23 +168,50 @@ class FourteenersRealScraper(BaseScraper):
         
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Look for trip report content
-        # 14ers.com trip reports are typically in div with class 'wide'
-        content_div = soup.find('div', {'class': 'wide'})
+        # Look for main content table with class 'v3-table'
+        content_tables = soup.find_all('table', class_='v3-table')
         
-        if content_div:
-            # Get all text content
-            text = content_div.get_text(separator=' ', strip=True)
+        all_text = ""
+        
+        # Extract text from all content tables
+        for table in content_tables:
+            # Skip if this is the comments table (has different structure)
+            if table.find('th', string=re.compile('Comments')):
+                continue
+                
+            # Get all text from table cells
+            for cell in table.find_all('td'):
+                # Skip cells that are part of comment structure
+                if 'comment-' in cell.get('class', []):
+                    continue
+                    
+                text = cell.get_text(separator=' ', strip=True)
+                all_text += " " + text
+        
+        # Also check comments section
+        comment_table = soup.find('table', id='comment_list')
+        if comment_table:
+            # Extract text from comment cells
+            comment_cells = comment_table.find_all('td', class_='comment-text')
+            for cell in comment_cells:
+                text = cell.get_text(separator=' ', strip=True)
+                all_text += " " + text
+        
+        # Extract sightings from all collected text
+        if all_text:
+            found_sightings = self._extract_sightings_from_text(all_text, report['url'])
             
-            # Extract sightings
-            found_sightings = self._extract_sightings_from_text(text, report['url'])
-            
-            # Add metadata
+            # Add metadata to each sighting
             for sighting in found_sightings:
-                sighting['trail_name'] = report['title']
+                sighting['trail_name'] = report.get('peaks', report['title'])
                 sighting['sighting_date'] = report['date']
+                sighting['author'] = report.get('author', 'Unknown')
+                sighting['report_title'] = report['title']
             
             sightings.extend(found_sightings)
+        
+        if sightings:
+            logger.info(f"Found {len(sightings)} sightings in report: {report['title']}")
         
         return sightings
     

@@ -98,14 +98,14 @@ The system runs daily scrapers via cron or systemd timers. See `docs/deployment.
 
 ## Project Structure
 ```
-├── config/          # Configuration files
-├── data/           # GMU polygons and trail data
-├── docs/           # Documentation
-├── processors/     # NLP and geospatial processing
-├── scrapers/       # Web scraping modules
-├── scripts/        # CLI tools and utilities
-├── templates/      # Email templates
-└── tests/          # Unit tests
+ config/          # Configuration files
+ data/           # GMU polygons and trail data
+ docs/           # Documentation
+ processors/     # NLP and geospatial processing
+ scrapers/       # Web scraping modules
+ scripts/        # CLI tools and utilities
+ templates/      # Email templates
+ tests/          # Unit tests
 ```
 
 ## Development
