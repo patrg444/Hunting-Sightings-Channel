@@ -1,0 +1,110 @@
+{
+  "total_sightings": 7,
+  "sightings_with_location": 7,
+  "location_types": {
+    "location_name": 6,
+    "location_description": 7
+  },
+  "sample_sightings": [
+    {
+      "species": "deer",
+      "confidence": 0.85,
+      "llm_validated": true,
+      "reddit_post_title": "What's going on here?",
+      "sighting_date": "2025-06-04 12:30:51",
+      "subreddit": "Hunting",
+      "post_id": "1l3eq1r",
+      "source_url": "https://i.redd.it/y68azdkkpy4f1.jpeg",
+      "source_type": "reddit",
+      "raw_text": "What's going on here? Shorter than the broccoli. Can barely walk. Next to our greenhouse. Mom's nowhere to be seen. Nearest treelines are 750-1000 ft away. How would she have gotten here? How long wou...",
+      "location_name": "near greenhouse",
+      "location_description": "Next to greenhouse, nearest treelines 750-1000 ft away"
+    },
+    {
+      "species": "deer",
+      "raw_text": "getting like 2-4 false triggers a day with 20-30 deer pictures a day which is the best I've ever had. H",
+      "keyword_matched": "deer",
+      "source_url": "https://reddit.com/r/Hunting/comments/1l2zjza/i_get_100_false_triggers_a_day_wondering_if/mvx342l/",
+      "source_type": "reddit",
+      "extracted_at": "2025-06-05 01:28:37.822173",
+      "llm_validated": true,
+      "confidence": 0.9,
+      "location_description": "getting like 2-4 false triggers a day with 20-30 deer pictures a day which is the best I've ever had.",
+      "reddit_post_title": "I get 100+ false triggers a day\u2026 wondering if unlimited is worth it?",
+      "sighting_date": "2025-06-04 01:41:39",
+      "subreddit": "Hunting",
+      "is_comment": true,
+      "comment_id": "mvx342l"
+    },
+    {
+      "species": "hog",
+      "confidence": 0.95,
+      "llm_validated": true,
+      "reddit_post_title": "First Hog Down - Ethical Concerns and a Lot of Emotions",
+      "sighting_date": "2025-06-03 20:59:58",
+      "subreddit": "Hunting",
+      "post_id": "1l2w3cm",
+      "source_url": "https://www.reddit.com/r/Hunting/comments/1l2w3cm/first_hog_down_ethical_concerns_and_a_lot_of/",
+      "source_type": "reddit",
+      "raw_text": "First Hog Down - Ethical Concerns and a Lot of Emotions Edit: thanks y\u2019all! This was super helpful in terms of setting expectations for what to expect from pigs (and deer) directly following a shot. W...",
+      "location_name": "parents\u2019 property in TX",
+      "location_description": "Hunting a hog on parents\u2019 property in TX"
+    },
+    {
+      "species": "deer",
+      "confidence": 0.8,
+      "llm_validated": true,
+      "reddit_post_title": "Buck age?",
+      "sighting_date": "2025-06-03 19:22:51",
+      "subreddit": "Hunting",
+      "post_id": "1l2ua8v",
+      "source_url": "https://v.redd.it/2r50k2d6mt4f1",
+      "source_type": "reddit",
+      "raw_text": "Buck age? I know it\u2019s early in the year, and I\u2019m pretty sure the buck closest to the camera is a buck we have had on the property since last year. Curious to see what age you think the buck closest to...",
+      "location_name": "property",
+      "location_description": "Buck seen on the property since last year"
+    },
+    {
+      "species": "bear",
+      "confidence": 1.0,
+      "llm_validated": true,
+      "reddit_post_title": "My first bear",
+      "sighting_date": "2025-06-04 11:44:32",
+      "subreddit": "trailcam",
+      "post_id": "1l3djeh",
+      "source_url": "https://i.redd.it/byo02mibhy4f1.jpeg",
+      "source_type": "reddit",
+      "raw_text": "My first bear I live in Mass. and the camera is in Virginia ",
+      "location_name": "Virginia",
+      "location_description": "Camera captured a bear in Virginia"
+    },
+    {
+      "species": "deer",
+      "confidence": 0.85,
+      "llm_validated": true,
+      "reddit_post_title": "BEAUTIFUL Morning on Trail Cam",
+      "sighting_date": "2025-06-04 10:00:29",
+      "subreddit": "trailcam",
+      "post_id": "1l3av12",
+      "source_url": "https://v.redd.it/9d8d3jzhyx4f1",
+      "source_type": "reddit",
+      "raw_text": "BEAUTIFUL Morning on Trail Cam From this morning. An especially eclectic morning of critters. Opossum, raccoon, groundhog, turkey, deer (of course). It rained a lot yesterday, so the water in the back...",
+      "location_name": "Leavenworth, Kansas",
+      "location_description": "Trail cam in Leavenworth, Kansas capturing deer along with other critters"
+    },
+    {
+      "species": "bear",
+      "confidence": 1.0,
+      "llm_validated": true,
+      "reddit_post_title": "A Bear Playing with my Camera Trap",
+      "sighting_date": "2025-06-04 07:18:48",
+      "subreddit": "trailcam",
+      "post_id": "1l36qx1",
+      "source_url": "https://www.reddit.com/gallery/1l36qx1",
+      "source_type": "reddit",
+      "raw_text": "A Bear Playing with my Camera Trap In Big Cypress I was trying to capture some local wildlife on my DSLR Camera Trap and this bear had other ideas. All in all I lost $100 worth of gear and gained a me...",
+      "location_name": "Big Cypress",
+      "location_description": "Encountered a bear while setting up a camera trap in Big Cypress"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+$ python demo_point_to_gmu.py 39.7392 -105.2277
+Looking up GMU for coordinates: 39.7392, -105.2277
+--------------------------------------------------
+Loading Colorado GMU data...
+2025-06-04 15:16:08.565 | INFO     | processors.gmu_processor:load_gmu_data:66 - Loaded 185 GMU polygons
+Loaded 185 GMU polygons
+
+Performing point-in-polygon lookup...
+
+SUCCESS: Point (39.7392, -105.2277) is in GMU 38

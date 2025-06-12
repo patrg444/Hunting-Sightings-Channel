@@ -2,23 +2,23 @@
 
 ## Deliverables Completed
 
-### 1. Colorado GMU Polygons ✓
+### 1. Colorado GMU Polygons
 - **Location**: `data/gmu/colorado_gmu_sample.geojson`
 - Created sample polygons for GMU units 12 and 201
 - Implemented GMUProcessor class with:
-  - Point-in-polygon queries to determine which GMU contains a location
-  - GeoJSON export functionality
-  - Simplified polygon generation for web mapping
+ - Point-in-polygon queries to determine which GMU contains a location
+ - GeoJSON export functionality
+ - Simplified polygon generation for web mapping
 
-### 2. Trail Index for Colorado Units ✓
+### 2. Trail Index for Colorado Units
 - **Location**: `data/trails/colorado_trails.json`
 - Aggregated 7 trails from:
-  - 5 peaks from 14ers.com (Mount Elbert, Mount Massive, Mount Harvard, Blanca Peak, La Plata Peak)
-  - 2 routes from SummitPost (Mount Evans, Grays Peak)
+ - 5 peaks from 14ers.com (Mount Elbert, Mount Massive, Mount Harvard, Blanca Peak, La Plata Peak)
+ - 2 routes from SummitPost (Mount Evans, Grays Peak)
 - Trail data includes: name, lat/lon coordinates, elevation, source
 - Also exported as CSV: `data/trails/colorado_trails.csv`
 
-### 3. Technical Design Document ✓
+### 3. Technical Design Document
 - **Location**: `docs/technical_design.md`
 - Comprehensive system architecture
 - API rate limits and compliance notes for each source
@@ -30,24 +30,24 @@
 
 ```
 Hunting-Sightings-Channel/
-├── config/
-│   └── settings.yaml         # Configuration for GMUs, species, sources
-├── data/
-│   ├── gmu/                 # GMU polygon data
-│   └── trails/              # Trail location index
-├── docs/
-│   └── technical_design.md  # System architecture document
-├── processors/
-│   ├── gmu_processor.py     # Geospatial operations
-│   └── trail_processor.py   # Trail data aggregation
-├── scrapers/
-│   └── base.py             # Base scraper with keyword extraction
-├── scripts/
-│   └── setup_milestone1.py  # Setup script
-├── .env.example            # Environment variable template
-├── .gitignore             # Git ignore rules
-├── README.md              # Project documentation
-└── requirements.txt       # Python dependencies
+ config/
+  settings.yaml # Configuration for GMUs, species, sources
+ data/
+  gmu/ # GMU polygon data
+  trails/ # Trail location index
+ docs/
+  technical_design.md # System architecture document
+ processors/
+  gmu_processor.py # Geospatial operations
+  trail_processor.py # Trail data aggregation
+ scrapers/
+  base.py # Base scraper with keyword extraction
+ scripts/
+  setup_milestone1.py # Setup script
+ .env.example # Environment variable template
+ .gitignore # Git ignore rules
+ README.md # Project documentation
+ requirements.txt # Python dependencies
 ```
 
 ## Key Classes Implemented

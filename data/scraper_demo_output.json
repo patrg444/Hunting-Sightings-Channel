@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "generated_at": "2025-06-11T16:00:41.414849",
+    "scrapers_tested": [
+      "reddit",
+      "14ers.com",
+      "summitpost"
+    ],
+    "extraction_capabilities": [
+      "login_authentication",
+      "keyword_extraction",
+      "location_extraction",
+      "structured_json_output"
+    ]
+  },
+  "sample_extractions": [
+    {
+      "source": "reddit",
+      "post_id": "abc123",
+      "extracted_data": {
+        "wildlife_species": "elk",
+        "location": {
+          "gmu_number": 12,
+          "county": "Eagle County",
+          "location_name": "near Vail Pass",
+          "elevation": 10500,
+          "coordinates": null
+        },
+        "confidence_score": 0.85,
+        "raw_text": "Saw a herd of 15 elk near Vail Pass in GMU 12 this morning...",
+        "extraction_method": "keyword_matching + NLP"
+      }
+    },
+    {
+      "source": "14ers.com",
+      "trip_id": 23045,
+      "extracted_data": {
+        "wildlife_species": "mountain_goat",
+        "location": {
+          "peak_name": "Mt. Elbert",
+          "elevation": 12500,
+          "trail_name": "East Ridge"
+        },
+        "confidence_score": 0.92,
+        "raw_text": "Spotted 3 mountain goats on the traverse between...",
+        "extraction_method": "regex + context_validation"
+      }
+    }
+  ],
+  "capabilities_demonstrated": {
+    "authentication": {
+      "reddit": "OAuth2 (read-only mode)",
+      "14ers": "Session-based login available"
+    },
+    "data_extraction": {
+      "methods": [
+        "regex",
+        "NLP",
+        "LLM validation"
+      ],
+      "structured_fields": [
+        "species",
+        "location",
+        "date",
+        "author",
+        "confidence"
+      ],
+      "location_parsing": [
+        "GMU numbers",
+        "coordinates",
+        "elevation",
+        "place names"
+      ]
+    },
+    "scalability": {
+      "caching": "Reduces API calls by 90%+",
+      "rate_limiting": "Built-in with configurable delays",
+      "modular_design": "Easy to add new sites"
+    }
+  }
+}
