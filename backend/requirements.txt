@@ -1,0 +1,46 @@
+# FastAPI and web framework
+fastapi==0.110.0
+uvicorn[standard]==0.27.1
+python-multipart==0.0.9
+httpx==0.25.2
+
+# Authentication and Security
+supabase==2.4.0
+pyjwt==2.8.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+gotrue==2.4.1
+
+# Database
+asyncpg==0.29.0
+sqlalchemy[asyncio]==2.0.29
+alembic==1.13.1
+psycopg2-binary==2.9.9
+geoalchemy2==0.14.7
+
+# Data validation and serialization
+pydantic==2.6.3
+pydantic-settings==2.2.1
+email-validator==2.1.1
+
+# CORS and middleware
+starlette==0.36.3
+
+# Environment and configuration
+python-dotenv==1.0.1
+
+# Date and time
+python-dateutil==2.9.0
+
+# Logging
+loguru==0.7.2
+
+# Testing
+pytest==8.1.1
+pytest-asyncio==0.23.5
+pytest-cov==5.0.0
+
+# Development
+black==24.2.0
+flake8==7.0.0
+mypy==1.9.0
