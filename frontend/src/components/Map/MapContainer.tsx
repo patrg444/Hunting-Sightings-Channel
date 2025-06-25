@@ -4,7 +4,7 @@ import { LatLng } from 'leaflet';
 import { GMULayer } from './GMULayer';
 import { SightingClusters } from './SightingClusters';
 import { useStore } from '@/store/store';
-import { sightingsService } from '@/services/sightings';
+import { sightingsAuthService } from '@/services/sightingsAuth';
 import 'leaflet/dist/leaflet.css';
 
 export const MapContainer: React.FC = () => {
@@ -25,11 +25,29 @@ export const MapContainer: React.FC = () => {
       setError(null);
       
       try {
-        const response = await sightingsService.getSightings(filters, currentPage);
-        setSightings(response.items, response.total);
+        // Clear existing sightings first
+        setSightings([], 0);
+        
+        // Apply date filter for free users (5 days)
+        let effectiveFilters = { ...filters };
+        const user = useStore.getState().user;
+        
+        // For now, default to 5-day filter for all users since subscription model isn't loaded
+        const fiveDaysAgo = new Date();
+        fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+        
+        effectiveFilters = {
+          ...filters,
+          startDate: fiveDaysAgo.toISOString().split('T')[0],
+        };
+        
+        const response = await sightingsAuthService.getSightings(effectiveFilters);
+        console.log(`Loaded ${response.sightings.length} sightings with 5-day filter`);
+        setSightings(response.sightings, response.total);
       } catch (error) {
         console.error('Failed to fetch sightings:', error);
         setError('Failed to load sightings');
+        setSightings([], 0);
       } finally {
         setLoading(false);
       }
