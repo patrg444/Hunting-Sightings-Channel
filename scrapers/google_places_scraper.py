@@ -36,28 +36,41 @@ class GooglePlacesScraper(BaseScraper):
     def _get_colorado_trailhead_places(self) -> List[Dict[str, Any]]:
         """
         Get a list of popular Colorado trailhead place IDs.
-        This would typically come from your trails database or a predefined list.
+        Loads from configuration file for easy management.
         """
-        # Example popular Colorado trailheads - in production, fetch from your trails table
-        trailhead_places = [
+        import json
+        from pathlib import Path
+        
+        # Try to load from config file
+        config_path = Path(__file__).parent.parent / "data" / "google_places_config.json"
+        if config_path.exists():
+            try:
+                with open(config_path, 'r') as f:
+                    config = json.load(f)
+                
+                trails = config.get('trails', [])
+                max_trails = config.get('max_trails_per_run', 30)
+                
+                # Return top trails up to max limit
+                return trails[:max_trails]
+                
+            except Exception as e:
+                logger.error(f"Failed to load Google Places config: {e}")
+        
+        # Fallback to a few hardcoded trails
+        logger.warning("Using fallback trail list")
+        return [
             {
-                'place_id': 'ChIJKxDbe7mGa4cRU6-Ff_bVCzU',  # Example: Maroon Bells
+                'place_id': 'ChIJ7d-_s1hAQIcR2uGf8E1ocJM',
                 'name': 'Maroon Bells Scenic Area',
-                'gmu_hint': 49  # Hint for GMU mapping
+                'gmu_hint': 49
             },
             {
-                'place_id': 'ChIJEUZ-Y5aTa4cRmrMzU3n1xo4',  # Example: Hanging Lake
-                'name': 'Hanging Lake Trail',
-                'gmu_hint': 47
-            },
-            {
-                'place_id': 'ChIJ5YQQf1GXa4cR7TyJ0uOwjBg',  # Example: Bear Lake Trail
-                'name': 'Bear Lake Trail',
+                'place_id': 'ChIJ0Zjur8F7aYcRWs6hl3IXMFg',
+                'name': 'Emerald Lake',
                 'gmu_hint': 20
             }
-            # Add more trailheads as needed
         ]
-        return trailhead_places
     
     def _fetch_place_reviews(self, place_id: str) -> Optional[List[Dict[str, Any]]]:
         """
@@ -172,12 +185,59 @@ class GooglePlacesScraper(BaseScraper):
         
         return None
     
+    def _get_processed_review_ids(self) -> set:
+        """Get set of already processed review IDs from cache."""
+        processed_ids = set()
+        
+        try:
+            import sqlite3
+            from pathlib import Path
+            db_path = Path(__file__).parent.parent / "backend" / "hunting_sightings.db"
+            
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            
+            # Get all processed review IDs
+            cursor.execute("SELECT review_id FROM google_review_cache")
+            processed_ids = {row[0] for row in cursor.fetchall()}
+            
+            conn.close()
+            logger.info(f"Loaded {len(processed_ids)} processed review IDs from cache")
+            
+        except Exception as e:
+            logger.warning(f"Could not load review cache: {e}")
+            
+        return processed_ids
+    
+    def _mark_review_processed(self, review_id: str, place_id: str, has_wildlife: bool):
+        """Mark a review as processed in the cache."""
+        try:
+            import sqlite3
+            from pathlib import Path
+            db_path = Path(__file__).parent.parent / "backend" / "hunting_sightings.db"
+            
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                INSERT OR IGNORE INTO google_review_cache 
+                (review_id, place_id, has_wildlife_mention) 
+                VALUES (?, ?, ?)
+            """, (review_id, place_id, int(has_wildlife)))
+            
+            conn.commit()
+            conn.close()
+            
+        except Exception as e:
+            logger.error(f"Failed to update review cache: {e}")
+    
     def scrape(self, lookback_days: int = 1) -> List[Dict[str, Any]]:
         """
         Scrape Google Places reviews for wildlife sightings.
+        Only processes new reviews not in cache.
         
         Args:
-            lookback_days: Not used for Google Places (we get latest 5 reviews)
+            lookback_days: Not used for Google Places (we get latest reviews)
             
         Returns:
             List of wildlife sighting dictionaries
@@ -185,7 +245,14 @@ class GooglePlacesScraper(BaseScraper):
         wildlife_events = []
         trailheads = self._get_colorado_trailhead_places()
         
+        # Get already processed review IDs
+        processed_ids = self._get_processed_review_ids()
+        
         logger.info(f"Processing {len(trailheads)} Colorado trailheads for Google reviews")
+        logger.info(f"Skipping {len(processed_ids)} already processed reviews")
+        
+        total_reviews = 0
+        new_reviews = 0
         
         for trailhead in trailheads:
             logger.debug(f"Fetching reviews for {trailhead['name']}")
@@ -194,12 +261,28 @@ class GooglePlacesScraper(BaseScraper):
             if not reviews:
                 continue
             
+            total_reviews += len(reviews)
+            
             for review in reviews:
                 # Generate review ID for deduplication
                 review_id = self._generate_review_id(review)
                 
+                # Skip if already processed
+                if review_id in processed_ids:
+                    logger.debug(f"Skipping already processed review {review_id}")
+                    continue
+                
+                new_reviews += 1
+                
                 # Process review for wildlife mentions
                 wildlife_event = self._process_review_for_wildlife(review, trailhead)
+                
+                # Mark as processed (whether wildlife found or not)
+                self._mark_review_processed(
+                    review_id, 
+                    trailhead['place_id'], 
+                    wildlife_event is not None
+                )
                 
                 if wildlife_event:
                     # Add metadata for storage
@@ -209,6 +292,7 @@ class GooglePlacesScraper(BaseScraper):
                     
                     logger.info(f"Found {wildlife_event['species']} sighting in Google review at {trailhead['name']}")
         
+        logger.info(f"Processed {new_reviews} new reviews out of {total_reviews} total")
         logger.info(f"Found {len(wildlife_events)} wildlife events in Google reviews")
         return wildlife_events
     

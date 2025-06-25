@@ -1,0 +1,316 @@
+{
+  "comment": "Verified Colorado trail place IDs for wildlife sighting extraction",
+  "max_trails_per_run": 50,
+  "trails": [
+    {
+      "place_id": "ChIJ6QNZReR5aYcRF4KOp0PuJ_o",
+      "name": "Rocky Mountain National Park",
+      "total_ratings": 25944,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJaZ38Yam_a4cRhBs7Z7imOQU",
+      "name": "Golden Gate Canyon State Park",
+      "total_ratings": 2694,
+      "gmu_hint": 39,
+      "type": "park"
+    },
+    {
+      "place_id": "ChIJocjdWURia4cRliu8WS8HweU",
+      "name": "Roxborough State Park",
+      "total_ratings": 2525,
+      "gmu_hint": 39,
+      "type": "park"
+    },
+    {
+      "place_id": "ChIJ1XDaNHeuFIcRr9j0VY96hs4",
+      "name": "Mueller State Park",
+      "total_ratings": 1756,
+      "gmu_hint": 58,
+      "type": "park"
+    },
+    {
+      "place_id": "ChIJ7d-_s1hAQIcR2uGf8E1ocJM",
+      "name": "Maroon Bells Scenic Area",
+      "total_ratings": 1505,
+      "gmu_hint": 49
+    },
+    {
+      "place_id": "ChIJcS3UI4wfQIcRf0ORHl22MRQ",
+      "name": "Independence Pass",
+      "total_ratings": 631,
+      "gmu_hint": 48,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJEVXh1ROxaYcRkNxGon7Gvmw",
+      "name": "State Forest State Park",
+      "total_ratings": 518,
+      "gmu_hint": 17,
+      "type": "park"
+    },
+    {
+      "place_id": "ChIJpSfBP_AJQYcRB0qiEvkoUh0",
+      "name": "Hanging Lake Trailhead",
+      "total_ratings": 481,
+      "gmu_hint": 47
+    },
+    {
+      "place_id": "ChIJ16W8FPVNaocRzxfJdlE1Xq4",
+      "name": "Herman Gulch Trailhead",
+      "total_ratings": 479,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJf2X5Bjaqa4cRQrI6q8ubj0w",
+      "name": "Guanella Pass",
+      "total_ratings": 408,
+      "gmu_hint": 39,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJdwKndLZ6aYcR1x6HCMW50A8",
+      "name": "Moraine Park Campground",
+      "total_ratings": 396,
+      "gmu_hint": 20,
+      "type": "campground"
+    },
+    {
+      "place_id": "ChIJfQSg7jWqa4cRDkhbn9Q_IC8",
+      "name": "Bierstadt Trailhead",
+      "total_ratings": 376,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJnX3HPF9AQIcRHFSRpMeb9V8",
+      "name": "Maroon Lake Trailhead",
+      "total_ratings": 370,
+      "gmu_hint": 49
+    },
+    {
+      "place_id": "ChIJ0Zjur8F7aYcRWs6hl3IXMFg",
+      "name": "Emerald Lake",
+      "total_ratings": 337,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJAQXGYUmLaocRMS5PwdEqZms",
+      "name": "Mayflower Gulch Trail",
+      "total_ratings": 329,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJGUhSajd7aYcR9L4KSIj2PSg",
+      "name": "Sprague Lake",
+      "total_ratings": 267,
+      "gmu_hint": 20,
+      "type": "lake"
+    },
+    {
+      "place_id": "ChIJC-HBdsSsaocRIf2XyuhVJbQ",
+      "name": "Cottonwood Pass",
+      "total_ratings": 228,
+      "gmu_hint": 48,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJLSYC1_ScaYcRVeHzwq4qoG0",
+      "name": "Timber Creek Campground",
+      "total_ratings": 215,
+      "gmu_hint": 20,
+      "type": "campground"
+    },
+    {
+      "place_id": "ChIJk-GIMAS9aYcRUm5EjAv2PI0",
+      "name": "Moose Visitor Center",
+      "total_ratings": 212,
+      "gmu_hint": 17,
+      "type": "town"
+    },
+    {
+      "place_id": "ChIJbQFzk-oCa4cRK33msbi_Qmk",
+      "name": "Kenosha Pass",
+      "total_ratings": 202,
+      "gmu_hint": 50,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJA7pLwytcaocRL9rNtQvxNlc",
+      "name": "Lily Pad Lake Trail Head",
+      "total_ratings": 169,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJEw8AFxVnQocRGxs9c4PTVtw",
+      "name": "Mad Creek Trailhead",
+      "total_ratings": 147,
+      "gmu_hint": 14
+    },
+    {
+      "place_id": "ChIJv95cBwOya4cRdEjS6XDPAvg",
+      "name": "Wildlife Viewing Area",
+      "total_ratings": 142,
+      "gmu_hint": 39,
+      "type": "wildlife"
+    },
+    {
+      "place_id": "ChIJOTm_PyMmaocRWo3Yeu7sv8k",
+      "name": "Windy Gap Wildlife Viewing Area",
+      "total_ratings": 135,
+      "gmu_hint": 28,
+      "type": "wildlife"
+    },
+    {
+      "place_id": "ChIJ_1WzpvTba4cRtb-vaJkeexQ",
+      "name": "Peaceful Valley Campground",
+      "total_ratings": 117,
+      "gmu_hint": 20,
+      "type": "campground"
+    },
+    {
+      "place_id": "ChIJMeJnCw5MaocRBCsMWVNHiKs",
+      "name": "Butler Gulch Trailhead",
+      "total_ratings": 72,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJCbd1W30RP4cROlPkDrJeYpw",
+      "name": "Silver Jack Campground - Ouray RD",
+      "total_ratings": 50,
+      "gmu_hint": 62,
+      "type": "campground"
+    },
+    {
+      "place_id": "ChIJoXDCyzHzaocRM0s2N6atgVU",
+      "name": "Wheeler Lake Winter Trailhead",
+      "total_ratings": 45,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJuxuvrDJeaocR9MIa1MIS8P4",
+      "name": "Officers Gulch Pond",
+      "total_ratings": 41,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJC0UlWPmoa4cRmDFTxxEC03E",
+      "name": "Chicago Lakes",
+      "total_ratings": 36,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJD6MB-OHaPocRdxm5m8UFKPY",
+      "name": "Ice Lake Basin",
+      "total_ratings": 28,
+      "gmu_hint": 74
+    },
+    {
+      "place_id": "ChIJ7XoD_QApQocR-EOaSoOdOt8",
+      "name": "Devils Causeway",
+      "total_ratings": 24,
+      "gmu_hint": 24
+    },
+    {
+      "place_id": "ChIJt7vihzfcPocRikrCoE-aGVQ",
+      "name": "Columbine Lake Trailhead",
+      "total_ratings": 23,
+      "gmu_hint": 74
+    },
+    {
+      "place_id": "ChIJZVWDv0uEQocRO6Lmg-TMB_E",
+      "name": "Gilpin Lake",
+      "total_ratings": 19,
+      "gmu_hint": 14
+    },
+    {
+      "place_id": "ChIJKRBnp_RvaocR_S1R15Q6S9w",
+      "name": "Bighorn Trailhead",
+      "total_ratings": 14,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJmQyDSpx7aocRS2qVmOlSGnE",
+      "name": "Grouse Creek Trailhead",
+      "total_ratings": 14,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJo5RsaJg5QIcRXkISuwVlUI0",
+      "name": "Buttermilk/HighlandsView- red butte park",
+      "total_ratings": 14,
+      "gmu_hint": 49
+    },
+    {
+      "place_id": "ChIJr8Fwy6N7aYcRcbTSqRKL0cM",
+      "name": "Bear Lake Trail",
+      "total_ratings": 12,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJ83fYXAt8aYcRPeeoEqEXcBE",
+      "name": "Sky Pond Lake Trail",
+      "total_ratings": 7,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJM4VEMHlkaYcRI9ahphwm_I0",
+      "name": "Lily Lake Trail",
+      "total_ratings": 7,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJX5U2f5NvaocRb9JWOmD35Dc",
+      "name": "Booth Creek Trail",
+      "total_ratings": 3,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJrWJGmfJ6aYcRe_ezRvyWNvw",
+      "name": "Cub Lake Trail",
+      "total_ratings": 2,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJqe1a4SxjaYcRXhH81x-0jC8",
+      "name": "Chasm Lake Trail",
+      "total_ratings": 1,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJcapLUiJ7aYcRdRREYPa5WhI",
+      "name": "Bierstadt Lake Trail",
+      "total_ratings": 1,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJ06wMzC3pPocRstq7MGfX2V4",
+      "name": "Highland Mary Lake Trail",
+      "total_ratings": 1,
+      "gmu_hint": 74
+    },
+    {
+      "place_id": "ChIJwXDznJuYaocRE1Pj-eUasDQ",
+      "name": "North Mount Elbert Trail",
+      "total_ratings": 0,
+      "gmu_hint": 48
+    },
+    {
+      "place_id": "ChIJs9M_OzFTaocR15oh_RnO0wc",
+      "name": "Continental Divide Trail",
+      "total_ratings": 0,
+      "gmu_hint": 50
+    },
+    {
+      "place_id": "ChIJKe_9gOC2a4cRz9hO2l2hLBk",
+      "name": "St Mary's Glacier Trail",
+      "total_ratings": 0,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJbz0TXWfsa4cRRA37L5amQvM",
+      "name": "Royal Arch Trail",
+      "total_ratings": 0,
+      "gmu_hint": 38
+    }
+  ]
+}
