@@ -4,7 +4,7 @@ import { LatLng } from 'leaflet';
 import { GMULayer } from './GMULayer';
 import { SightingClusters } from './SightingClusters';
 import { useStore } from '@/store/store';
-import { sightingsAuthService } from '@/services/sightingsAuth';
+import { wildlifeService } from '@/services/wildlife';
 import 'leaflet/dist/leaflet.css';
 
 export const MapContainer: React.FC = () => {
@@ -21,18 +21,12 @@ export const MapContainer: React.FC = () => {
 
   useEffect(() => {
     const fetchSightings = async () => {
-      setLoading(true);
+      // Don't set loading to true - it blocks the entire app
       setError(null);
       
       try {
-        // Clear existing sightings first
-        setSightings([], 0);
-        
         // Apply date filter for free users (5 days)
         let effectiveFilters = { ...filters };
-        const user = useStore.getState().user;
-        
-        // For now, default to 5-day filter for all users since subscription model isn't loaded
         const fiveDaysAgo = new Date();
         fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
         
@@ -41,20 +35,31 @@ export const MapContainer: React.FC = () => {
           startDate: fiveDaysAgo.toISOString().split('T')[0],
         };
         
-        const response = await sightingsAuthService.getSightings(effectiveFilters);
-        console.log(`Loaded ${response.sightings.length} sightings with 5-day filter`);
-        setSightings(response.sightings, response.total);
+        // Use wildlife service which we know works
+        const response = await wildlifeService.getWildlifeSightings(effectiveFilters);
+        console.log('Wildlife API response:', response);
+        
+        // Transform sightings - filter to last 5 days on frontend too
+        const transformedSightings = response.sightings
+          .filter(s => {
+            if (!s.date && !s.sighting_date && !s.created_at) return false;
+            const sightingDate = new Date(s.date || s.sighting_date || s.created_at);
+            return sightingDate >= new Date(fiveDaysAgo);
+          })
+          .map(s => wildlifeService.transformSighting(s))
+          .filter(s => s !== null);
+        
+        console.log(`Loaded ${transformedSightings.length} sightings (filtered to last 5 days)`);
+        setSightings(transformedSightings, transformedSightings.length);
       } catch (error) {
         console.error('Failed to fetch sightings:', error);
-        setError('Failed to load sightings');
+        setError('Failed to load sightings. Please refresh the page.');
         setSightings([], 0);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchSightings();
-  }, [filters, currentPage, setSightings, setLoading, setError]);
+  }, [filters, currentPage, setSightings, setError]);
 
   return (
     <LeafletMap
