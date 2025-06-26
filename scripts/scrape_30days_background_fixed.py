@@ -11,6 +11,10 @@ from pathlib import Path
 from supabase import create_client
 from loguru import logger
 import time
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -24,16 +28,16 @@ gmu_processor.load_gmu_data()
 with open('data/gmu_centers.json', 'r') as f:
     GMU_CENTERS = json.load(f)
 
-# Configure environment - these should be set as environment variables
-# os.environ['OPENAI_API_KEY'] = 'your-api-key-here'
-# os.environ['REDDIT_CLIENT_ID'] = 'your-reddit-client-id'
-# os.environ['REDDIT_CLIENT_SECRET'] = 'your-reddit-secret'
-# os.environ['REDDIT_USER_AGENT'] = 'Wildlife Sightings Bot 1.0'
-# os.environ['GOOGLE_PLACES_API_KEY'] = 'your-google-places-key'
+# Configure environment
+os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY', '')
+os.environ['REDDIT_CLIENT_ID'] = os.getenv('REDDIT_CLIENT_ID', '')
+os.environ['REDDIT_CLIENT_SECRET'] = os.getenv('REDDIT_CLIENT_SECRET', '')
+os.environ['REDDIT_USER_AGENT'] = os.getenv('REDDIT_USER_AGENT', 'Wildlife Sightings Bot 1.0')
+os.environ['GOOGLE_PLACES_API_KEY'] = os.getenv('GOOGLE_PLACES_API_KEY', '')
 
 # Supabase
-SUPABASE_URL = 'https://rvrdbtrxwndeerqmziuo.supabase.co'
-SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2cmRidHJ4d25kZWVycW16aXVvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDg0NjU1NywiZXhwIjoyMDY2NDIyNTU3fQ.0cPsbOqpwsuP36akMsRrmkV67pG0uScm2DI5Q7B23Ts'
+SUPABASE_URL = os.getenv('SUPABASE_URL', 'https://rvrdbtrxwndeerqmziuo.supabase.co')
+SUPABASE_SERVICE_KEY = os.getenv('SUPABASE_SERVICE_KEY', '')
 
 # Configure logging
 logger.add("logs/background_scrape_fixed_{time}.log", rotation="1 day")
