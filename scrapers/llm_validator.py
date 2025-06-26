@@ -180,7 +180,7 @@ class LLMValidator:
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4.1-nano-2025-04-14",
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
@@ -190,6 +190,12 @@ class LLMValidator:
             )
             
             result = response.choices[0].message.content.strip()
+            logger.debug(f"LLM response: {result[:200]}...")
+            
+            # Clean up markdown code blocks if present
+            if result.startswith('```'):
+                # Remove markdown code blocks
+                result = result.replace('```json', '').replace('```', '').strip()
             
             # Parse JSON response
             data = json.loads(result)
@@ -258,22 +264,44 @@ class LLMValidator:
                 "gmu_number": null or number (e.g., 12 from "GMU 12" or "unit 12"),
                 "county": null or Colorado county name,
                 "location_name": null or specific place (trail, peak, town),
-                "coordinates": null or [lat, lon] if mentioned,
+                "coordinates": ALWAYS provide [lat, lon] - use your best estimate based on location description,
                 "elevation": null or elevation in feet,
                 "location_description": brief location summary
             }}
             
+            IMPORTANT: Always provide coordinates as [latitude, longitude] based on:
+            - Exact coordinates if mentioned
+            - Known Colorado landmarks (peaks, lakes, towns, trails)
+            - GMU center points:
+              GMU 1: [40.6961, -108.9841], GMU 2: [40.7484, -108.521], GMU 3: [40.358, -108.421]
+              GMU 11: [40.1766, -108.3343], GMU 12: [40.0745, -108.119], GMU 13: [39.9202, -108.1033]
+              GMU 21: [40.0196, -107.8346], GMU 22: [39.8639, -107.7726], GMU 23: [39.7137, -107.8096]
+              GMU 35: [39.4972, -106.8516], GMU 36: [39.3938, -106.4761], GMU 37: [39.6282, -106.2476]
+              GMU 38: [39.7316, -106.074], GMU 39: [39.9253, -105.871], GMU 371: [39.5245, -106.2819]
+              GMU 471: [39.2765, -106.3736], GMU 49: [39.168, -105.8966], GMU 50: [39.5316, -105.8236]
+              GMU 500: [39.6501, -105.5957], GMU 501: [39.3891, -105.4788], GMU 51: [39.1668, -105.5821]
+              GMU 511: [38.7991, -105.4737], GMU 512: [38.4516, -105.4322], GMU 52: [38.9485, -105.0881]
+              GMU 521: [38.3853, -105.1021], GMU 53: [37.8915, -106.7966], GMU 54: [37.7513, -106.4653]
+              GMU 55: [38.0604, -106.2319], GMU 551: [37.7988, -106.1128], GMU 56: [38.5313, -106.2113]
+              GMU 561: [38.249, -106.2252], GMU 57: [38.8283, -105.9357], GMU 58: [38.8627, -105.6616]
+              GMU 581: [38.5906, -105.5926], GMU 59: [38.4982, -105.2814], GMU 591: [38.1885, -105.3286]
+            - General area descriptions (e.g., "near Denver" = [39.7392, -104.9903])
+            - If no location info, use Colorado center [39.5501, -105.7821]
+            
             Consider hunting success ("got my elk", "tagged out", "harvested") as valid sightings.
+            Also consider trail cam photos, hunting encounters, tracks/sign if fresh, and any actual wildlife observations.
+            Be inclusive - if someone mentions seeing wildlife, it's likely a sighting unless they explicitly say they didn't see it.
             
             Examples:
-            - "Finally got my bull elk in unit 12 near Durango" → {{"is_sighting": true, "species": "elk", "confidence": 95, "gmu_number": 12, "location_name": "Durango"}}
-            - "Saw 6 deer at 10,500 feet on the Maroon Bells trail" → {{"is_sighting": true, "species": "deer", "confidence": 90, "elevation": 10500, "location_name": "Maroon Bells trail"}}
+            - "Finally got my bull elk in unit 12 near Durango" → {{"is_sighting": true, "species": "elk", "confidence": 95, "gmu_number": 12, "location_name": "Durango", "coordinates": [40.0745, -108.119]}}
+            - "Saw 6 deer at 10,500 feet on the Maroon Bells trail" → {{"is_sighting": true, "species": "deer", "confidence": 90, "elevation": 10500, "location_name": "Maroon Bells trail", "coordinates": [39.0708, -106.9889]}}
+            - "Bear spotted near Estes Park" → {{"is_sighting": true, "species": "bear", "confidence": 85, "location_name": "Estes Park", "coordinates": [40.3773, -105.5217]}}
             - "Planning to hunt elk next season" → {{"is_sighting": false, "confidence": 98}}
             """
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4.1-nano-2025-04-14",
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor for Colorado hunting/outdoor forums. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
@@ -283,6 +311,12 @@ class LLMValidator:
             )
             
             result = response.choices[0].message.content.strip()
+            logger.debug(f"LLM response: {result[:200]}...")
+            
+            # Clean up markdown code blocks if present
+            if result.startswith('```'):
+                # Remove markdown code blocks
+                result = result.replace('```json', '').replace('```', '').strip()
             
             # Parse JSON response
             data = json.loads(result)
@@ -308,6 +342,8 @@ class LLMValidator:
             
         except Exception as e:
             logger.error(f"Full text LLM analysis failed: {e}")
+            if 'result' in locals():
+                logger.error(f"Raw LLM response was: {result}")
             return None
     
     def _simple_validation(self, context: str, keyword: str) -> Tuple[bool, float]:

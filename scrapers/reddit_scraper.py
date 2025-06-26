@@ -134,12 +134,14 @@ class RedditScraper(BaseScraper):
             try:
                 subreddit = self.reddit.subreddit(subreddit_name)
                 
-                # Get recent posts
-                for submission in subreddit.new(limit=100):
+                # Get recent posts (increased limit for 30-day lookback)
+                posts_checked = 0
+                for submission in subreddit.new(limit=1000):
+                    posts_checked += 1
                     # Check date
                     post_date = datetime.fromtimestamp(submission.created_utc)
                     if post_date < cutoff_date:
-                        continue
+                        break  # Stop when we reach posts older than our lookback period
                     
                     post_id = f"reddit_{submission.id}"
                     content = f"{submission.title} {submission.selftext}"
@@ -159,6 +161,7 @@ class RedditScraper(BaseScraper):
                     potential_mentions = self._extract_potential_wildlife_mentions(content, submission.url)
                     
                     if potential_mentions:
+                        logger.debug(f"Found wildlife mentions in post: {submission.title[:50]}...")
                         # Analyze full text with LLM
                         for mention in potential_mentions:
                             analysis = self.validator.analyze_full_text_for_sighting(
@@ -228,16 +231,12 @@ class RedditScraper(BaseScraper):
                         else:
                             self.validator.update_cache(comment_id, comment_content, [])
                 
-                logger.info(f"r/{subreddit_name}: Processed {new_posts} new posts, {cache_hits} from cache")
+                logger.info(f"r/{subreddit_name}: Checked {posts_checked} posts, processed {new_posts} new, {cache_hits} from cache, found {len(sightings)} sightings")
                         
             except Exception as e:
                 logger.error(f"Error scraping r/{subreddit_name}: {e}")
         else:
-            # Simulation mode with sample data
-            simulated = self._get_simulated_posts(subreddit_name)
-            # Validate simulated sightings too
-            validated = self.validator.validate_sightings_batch(simulated)
-            sightings.extend(validated)
+            raise Exception(f"Reddit API not available for r/{subreddit_name}. Real data only mode.")
         
         return sightings
     
