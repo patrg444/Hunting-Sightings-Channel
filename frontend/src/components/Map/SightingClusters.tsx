@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import { useStore } from '../../store/store';
 import { Sighting } from '../../types';
+import { featureFlags } from '../../services/featureFlags';
 
 // Custom icon for wildlife sightings
 const createSightingIcon = (species: string) => {
@@ -34,14 +36,26 @@ const createSightingIcon = (species: string) => {
 
 export const SightingClusters: React.FC = () => {
   const map = useMap();
+  const navigate = useNavigate();
   const sightings = useStore((state) => state.sightings);
+  const hasFullAccess = featureFlags.hasFeature('fullSightingDetails');
 
   useEffect(() => {
+    // Listen for navigation event from popup
+    const handleNavigate = () => {
+      navigate('/subscribe');
+    };
+    window.addEventListener('navigate-to-subscribe', handleNavigate);
+    
+    // Cleanup listener
+    const cleanup = () => {
+      window.removeEventListener('navigate-to-subscribe', handleNavigate);
+    };
     // Create marker cluster group
     const markers = L.markerClusterGroup({
       chunkedLoading: true,
       spiderfyOnMaxZoom: true,
-      showCoverageOnHover: true,
+      showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
       maxClusterRadius: 80,
       iconCreateFunction: (cluster) => {
@@ -67,13 +81,13 @@ export const SightingClusters: React.FC = () => {
 
     // Add individual markers for each sighting
     sightings.forEach((sighting: Sighting) => {
-      if (sighting.location?.lat && sighting.location?.lon) {
+      if (sighting.location && sighting.location.lat && sighting.location.lon) {
         const marker = L.marker([sighting.location.lat, sighting.location.lon], {
           icon: createSightingIcon(sighting.species || 'Wildlife')
         });
 
         // Create popup content
-        const popupContent = `
+        const popupContent = hasFullAccess ? `
           <div class="sighting-popup">
             <h3 class="font-bold text-lg mb-2">${sighting.species || 'Wildlife Sighting'}</h3>
             <p class="text-sm text-gray-600 mb-1">
@@ -95,6 +109,30 @@ export const SightingClusters: React.FC = () => {
               </p>
             ` : ''}
           </div>
+        ` : `
+          <div class="sighting-popup relative">
+            <div class="blur-sm pointer-events-none">
+              <h3 class="font-bold text-lg mb-2">${sighting.species || 'Wildlife Sighting'}</h3>
+              <p class="text-sm text-gray-600 mb-1">
+                <strong>Date:</strong> ${sighting.sighting_date ? new Date(sighting.sighting_date).toLocaleDateString() : 'Unknown'}
+              </p>
+              <p class="text-sm text-gray-600">
+                <strong>Description:</strong> Wildlife sighting details...
+              </p>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center bg-white/90 dark:bg-gray-900/90 rounded-lg">
+              <div class="text-center p-4">
+                <svg class="w-8 h-8 mx-auto mb-2 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+                <h4 class="font-semibold text-gray-900 dark:text-white mb-1">Subscribe for Full Access</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Start your 7-day free trial to view sighting details</p>
+                <button onclick="window.dispatchEvent(new CustomEvent('navigate-to-subscribe'))" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium">
+                  Start Free Trial
+                </button>
+              </div>
+            </div>
+          </div>
         `;
 
         marker.bindPopup(popupContent, {
@@ -112,8 +150,9 @@ export const SightingClusters: React.FC = () => {
     // Cleanup function
     return () => {
       map.removeLayer(markers);
+      cleanup();
     };
-  }, [map, sightings]);
+  }, [map, sightings, hasFullAccess, navigate]);
 
   return null; // This component doesn't render anything directly
 };
