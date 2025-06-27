@@ -19,6 +19,15 @@ export interface Sighting {
   subreddit?: string;
   created_at: string;
   distance_miles?: number;
+  date?: string;
+  gmu?: number;
+  source?: string;
+  location_name?: string;
+  matched_location?: string;
+  gmu_notes?: string;
+  description?: string;
+  elevation?: number;
+  location_accuracy_miles?: number;
 }
 
 export interface SightingStats {

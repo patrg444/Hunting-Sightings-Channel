@@ -51,10 +51,15 @@ export const supabaseSightingsService = {
         // Decode PostGIS location if present
         const coords = s.location ? decodePostGISPoint(s.location) : null;
         
+        // Only include location if accuracy is reasonable (less than 10 miles)
+        // This filters out generic GMU center points
+        const locationAccuracy = s.location_accuracy_miles;
+        const hasAccurateLocation = coords && (!locationAccuracy || locationAccuracy <= 10);
+        
         return {
           id: s.id,
           species: s.species,
-          location: coords ? {
+          location: hasAccurateLocation ? {
             lat: coords.lat,
             lon: coords.lon,
             name: s.location_name || 'Unknown location'
@@ -71,7 +76,8 @@ export const supabaseSightingsService = {
           confidence_score: s.confidence_score || 0.5,
           created_at: s.created_at,
           extracted_at: s.extracted_at,
-          location_name: s.location_name
+          location_name: s.location_name,
+          location_accuracy_miles: locationAccuracy
         };
       });
 
