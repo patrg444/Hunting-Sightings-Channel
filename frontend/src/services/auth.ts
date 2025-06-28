@@ -114,4 +114,10 @@ export const authService = {
       }
     });
   },
+
+  // Get access token for API calls
+  async getAccessToken(): Promise<string | null> {
+    const { data: { session } } = await supabase.auth.getSession();
+    return session?.access_token || null;
+  },
 };

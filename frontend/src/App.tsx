@@ -1,15 +1,18 @@
 import { useEffect } from 'react';
-import { MapContainer } from './components/Map/MapContainer';
-import { FilterSidebar } from './components/Filters/FilterSidebar';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/Layout/Header';
 import { LoadingSpinner } from './components/Layout/LoadingSpinner';
 import { useStore } from './store/store';
 import { authService } from './services/auth';
+import { MapPage } from './pages/MapPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { SubmitSightingPage } from './pages/SubmitSightingPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import { SubscriptionPage } from './pages/SubscriptionPage';
+import { AccountPage } from './pages/AccountPage';
 
 function App() {
-  console.log('App component rendering...');
-  const { isLoading, setUser, isSidebarOpen } = useStore();
-  console.log('Store loaded, isLoading:', isLoading);
+  const { isLoading, setUser, user } = useStore();
 
   useEffect(() => {
     // Check for authenticated user on mount
@@ -43,26 +46,34 @@ function App() {
   }
 
   return (
-    <div className="h-screen flex flex-col">
-      <Header />
-      
-      <div className="flex-1 flex relative overflow-hidden">
-        {/* Filter Sidebar */}
-        <div
-          className={`
-            absolute lg:relative z-20 h-full bg-white shadow-lg transition-all duration-300
-            ${isSidebarOpen ? 'w-80' : 'w-0 lg:w-0'}
-          `}
-        >
-          <FilterSidebar />
-        </div>
-
-        {/* Map Container */}
-        <div className="flex-1 relative">
-          <MapContainer />
+    <Router>
+      <div className="h-screen flex flex-col">
+        <Header />
+        
+        <div className="flex-1 overflow-auto">
+          <Routes>
+            <Route path="/" element={<MapPage />} />
+            <Route 
+              path="/settings" 
+              element={user ? <SettingsPage /> : <Navigate to="/" />} 
+            />
+            <Route 
+              path="/submit-sighting" 
+              element={user ? <SubmitSightingPage /> : <Navigate to="/" />} 
+            />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route 
+              path="/subscription" 
+              element={user ? <SubscriptionPage /> : <Navigate to="/" />} 
+            />
+            <Route 
+              path="/account" 
+              element={user ? <AccountPage /> : <Navigate to="/" />} 
+            />
+          </Routes>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
