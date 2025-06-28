@@ -17,19 +17,20 @@ export const sightingsAuthService = {
     
     // Handle species filters (convert array to individual params)
     if (filters.species && filters.species.length > 0) {
-      filters.species.forEach(s => params.append('species', s));
+      const speciesArray = Array.isArray(filters.species) ? filters.species : [filters.species];
+      speciesArray.forEach((s: string) => params.append('species', s));
     }
     
     // Handle source filters
-    if (filters.sourceTypes && filters.sourceTypes.length > 0) {
-      filters.sourceTypes.forEach(s => params.append('source_type', s));
-    } else if (filters.sourceType) {
-      params.append('source_type', filters.sourceType);
+    if ((filters as any).sourceTypes && (filters as any).sourceTypes.length > 0) {
+      (filters as any).sourceTypes.forEach((s: string) => params.append('source_type', s));
+    } else if ((filters as any).sourceType) {
+      params.append('source_type', (filters as any).sourceType);
     }
     
     // Handle date filters
-    if (filters.startDate) params.append('start_date', filters.startDate);
-    if (filters.endDate) params.append('end_date', filters.endDate);
+    if (filters.startDate) params.append('start_date', filters.startDate.toString());
+    if (filters.endDate) params.append('end_date', filters.endDate.toString());
     
     // Pagination
     params.append('skip', '0');
@@ -45,7 +46,7 @@ export const sightingsAuthService = {
       // Transform the response to match frontend format
       const transformedSightings = (data.items || [])
         .map((s: any) => transformSighting(s))
-        .filter(s => s !== null);
+        .filter((s: any) => s !== null);
       
       return {
         sightings: transformedSightings,
@@ -88,9 +89,8 @@ function transformSighting(sighting: any): Sighting | null {
     sighting_date: sighting.sighting_date,
     location: {
       lat: lat,
-      lon: lon,
-      name: sighting.location_name || 'Unknown'
-    },
+      lon: lon
+    } as any,
     location_name: sighting.location_name,
     gmu: sighting.gmu || sighting.gmu_unit,
     gmu_unit: sighting.gmu || sighting.gmu_unit,
@@ -98,12 +98,9 @@ function transformSighting(sighting: any): Sighting | null {
     source_type: sighting.source_type,
     source_url: sighting.source_url,
     description: sighting.raw_text || sighting.description || '',
-    confidence: sighting.confidence_score || 0.8,
-    reported_by: sighting.reported_by || 'Anonymous',
+    confidence_score: sighting.confidence_score || 0.8,
     created_at: sighting.created_at,
-    validated: sighting.validated,
     raw_text: sighting.raw_text,
-    latitude: lat,
-    longitude: lon
+    extracted_at: sighting.extracted_at || sighting.created_at
   };
 }

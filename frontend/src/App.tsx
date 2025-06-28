@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { MapContainer } from './components/Map/MapContainer';
 import { FilterSidebar } from './components/Filters/FilterSidebar';
 import { Header } from './components/Layout/Header';
@@ -7,7 +7,9 @@ import { useStore } from './store/store';
 import { authService } from './services/auth';
 
 function App() {
+  console.log('App component rendering...');
   const { isLoading, setUser, isSidebarOpen } = useStore();
+  console.log('Store loaded, isLoading:', isLoading);
 
   useEffect(() => {
     // Check for authenticated user on mount
