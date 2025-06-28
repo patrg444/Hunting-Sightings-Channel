@@ -1,12 +1,102 @@
 {
-  "comment": "Verified Colorado trail place IDs for wildlife sighting extraction",
-  "max_trails_per_run": 50,
+  "comment": "Verified Colorado trail place IDs for wildlife sighting extraction - 93 locations total",
+  "max_trails_per_run": 100,
   "trails": [
+    {
+      "place_id": "ChIJ18hsDtqCa4cRrdYsOQfng3w",
+      "name": "Red Rocks Park and Amphitheatre",
+      "total_ratings": 55751,
+      "gmu_hint": 39,
+      "type": "park"
+    },
+    {
+      "place_id": "ChIJk5zMtRJQE4cRq22_Y1Lf6QQ",
+      "name": "Garden of the Gods",
+      "total_ratings": 53746,
+      "gmu_hint": 58
+    },
     {
       "place_id": "ChIJ6QNZReR5aYcRF4KOp0PuJ_o",
       "name": "Rocky Mountain National Park",
       "total_ratings": 25944,
       "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJx8vZHeYvFIcR2YMP0IqR1zM",
+      "name": "Great Sand Dunes National Park and Preserve",
+      "total_ratings": 10796,
+      "gmu_hint": 68,
+      "type": "national_park"
+    },
+    {
+      "place_id": "ChIJH3HXLr9gOYcRYxj2G6KV9nk",
+      "name": "Mesa Verde National Park",
+      "total_ratings": 10167,
+      "gmu_hint": 73,
+      "type": "national_park"
+    },
+    {
+      "place_id": "ChIJO9N8BMGIbIcR53Jr1zP5s3g",
+      "name": "Cherry Creek State Park",
+      "total_ratings": 9245,
+      "gmu_hint": 39,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJRzsreAp9a4cRph6eAfN-eeE",
+      "name": "Chatfield State Park",
+      "total_ratings": 6804,
+      "gmu_hint": 39,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJ8Wo3SfxeP4cRvIuts5LWMT8",
+      "name": "Black Canyon of the Gunnison National Park",
+      "total_ratings": 5375,
+      "gmu_hint": 62,
+      "type": "national_park"
+    },
+    {
+      "place_id": "ChIJwd_EEkfsa4cRqy6eShKXFXY",
+      "name": "Chautauqua Park",
+      "total_ratings": 5157,
+      "gmu_hint": 38,
+      "type": "park"
+    },
+    {
+      "place_id": "ChIJFYTr3bR6bIcRDFQWHjk0Jw8",
+      "name": "Rocky Mountain Arsenal National Wildlife Refuge",
+      "total_ratings": 5141,
+      "gmu_hint": 95,
+      "type": "wildlife"
+    },
+    {
+      "place_id": "ChIJdSl26HiZE4cR3tUzLI3O2Sw",
+      "name": "Lake Pueblo State Park",
+      "total_ratings": 4288,
+      "gmu_hint": 119,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJK24Qz-kCRYcRPf3mCvjLJlE",
+      "name": "Dinosaur National Monument",
+      "total_ratings": 3615,
+      "gmu_hint": 10,
+      "type": "monument"
+    },
+    {
+      "place_id": "ChIJ3fXUBgCda4cRieEb7ZWH6dQ",
+      "name": "Lair o\u2019 the Bear Park",
+      "total_ratings": 2899,
+      "gmu_hint": 39,
+      "type": "park"
+    },
+    {
+      "place_id": "ChIJ5zTj_rBSaYcRBici35tBQSY",
+      "name": "Boyd Lake State Park",
+      "total_ratings": 2814,
+      "gmu_hint": 95,
+      "type": "state_park"
     },
     {
       "place_id": "ChIJaZ38Yam_a4cRhBs7Z7imOQU",
@@ -23,6 +113,26 @@
       "type": "park"
     },
     {
+      "place_id": "ChIJndOVCA1sbIcRInmq7aXX3qQ",
+      "name": "Barr Lake State Park",
+      "total_ratings": 2164,
+      "gmu_hint": 95,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJn8Cr1GSZa4cRN_vFdoM3ayg",
+      "name": "Genesee Park",
+      "total_ratings": 1885,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJJ_3D-Ls-P4cRhx359u6etqM",
+      "name": "Ridgway State Park",
+      "total_ratings": 1759,
+      "gmu_hint": 62,
+      "type": "state_park"
+    },
+    {
       "place_id": "ChIJ1XDaNHeuFIcRr9j0VY96hs4",
       "name": "Mueller State Park",
       "total_ratings": 1756,
@@ -36,6 +146,13 @@
       "gmu_hint": 49
     },
     {
+      "place_id": "ChIJ3coHJQKya4cRjbO_1vcIt0Q",
+      "name": "Georgetown Lake",
+      "total_ratings": 779,
+      "gmu_hint": 39,
+      "type": "wildlife"
+    },
+    {
       "place_id": "ChIJcS3UI4wfQIcRf0ORHl22MRQ",
       "name": "Independence Pass",
       "total_ratings": 631,
@@ -43,11 +160,32 @@
       "type": "scenic"
     },
     {
+      "place_id": "ChIJ4SsZSSgUQocRcpYlWDa1R3M",
+      "name": "Stagecoach State Park",
+      "total_ratings": 617,
+      "gmu_hint": 14,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJaUPDHsEDR4cR7cAxmf8VdRU",
+      "name": "Colorado National Monument",
+      "total_ratings": 591,
+      "gmu_hint": 40,
+      "type": "monument"
+    },
+    {
       "place_id": "ChIJEVXh1ROxaYcRkNxGon7Gvmw",
       "name": "State Forest State Park",
       "total_ratings": 518,
       "gmu_hint": 17,
       "type": "park"
+    },
+    {
+      "place_id": "ChIJLaVZ3oZRaocRB136_KKmnSc",
+      "name": "Loveland Pass",
+      "total_ratings": 487,
+      "gmu_hint": 39,
+      "type": "scenic"
     },
     {
       "place_id": "ChIJpSfBP_AJQYcRB0qiEvkoUh0",
@@ -60,6 +198,20 @@
       "name": "Herman Gulch Trailhead",
       "total_ratings": 479,
       "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJeQAieiQ2PIcR-GvQqsZu4hk",
+      "name": "Navajo State Park",
+      "total_ratings": 466,
+      "gmu_hint": 73,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJA1D8CR7OQYcRqvnqvbAzB7g",
+      "name": "Sylvan Lake State Park",
+      "total_ratings": 431,
+      "gmu_hint": 36,
+      "type": "state_park"
     },
     {
       "place_id": "ChIJf2X5Bjaqa4cRQrI6q8ubj0w",
@@ -94,10 +246,44 @@
       "gmu_hint": 20
     },
     {
+      "place_id": "ChIJQYHoLf_ua4cRRs_4YtJXAK8",
+      "name": "Brainard Lake Recreation Area",
+      "total_ratings": 337,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJ-zMaGzEsa4cRqzx4DPqqJsU",
+      "name": "Spinney Mountain State Park",
+      "total_ratings": 335,
+      "gmu_hint": 50,
+      "type": "state_park"
+    },
+    {
       "place_id": "ChIJAQXGYUmLaocRMS5PwdEqZms",
       "name": "Mayflower Gulch Trail",
       "total_ratings": 329,
       "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJOWkShTxBQYcRvdENKV-1x9I",
+      "name": "Rifle Gap State Park",
+      "total_ratings": 322,
+      "gmu_hint": 33,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJG3xc1yGNQocRRHHSFXGaM5Y",
+      "name": "Pearl Lake State Park",
+      "total_ratings": 311,
+      "gmu_hint": 14,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJH2dO8EKaaocR936fzWCgXrs",
+      "name": "Turquoise Lake",
+      "total_ratings": 303,
+      "gmu_hint": 48,
+      "type": "lake"
     },
     {
       "place_id": "ChIJGUhSajd7aYcR9L4KSIj2PSg",
@@ -105,6 +291,20 @@
       "total_ratings": 267,
       "gmu_hint": 20,
       "type": "lake"
+    },
+    {
+      "place_id": "ChIJ2aHlCEZ0FocRRs7AvyI7NWk",
+      "name": "Monte Vista National Wildlife Refuge",
+      "total_ratings": 267,
+      "gmu_hint": 68,
+      "type": "wildlife"
+    },
+    {
+      "place_id": "ChIJS4GU7XUJPocRUgrq3_c9mm4",
+      "name": "Wolf Creek Pass",
+      "total_ratings": 267,
+      "gmu_hint": 76,
+      "type": "scenic"
     },
     {
       "place_id": "ChIJC-HBdsSsaocRIf2XyuhVJbQ",
@@ -135,10 +335,24 @@
       "type": "scenic"
     },
     {
+      "place_id": "ChIJiS-_SnacP4cRtOyWbk8zOFA",
+      "name": "Blue Mesa Reservoir",
+      "total_ratings": 176,
+      "gmu_hint": 551,
+      "type": "lake"
+    },
+    {
       "place_id": "ChIJA7pLwytcaocRL9rNtQvxNlc",
       "name": "Lily Pad Lake Trail Head",
       "total_ratings": 169,
       "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJgfAVuyDPaYcRRGUQn3S5fiI",
+      "name": "Arapaho National Wildlife Refuge Visitor Center",
+      "total_ratings": 151,
+      "gmu_hint": 17,
+      "type": "wildlife"
     },
     {
       "place_id": "ChIJEw8AFxVnQocRGxs9c4PTVtw",
@@ -161,6 +375,13 @@
       "type": "wildlife"
     },
     {
+      "place_id": "ChIJEy05Bzkza4cRE-Y_-04qVBs",
+      "name": "Eleven Mile State Park",
+      "total_ratings": 127,
+      "gmu_hint": 50,
+      "type": "state_park"
+    },
+    {
       "place_id": "ChIJ_1WzpvTba4cRtb-vaJkeexQ",
       "name": "Peaceful Valley Campground",
       "total_ratings": 117,
@@ -168,10 +389,45 @@
       "type": "campground"
     },
     {
+      "place_id": "ChIJ40WI1CO6aocR_GvARjf1DIo",
+      "name": "Clear Creek Reservoir",
+      "total_ratings": 109,
+      "gmu_hint": 39,
+      "type": "lake"
+    },
+    {
+      "place_id": "ChIJD5OFtffxaocR2B15fvWIUlA",
+      "name": "Hoosier Pass",
+      "total_ratings": 106,
+      "gmu_hint": 47,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJg_o9eAycPocRyMxlwygCd8w",
+      "name": "Vallecito Reservoir",
+      "total_ratings": 106,
+      "gmu_hint": 74,
+      "type": "lake"
+    },
+    {
       "place_id": "ChIJMeJnCw5MaocRBCsMWVNHiKs",
       "name": "Butler Gulch Trailhead",
       "total_ratings": 72,
       "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJE9dicn4lRYcRnMpTsvVC9nI",
+      "name": "Browns Park National Wildlife Refuge",
+      "total_ratings": 65,
+      "gmu_hint": 2,
+      "type": "wildlife"
+    },
+    {
+      "place_id": "ChIJo2xy1E4LQocRX9r7N720cA4",
+      "name": "Rabbit Ears Pass",
+      "total_ratings": 60,
+      "gmu_hint": 14,
+      "type": "scenic"
     },
     {
       "place_id": "ChIJCbd1W30RP4cROlPkDrJeYpw",
@@ -191,6 +447,13 @@
       "name": "Officers Gulch Pond",
       "total_ratings": 41,
       "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJZeQNKsIUQIcRUrhjG8b9Ebk",
+      "name": "Conundrum Hot Springs",
+      "total_ratings": 37,
+      "gmu_hint": 49,
+      "type": "trailhead"
     },
     {
       "place_id": "ChIJC0UlWPmoa4cRmDFTxxEC03E",
@@ -223,6 +486,13 @@
       "gmu_hint": 14
     },
     {
+      "place_id": "ChIJ0xXmf9qPaocRJaEO1MZS37w",
+      "name": "Tennessee Pass",
+      "total_ratings": 18,
+      "gmu_hint": 48,
+      "type": "scenic"
+    },
+    {
       "place_id": "ChIJKRBnp_RvaocR_S1R15Q6S9w",
       "name": "Bighorn Trailhead",
       "total_ratings": 14,
@@ -247,6 +517,13 @@
       "gmu_hint": 20
     },
     {
+      "place_id": "ChIJ_2iVLdHjPocRmrRVCxokm2k",
+      "name": "American Basin",
+      "total_ratings": 12,
+      "gmu_hint": 76,
+      "type": "trailhead"
+    },
+    {
       "place_id": "ChIJ83fYXAt8aYcRPeeoEqEXcBE",
       "name": "Sky Pond Lake Trail",
       "total_ratings": 7,
@@ -269,6 +546,13 @@
       "name": "Cub Lake Trail",
       "total_ratings": 2,
       "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJK9xJzqdhaocRqv5s2C6AFYY",
+      "name": "Vail Pass Rest Area",
+      "total_ratings": 2,
+      "gmu_hint": 36,
+      "type": "scenic"
     },
     {
       "place_id": "ChIJqe1a4SxjaYcRXhH81x-0jC8",
@@ -311,6 +595,24 @@
       "name": "Royal Arch Trail",
       "total_ratings": 0,
       "gmu_hint": 38
+    },
+    {
+      "place_id": "ChIJR8nnhIuoa4cRfvxP0kFTnxg",
+      "name": "Mount Blue Sky Rd",
+      "total_ratings": 0,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJjwkT52lWE4cR5nAA04dvUVU",
+      "name": "Pikes Peak Hwy",
+      "total_ratings": 0,
+      "gmu_hint": 58
+    },
+    {
+      "place_id": "ChIJ0Z3fry94aYcREZEEYS_kCIY",
+      "name": "Trail Ridge Rd",
+      "total_ratings": 0,
+      "gmu_hint": 20
     }
   ]
 }

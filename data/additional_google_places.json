@@ -1,0 +1,159 @@
+{
+  "total_searched": 22,
+  "total_found": 17,
+  "places": [
+    {
+      "place_id": "ChIJ18hsDtqCa4cRrdYsOQfng3w",
+      "name": "Red Rocks Park and Amphitheatre",
+      "total_ratings": 55751,
+      "gmu_hint": 39,
+      "type": "park",
+      "original_search": "Red Rocks Park and Amphitheatre",
+      "formatted_address": "18300 W Alameda Pkwy, Morrison, CO 80465, USA"
+    },
+    {
+      "place_id": "ChIJwd_EEkfsa4cRqy6eShKXFXY",
+      "name": "Chautauqua Park",
+      "total_ratings": 5157,
+      "gmu_hint": 38,
+      "type": "park",
+      "original_search": "Chautauqua Park",
+      "formatted_address": "900 Baseline Rd &, 9th St, Boulder, CO 80302, USA"
+    },
+    {
+      "place_id": "ChIJ3fXUBgCda4cRieEb7ZWH6dQ",
+      "name": "Lair o\u2019 the Bear Park",
+      "total_ratings": 2899,
+      "gmu_hint": 39,
+      "type": "park",
+      "original_search": "Lair o' the Bear Park",
+      "formatted_address": "22550 CO-74, Idledale, CO 80453, USA"
+    },
+    {
+      "place_id": "ChIJ3coHJQKya4cRjbO_1vcIt0Q",
+      "name": "Georgetown Lake",
+      "total_ratings": 779,
+      "gmu_hint": 39,
+      "type": "wildlife",
+      "original_search": "Georgetown Lake",
+      "formatted_address": "Co Rd 306, Georgetown, CO 80444, USA"
+    },
+    {
+      "place_id": "ChIJOWkShTxBQYcRvdENKV-1x9I",
+      "name": "Rifle Gap State Park",
+      "total_ratings": 322,
+      "gmu_hint": 33,
+      "type": "state_park",
+      "original_search": "Rifle Gap State Park",
+      "formatted_address": "5775 CO-325, Rifle, CO 81650, USA"
+    },
+    {
+      "place_id": "ChIJG3xc1yGNQocRRHHSFXGaM5Y",
+      "name": "Pearl Lake State Park",
+      "total_ratings": 311,
+      "gmu_hint": 14,
+      "type": "state_park",
+      "original_search": "Pearl Lake State Park",
+      "formatted_address": "61105 Rcr 129, Clark, CO 80428, USA"
+    },
+    {
+      "place_id": "ChIJ2aHlCEZ0FocRRs7AvyI7NWk",
+      "name": "Monte Vista National Wildlife Refuge",
+      "total_ratings": 267,
+      "gmu_hint": 68,
+      "type": "wildlife",
+      "original_search": "Monte Vista National Wildlife Refuge",
+      "formatted_address": "Monte Vista, CO 81144, USA"
+    },
+    {
+      "place_id": "ChIJgfAVuyDPaYcRRGUQn3S5fiI",
+      "name": "Arapaho National Wildlife Refuge Visitor Center",
+      "total_ratings": 151,
+      "gmu_hint": 17,
+      "type": "wildlife",
+      "original_search": "Arapaho National Wildlife Refuge",
+      "formatted_address": "953 Co Rd 32, Walden, CO 80480, USA"
+    },
+    {
+      "place_id": "ChIJE9dicn4lRYcRnMpTsvVC9nI",
+      "name": "Browns Park National Wildlife Refuge",
+      "total_ratings": 65,
+      "gmu_hint": 2,
+      "type": "wildlife",
+      "original_search": "Browns Park National Wildlife Refuge",
+      "formatted_address": "1318 CO-318, Maybell, CO 81640, USA"
+    },
+    {
+      "place_id": "ChIJZeQNKsIUQIcRUrhjG8b9Ebk",
+      "name": "Conundrum Hot Springs",
+      "total_ratings": 37,
+      "gmu_hint": 49,
+      "type": "trailhead",
+      "original_search": "Conundrum Hot Springs",
+      "formatted_address": "Conundrum Hot Springs, Colorado 81611, USA"
+    },
+    {
+      "place_id": "ChIJD6MB-OHaPocRdxm5m8UFKPY",
+      "name": "Ice Lake Basin",
+      "total_ratings": 28,
+      "gmu_hint": 74,
+      "type": "trailhead",
+      "original_search": "Ice Lake Basin",
+      "formatted_address": "Ice Lake Basin, Colorado 81301, USA"
+    },
+    {
+      "place_id": "ChIJ0xXmf9qPaocRJaEO1MZS37w",
+      "name": "Tennessee Pass",
+      "total_ratings": 18,
+      "gmu_hint": 48,
+      "type": "scenic",
+      "original_search": "Tennessee Pass",
+      "formatted_address": "Tennessee Pass, Colorado 80461, USA"
+    },
+    {
+      "place_id": "ChIJ_2iVLdHjPocRmrRVCxokm2k",
+      "name": "American Basin",
+      "total_ratings": 12,
+      "gmu_hint": 76,
+      "type": "trailhead",
+      "original_search": "American Basin",
+      "formatted_address": "Co Rd 12, Lake City, CO 81235, USA"
+    },
+    {
+      "place_id": "ChIJ-XzmE9W2bocRxVE3eP3_Tu4",
+      "name": "Colorado 14",
+      "total_ratings": 0,
+      "gmu_hint": 14,
+      "type": "scenic",
+      "original_search": "Cameron Pass",
+      "formatted_address": "CO-14, Colorado, USA"
+    },
+    {
+      "place_id": "ChIJAYpnZknhaocR_9wEDdpJY9Q",
+      "name": "Colorado 9",
+      "total_ratings": 0,
+      "gmu_hint": 47,
+      "type": "scenic",
+      "original_search": "Hoosier Pass",
+      "formatted_address": "CO-9, Colorado, USA"
+    },
+    {
+      "place_id": "ChIJldssyxSCa4cRJCykqZ5Frsk",
+      "name": "Bear Creek Lake Park",
+      "total_ratings": 0,
+      "gmu_hint": 39,
+      "type": "park",
+      "original_search": "Bear Creek Lake Park",
+      "formatted_address": "Bear Creek Lake Park, Lakewood, CO, USA"
+    },
+    {
+      "place_id": "ChIJK8OXSmMWQIcRj88XPNiDWVs",
+      "name": "Cathedral Lake Road",
+      "total_ratings": 0,
+      "gmu_hint": 49,
+      "type": "trailhead",
+      "original_search": "Cathedral Lake",
+      "formatted_address": "Cathedral Lake Rd, Colorado 81611, USA"
+    }
+  ]
+}

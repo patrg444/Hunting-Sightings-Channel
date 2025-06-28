@@ -1,0 +1,90 @@
+{
+  "total_searched": 13,
+  "total_found": 12,
+  "places": [
+    {
+      "place_id": "ChIJdSl26HiZE4cR3tUzLI3O2Sw",
+      "name": "Lake Pueblo State Park",
+      "total_ratings": 4288,
+      "gmu_hint": 119,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJndOVCA1sbIcRInmq7aXX3qQ",
+      "name": "Barr Lake State Park",
+      "total_ratings": 2164,
+      "gmu_hint": 95,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJLaVZ3oZRaocRB136_KKmnSc",
+      "name": "Loveland Pass",
+      "total_ratings": 487,
+      "gmu_hint": 39,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJeQAieiQ2PIcR-GvQqsZu4hk",
+      "name": "Navajo State Park",
+      "total_ratings": 466,
+      "gmu_hint": 73,
+      "type": "state_park"
+    },
+    {
+      "place_id": "ChIJH2dO8EKaaocR936fzWCgXrs",
+      "name": "Turquoise Lake",
+      "total_ratings": 303,
+      "gmu_hint": 48,
+      "type": "lake"
+    },
+    {
+      "place_id": "ChIJS4GU7XUJPocRUgrq3_c9mm4",
+      "name": "Wolf Creek Pass",
+      "total_ratings": 267,
+      "gmu_hint": 76,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJiS-_SnacP4cRtOyWbk8zOFA",
+      "name": "Blue Mesa Reservoir",
+      "total_ratings": 176,
+      "gmu_hint": 551,
+      "type": "lake"
+    },
+    {
+      "place_id": "ChIJ40WI1CO6aocR_GvARjf1DIo",
+      "name": "Clear Creek Reservoir",
+      "total_ratings": 109,
+      "gmu_hint": 39,
+      "type": "lake"
+    },
+    {
+      "place_id": "ChIJD5OFtffxaocR2B15fvWIUlA",
+      "name": "Hoosier Pass",
+      "total_ratings": 106,
+      "gmu_hint": 47,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJg_o9eAycPocRyMxlwygCd8w",
+      "name": "Vallecito Reservoir",
+      "total_ratings": 106,
+      "gmu_hint": 74,
+      "type": "lake"
+    },
+    {
+      "place_id": "ChIJo2xy1E4LQocRX9r7N720cA4",
+      "name": "Rabbit Ears Pass",
+      "total_ratings": 60,
+      "gmu_hint": 14,
+      "type": "scenic"
+    },
+    {
+      "place_id": "ChIJK9xJzqdhaocRqv5s2C6AFYY",
+      "name": "Vail Pass Rest Area",
+      "total_ratings": 2,
+      "gmu_hint": 36,
+      "type": "scenic"
+    }
+  ]
+}

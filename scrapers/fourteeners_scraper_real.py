@@ -11,18 +11,20 @@ from loguru import logger
 import time
 
 from .base import BaseScraper
+from .llm_validator import LLMValidator
 
 
 class FourteenersRealScraper(BaseScraper):
     """
     Real scraper for 14ers.com trip reports and peak pages.
-    Updated to handle current HTML structure.
+    Updated to handle current HTML structure and LLM validation.
     """
     
     BASE_URL = "https://www.14ers.com"
     
     def __init__(self):
         super().__init__(source_name="14ers.com", rate_limit=1.0)
+        self.llm_validator = LLMValidator()
         
     def scrape(self, lookback_days: int = 1) -> List[Dict[str, Any]]:
         """
@@ -203,7 +205,7 @@ class FourteenersRealScraper(BaseScraper):
             
             # Add metadata to each sighting
             for sighting in found_sightings:
-                sighting['trail_name'] = report.get('peaks', report['title'])
+                sighting['location_name'] = report.get('peaks', report['title'])
                 sighting['sighting_date'] = report['date']
                 sighting['author'] = report.get('author', 'Unknown')
                 sighting['report_title'] = report['title']
@@ -214,6 +216,104 @@ class FourteenersRealScraper(BaseScraper):
             logger.info(f"Found {len(sightings)} sightings in report: {report['title']}")
         
         return sightings
+    
+    def _extract_sightings_from_text(self, text: str, url: str) -> List[Dict[str, Any]]:
+        """
+        Extract wildlife sightings from text using LLM validation.
+        Overrides base class to use advanced extraction.
+        
+        Args:
+            text: Text to search for sightings
+            url: Source URL for attribution
+            
+        Returns:
+            List of sighting dictionaries with LLM validation
+        """
+        sightings = []
+        
+        # First find potential mentions
+        potential_mentions = self._extract_potential_wildlife_mentions(text, url)
+        
+        if not potential_mentions:
+            return sightings
+        
+        # Use LLM to validate each potential mention
+        for mention in potential_mentions:
+            # Extract the peak name from URL for context
+            peak_name = "Colorado 14er"
+            if '/route.php' in url:
+                try:
+                    import urllib.parse
+                    parsed = urllib.parse.urlparse(url)
+                    params = urllib.parse.parse_qs(parsed.query)
+                    if 'peak' in params:
+                        peak_name = params['peak'][0].replace('+', ' ')
+                except:
+                    pass
+            
+            # Enhanced context for LLM
+            enhanced_text = f"Trip report from {peak_name}: {mention['full_text']}"
+            
+            # Use LLM validator
+            analysis = self.llm_validator.analyze_full_text_for_sighting(
+                enhanced_text,
+                mention['species_mentioned'],
+                '14ers.com'  # Pass source context
+            )
+            
+            if analysis:
+                # Create sighting with LLM validation data
+                sighting = {
+                    'species': analysis['species'],
+                    'raw_text': mention['raw_text'],
+                    'keyword_matched': mention['keyword_matched'],
+                    'source_url': url,
+                    'source_type': '14ers.com',
+                    'extracted_at': datetime.now().isoformat(),
+                    
+                    # LLM validation fields
+                    'confidence': analysis.get('confidence', 80),
+                    'llm_validated': True,
+                    'location_confidence_radius': analysis.get('location_confidence_radius'),
+                    
+                    # Location data from LLM
+                    'location_details': analysis.get('location_details', {})
+                }
+                
+                # Add any extracted location fields
+                location_fields = ['gmu_number', 'county', 'location_name', 'coordinates', 'elevation', 'location_description']
+                for field in location_fields:
+                    if field in analysis:
+                        sighting[field] = analysis[field]
+                
+                sightings.append(sighting)
+                logger.debug(f"LLM validated sighting: {analysis['species']} at {peak_name}")
+        
+        return sightings
+    
+    def _extract_potential_wildlife_mentions(self, text: str, source_url: str) -> List[Dict[str, Any]]:
+        """Helper method to extract potential mentions for LLM validation."""
+        mentions = []
+        text_lower = text.lower()
+        
+        for species, keywords in self.game_species.items():
+            for keyword in keywords:
+                if keyword.lower() in text_lower:
+                    # Find context around keyword
+                    index = text_lower.find(keyword.lower())
+                    start = max(0, index - 100)
+                    end = min(len(text), index + len(keyword) + 100)
+                    
+                    mentions.append({
+                        'species_mentioned': species,
+                        'keyword_matched': keyword,
+                        'source_url': source_url,
+                        'full_text': text[start:end],
+                        'raw_text': text[start:end]
+                    })
+                    break  # Only need one keyword match per species
+        
+        return mentions
     
     def get_trail_locations(self) -> List[Dict[str, Any]]:
         """

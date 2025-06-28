@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from loguru import logger
 from .base import BaseScraper
+from .llm_validator import LLMValidator
 
 
 class INaturalistScraper(BaseScraper):
@@ -16,6 +17,7 @@ class INaturalistScraper(BaseScraper):
     
     def __init__(self):
         super().__init__(source_name="inaturalist", rate_limit=1.0)
+        self.llm_validator = LLMValidator()
         self.base_url = "https://api.inaturalist.org/v1"
         
         # Colorado place ID (14 is California, 34 is Colorado)
@@ -137,28 +139,67 @@ class INaturalistScraper(BaseScraper):
                 except:
                     obs_datetime = datetime.now()
             
-            # Build sighting record
+            # Convert positional accuracy (meters) to radius in miles
+            accuracy_meters = obs.get('positional_accuracy', 1000)  # Default 1km if not specified
+            location_confidence_radius = max(0.1, round(accuracy_meters * 0.000621371, 1))  # Convert to miles, min 0.1
+            
+            # Build location description
+            place_guess = obs.get('place_guess', '')
+            description = obs.get('description') or ''
+            
+            # Use LLM to extract additional location details if description exists
+            location_details = {}
+            if description and self.llm_validator.llm_available:
+                # Create context for LLM
+                enhanced_text = f"iNaturalist observation from {place_guess}, Colorado: {description}"
+                
+                # Try to extract location details from description
+                analysis = self.llm_validator.analyze_full_text_for_sighting(
+                    enhanced_text,
+                    species_key.replace('_', ' '),
+                    'iNaturalist'
+                )
+                
+                if analysis:
+                    # Use LLM's location extraction if available
+                    location_details = analysis.get('location_details', {})
+                    # Override radius if LLM provides better estimate
+                    if analysis.get('location_confidence_radius'):
+                        location_confidence_radius = analysis['location_confidence_radius']
+            
+            # Build sighting record in consistent format
             sighting = {
+                # Core fields matching other scrapers
                 'species': species_key.replace('_', ' ').title(),
-                'location': {
-                    'lat': lat,
-                    'lon': lon,
-                    'accuracy': obs.get('positional_accuracy'),
-                    'place_guess': obs.get('place_guess', ''),
-                },
+                'raw_text': description[:200] + '...' if len(description) > 200 else description,
+                'keyword_matched': species_key,  # Not really keyword-based but for consistency
+                'source_url': obs.get('uri', f"https://www.inaturalist.org/observations/{obs.get('id')}"),
+                'source_type': 'inaturalist',
+                'extracted_at': datetime.now().isoformat(),
+                'location_name': place_guess,
+                'sighting_date': obs_datetime.isoformat(),
+                
+                # LLM validation fields
+                'confidence': 100 if obs.get('quality_grade') == 'research' else 80,
+                'llm_validated': bool(description),  # True if we processed description
+                'location_confidence_radius': location_confidence_radius,
+                
+                # Location coordinates
+                'latitude': lat,
+                'longitude': lon,
+                
+                # iNaturalist specific metadata
                 'observed_date': obs_datetime.strftime('%Y-%m-%d'),
                 'observed_time': obs_datetime.strftime('%H:%M') if obs_datetime.hour != 0 else None,
-                'observer': {
-                    'username': obs.get('user', {}).get('login', 'Unknown'),
-                    'name': obs.get('user', {}).get('name', '')
-                },
-                'description': obs.get('description', ''),
+                'observer_username': obs.get('user', {}).get('login', 'Unknown'),
+                'observer_name': obs.get('user', {}).get('name', ''),
                 'photo_url': self._get_photo_url(obs),
                 'quality_grade': obs.get('quality_grade', 'casual'),
                 'inaturalist_id': obs.get('id'),
-                'inaturalist_url': obs.get('uri'),
-                'source_type': 'inaturalist',
-                'confidence': 1.0 if obs.get('quality_grade') == 'research' else 0.8
+                'positional_accuracy_meters': accuracy_meters,
+                
+                # Additional location details from LLM if available
+                'location_details': location_details
             }
             
             return sighting

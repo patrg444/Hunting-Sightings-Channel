@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from scrapers.fourteeners_scraper_real import FourteenersRealScraper
-from scrapers.fourteeners_auth_scraper import FourteenersAuthScraper
+# from scrapers.fourteeners_auth_scraper import FourteenersAuthScraper  # Deleted - use FourteenersRealScraper
 from loguru import logger
 
 

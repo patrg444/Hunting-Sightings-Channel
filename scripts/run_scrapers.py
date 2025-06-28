@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 from loguru import logger
 
-from scrapers import FourteenersScraper, SummitPostScraper, RedditScraper
+from scrapers import FourteenersRealScraper, RedditScraper
 from processors import GMUProcessor, TrailProcessor
 from scripts.sightings_cli import map_sighting_to_gmu
 
@@ -41,8 +41,7 @@ def run_all_scrapers(lookback_days: int = 1) -> List[Dict[str, Any]]:
     
     # Run each scraper
     scrapers = [
-        ('14ers.com', FourteenersScraper),
-        ('SummitPost', SummitPostScraper),
+        ('14ers.com', FourteenersRealScraper),
         ('Reddit', RedditScraper)
     ]
     
