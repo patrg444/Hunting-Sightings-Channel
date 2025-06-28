@@ -2,6 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Global resets and base styles */
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  }
+  
+  #root {
+    height: 100%;
+  }
+  
+  /* Focus styles for accessibility */
+  :focus {
+    outline: 2px solid #16a34a;
+    outline-offset: 2px;
+  }
+  
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
 /* Custom styles for the map container */
 .leaflet-container {
   width: 100%;
@@ -61,7 +97,7 @@
 /* Loading spinner */
 .spinner {
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #0ea5e9;
+  border-top: 3px solid #16a34a;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -71,4 +107,51 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Button transitions */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Link transitions */
+a {
+  transition: color 0.2s ease-in-out;
+}
+
+/* Form input styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Dropdown menu animations */
+.dropdown-menu {
+  animation: dropdownSlide 0.2s ease-out;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prevent overscroll on map/table pages */
+.no-overscroll {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
 }

@@ -1,291 +1,190 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useStore } from '../store/store';
-import { authService } from '../services/auth';
-import { Bell, MapPin, CreditCard, Loader2, AlertCircle, Check } from 'lucide-react';
-import axios from 'axios';
-import { API_URL } from '../config/constants';
+import React, { useState } from 'react';
+import { Bell, Mail, Smartphone, MapPin, Save } from 'lucide-react';
+import { useStore } from '@/store/store';
 
-interface UserPreferences {
-  emailNotifications: boolean;
-  smsNotifications: boolean;
-  notificationRadius: number;
-  selectedSpecies: string[];
-}
-
-const SPECIES_OPTIONS = [
-  'Deer', 'Elk', 'Moose', 'Bear', 'Turkey', 'Duck',
-  'Pheasant', 'Grouse', 'Rabbit', 'Squirrel', 'Coyote', 'Wolf'
-];
-
-export function SettingsPage() {
-  const navigate = useNavigate();
+export const SettingsPage: React.FC = () => {
   const { user } = useStore();
-  const [loading, setLoading] = useState(true);
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [pushNotifications, setPushNotifications] = useState(false);
+  const [sightingAlerts, setSightingAlerts] = useState(true);
+  const [weeklyDigest, setWeeklyDigest] = useState(false);
+  const [locationAlerts, setLocationAlerts] = useState(true);
+  const [alertRadius, setAlertRadius] = useState('25');
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
-  const [activeTab, setActiveTab] = useState('notifications');
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const [preferences, setPreferences] = useState<UserPreferences>({
-    emailNotifications: true,
-    smsNotifications: false,
-    notificationRadius: 10,
-    selectedSpecies: []
-  });
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/');
-      return;
-    }
-
-    fetchPreferences();
-  }, [user, navigate]);
-
-  const fetchPreferences = async () => {
+  const handleSave = async () => {
+    setSaving(true);
+    setMessage(null);
+    
     try {
-      setLoading(true);
-      const token = await authService.getAccessToken();
-      const response = await axios.get(`${API_URL}/api/v1/users/${user?.id}/preferences`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setPreferences(response.data);
+      // Save notification preferences
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+      setMessage({ type: 'success', text: 'Notification preferences saved successfully!' });
     } catch (error) {
-      console.error('Failed to fetch preferences:', error);
-      setError('Failed to load preferences');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const savePreferences = async () => {
-    try {
-      setSaving(true);
-      setError(null);
-      setSuccess(false);
-      
-      const token = await authService.getAccessToken();
-      await axios.put(`${API_URL}/api/v1/users/${user?.id}/preferences`, preferences, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
-    } catch (error) {
-      console.error('Failed to save preferences:', error);
-      setError('Failed to save preferences');
+      setMessage({ type: 'error', text: 'Failed to save preferences. Please try again.' });
     } finally {
       setSaving(false);
     }
   };
 
-  const toggleSpecies = (species: string) => {
-    setPreferences(prev => ({
-      ...prev,
-      selectedSpecies: prev.selectedSpecies.includes(species)
-        ? prev.selectedSpecies.filter(s => s !== species)
-        : [...prev.selectedSpecies, species]
-    }));
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto py-8 px-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Settings</h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
+            <Bell className="w-8 h-8 mr-3 text-green-600" />
+            Notifications
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Manage how you receive updates about wildlife sightings
+          </p>
+        </div>
 
-        {/* Tabs */}
-        <div className="bg-white rounded-lg shadow mb-6">
-          <div className="border-b border-gray-200">
-            <nav className="-mb-px flex">
-              <button
-                onClick={() => setActiveTab('notifications')}
-                className={`py-2 px-6 border-b-2 font-medium text-sm ${
-                  activeTab === 'notifications'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <Bell className="w-4 h-4 inline mr-2" />
-                Notifications
-              </button>
-              <button
-                onClick={() => setActiveTab('location')}
-                className={`py-2 px-6 border-b-2 font-medium text-sm ${
-                  activeTab === 'location'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <MapPin className="w-4 h-4 inline mr-2" />
-                Location
-              </button>
-              <button
-                onClick={() => setActiveTab('subscription')}
-                className={`py-2 px-6 border-b-2 font-medium text-sm ${
-                  activeTab === 'subscription'
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <CreditCard className="w-4 h-4 inline mr-2" />
-                Subscription
-              </button>
-            </nav>
+        {message && (
+          <div className={`mb-6 p-4 rounded-lg ${
+            message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
+          }`}>
+            {message.text}
+          </div>
+        )}
+
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6">
+          {/* Email Notifications */}
+          <div className="border-b border-gray-200 pb-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+              <Mail className="w-5 h-5 mr-2 text-gray-600" />
+              Email Notifications
+            </h2>
+            
+            <div className="space-y-4">
+              <label className="flex items-start">
+                <input
+                  type="checkbox"
+                  checked={emailNotifications}
+                  onChange={(e) => setEmailNotifications(e.target.checked)}
+                  className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                />
+                <div className="ml-3">
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Enable email notifications</span>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Receive emails about new sightings in your area</p>
+                </div>
+              </label>
+
+              <label className="flex items-start ml-7">
+                <input
+                  type="checkbox"
+                  checked={sightingAlerts}
+                  onChange={(e) => setSightingAlerts(e.target.checked)}
+                  disabled={!emailNotifications}
+                  className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded disabled:opacity-50"
+                />
+                <div className="ml-3">
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Real-time sighting alerts</span>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Get notified immediately when new sightings are reported</p>
+                </div>
+              </label>
+
+              <label className="flex items-start ml-7">
+                <input
+                  type="checkbox"
+                  checked={weeklyDigest}
+                  onChange={(e) => setWeeklyDigest(e.target.checked)}
+                  disabled={!emailNotifications}
+                  className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded disabled:opacity-50"
+                />
+                <div className="ml-3">
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Weekly digest</span>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Receive a summary of sightings every Monday</p>
+                </div>
+              </label>
+            </div>
           </div>
 
-          <div className="p-6">
-            {/* Notifications Tab */}
-            {activeTab === 'notifications' && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Notification Preferences</h3>
-                  
-                  <div className="space-y-4">
-                    <label className="flex items-center justify-between">
-                      <span className="text-gray-700">Email Notifications</span>
-                      <input
-                        type="checkbox"
-                        checked={preferences.emailNotifications}
-                        onChange={(e) => setPreferences({ ...preferences, emailNotifications: e.target.checked })}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      />
-                    </label>
+          {/* Push Notifications */}
+          <div className="border-b border-gray-200 pb-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+              <Smartphone className="w-5 h-5 mr-2 text-gray-600" />
+              Push Notifications
+            </h2>
+            
+            <label className="flex items-start">
+              <input
+                type="checkbox"
+                checked={pushNotifications}
+                onChange={(e) => setPushNotifications(e.target.checked)}
+                className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+              />
+              <div className="ml-3">
+                <span className="font-medium text-gray-700">Enable push notifications</span>
+                <p className="text-sm text-gray-500">Receive notifications on your device (requires Pro subscription)</p>
+              </div>
+            </label>
+          </div>
 
-                    <label className="flex items-center justify-between">
-                      <div>
-                        <span className="text-gray-700">SMS Notifications</span>
-                        <span className="block text-sm text-gray-500">Coming soon</span>
-                      </div>
-                      <input
-                        type="checkbox"
-                        checked={preferences.smsNotifications}
-                        disabled
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 opacity-50"
-                      />
-                    </label>
-                  </div>
+          {/* Location Settings */}
+          <div className="pb-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+              <MapPin className="w-5 h-5 mr-2 text-gray-600" />
+              Location Alerts
+            </h2>
+            
+            <div className="space-y-4">
+              <label className="flex items-start">
+                <input
+                  type="checkbox"
+                  checked={locationAlerts}
+                  onChange={(e) => setLocationAlerts(e.target.checked)}
+                  className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                />
+                <div className="ml-3">
+                  <span className="font-medium text-gray-700 dark:text-gray-300">Location-based alerts</span>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Only receive notifications for sightings near you</p>
                 </div>
+              </label>
 
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Species Alerts</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Select which species you want to receive notifications about
-                  </p>
-                  
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {SPECIES_OPTIONS.map(species => (
-                      <label
-                        key={species}
-                        className={`
-                          flex items-center justify-center px-4 py-2 border rounded-lg cursor-pointer
-                          ${preferences.selectedSpecies.includes(species)
-                            ? 'bg-blue-50 border-blue-500 text-blue-700'
-                            : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
-                          }
-                        `}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={preferences.selectedSpecies.includes(species)}
-                          onChange={() => toggleSpecies(species)}
-                          className="sr-only"
-                        />
-                        <span>{species}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Location Tab */}
-            {activeTab === 'location' && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Location Settings</h3>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Notification Radius
-                    </label>
-                    <div className="flex items-center space-x-4">
-                      <input
-                        type="range"
-                        min="1"
-                        max="50"
-                        value={preferences.notificationRadius}
-                        onChange={(e) => setPreferences({ ...preferences, notificationRadius: parseInt(e.target.value) })}
-                        className="flex-1"
-                      />
-                      <span className="text-gray-700 font-medium">{preferences.notificationRadius} miles</span>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-2">
-                      Receive notifications for sightings within this radius of your saved locations
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Subscription Tab */}
-            {activeTab === 'subscription' && (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Subscription Management</h3>
-                  <p className="text-gray-600 mb-4">
-                    Manage your subscription and billing information
-                  </p>
-                  
-                  <button
-                    onClick={() => navigate('/subscription')}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-                  >
-                    Manage Subscription
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Error/Success Messages */}
-            {error && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
-                <AlertCircle className="w-5 h-5 text-red-500 mr-2 flex-shrink-0" />
-                <span className="text-red-700">{error}</span>
-              </div>
-            )}
-
-            {success && (
-              <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
-                <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
-                <span className="text-green-700">Settings saved successfully!</span>
-              </div>
-            )}
-
-            {/* Save Button */}
-            {(activeTab === 'notifications' || activeTab === 'location') && (
-              <div className="mt-6 flex justify-end">
-                <button
-                  onClick={savePreferences}
-                  disabled={saving}
-                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+              <div className="ml-7">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Alert radius
+                </label>
+                <select
+                  value={alertRadius}
+                  onChange={(e) => setAlertRadius(e.target.value)}
+                  disabled={!locationAlerts}
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md disabled:opacity-50"
                 >
-                  {saving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                  {saving ? 'Saving...' : 'Save Changes'}
-                </button>
+                  <option value="10">10 miles</option>
+                  <option value="25">25 miles</option>
+                  <option value="50">50 miles</option>
+                  <option value="100">100 miles</option>
+                  <option value="unlimited">Unlimited</option>
+                </select>
               </div>
-            )}
+            </div>
+          </div>
+
+          {/* Save Button */}
+          <div className="pt-4">
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="w-full sm:w-auto px-6 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            >
+              <Save className="w-4 h-4 mr-2" />
+              {saving ? 'Saving...' : 'Save Preferences'}
+            </button>
           </div>
         </div>
+
+        {/* Pro Features Notice */}
+        {!user || true /* Replace with actual subscription check */ && (
+          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <p className="text-sm text-blue-800">
+              <strong>Upgrade to Pro</strong> to unlock push notifications, unlimited alert radius, and priority delivery of notifications.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};

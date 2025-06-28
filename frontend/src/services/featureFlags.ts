@@ -10,6 +10,7 @@ interface FeatureFlags {
   apiAccess: boolean;
   enableLocationClustering: boolean;
   enableAdvancedFilters: boolean;
+  fullSightingDetails: boolean;
 }
 
 class FeatureFlagsService {
@@ -30,6 +31,7 @@ class FeatureFlagsService {
       apiAccess: this.userSubscription === 'pro_yearly',
       enableLocationClustering: true,
       enableAdvancedFilters: true,
+      fullSightingDetails: isPro,
     };
   }
 
