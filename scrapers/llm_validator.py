@@ -54,7 +54,8 @@ class LLMValidator:
                 # Simple initialization with just API key
                 self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
                 self.llm_available = True
-                logger.info("LLM validation enabled with OpenAI")
+                self.model = "gpt-4.1-nano-2025-04-14"  # GPT-4.1 nano
+                logger.info(f"LLM validation enabled with OpenAI using model: {self.model}")
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {e}")
                 self.llm_available = False
@@ -128,7 +129,7 @@ class LLMValidator:
             return self.cache[post_id].get('sightings', [])
         return []
     
-    def validate_sighting_with_llm(self, context: str, keyword: str, species: str) -> Tuple[bool, float, Dict[str, Any]]:
+    def validate_sighting_with_llm(self, context: str, keyword: str, species: str, subreddit: str = None) -> Tuple[bool, float, Dict[str, Any]]:
         """
         Use LLM to validate if this is a real wildlife sighting AND extract location data.
         
@@ -136,6 +137,7 @@ class LLMValidator:
             context: Text context around the keyword
             keyword: The wildlife keyword found
             species: The species type
+            subreddit: The subreddit where this was posted (for geographical context)
             
         Returns:
             Tuple of (is_valid, confidence_score, location_data)
@@ -154,8 +156,10 @@ class LLMValidator:
             time.sleep(sleep_time)
         
         try:
+            subreddit_context = f"Posted in r/{subreddit}" if subreddit else "Context unknown"
             prompt = f"""
             Analyze this text for a wildlife sighting of {species} and extract any location information.
+            {subreddit_context}
             
             Text: "{context}"
             Wildlife keyword found: "{keyword}"
@@ -163,24 +167,24 @@ class LLMValidator:
             Return a JSON object with:
             {{
                 "is_sighting": true/false,
-                "confidence": 0-100,
+                "confidence": 0-100 (confidence this is a real wildlife sighting vs plans/wishes/place names),
                 "gmu_number": null or number (e.g., 12 from "GMU 12" or "unit 12"),
-                "county": null or county name,
                 "location_name": null or specific place (trail, peak, town, etc),
                 "coordinates": null or [lat, lon] if mentioned,
                 "elevation": null or elevation in feet,
+                "location_confidence_radius": estimated geographical area radius in miles where the sighting occurred based on location description,
                 "location_description": brief description of location mentioned
             }}
             
             Examples:
-            - "saw 6 elk in GMU 23 near Durango" → {{"is_sighting": true, "confidence": 95, "gmu_number": 23, "location_name": "Durango"}}
-            - "planning to hunt unit 421 next year" → {{"is_sighting": false, "confidence": 98, "gmu_number": 421}}
-            - "bear tracks at 11,000 feet on Mt. Elbert" → {{"is_sighting": true, "confidence": 85, "location_name": "Mt. Elbert", "elevation": 11000}}
+            - "saw 6 elk at the trailhead parking lot" → {{"is_sighting": true, "confidence": 100, "location_name": "trailhead parking lot", "location_confidence_radius": 0.5}}
+            - "bear tracks near Aspen" → {{"is_sighting": true, "confidence": 90, "location_name": "Aspen", "location_confidence_radius": 10}}
+            - "elk somewhere in GMU 12" → {{"is_sighting": true, "confidence": 85, "gmu_number": 12, "location_confidence_radius": 35}}
             """
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-4.1-nano-2025-04-14",
+                model="gpt-4.1-nano-2025-04-14",  # GPT-4.1 nano
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
@@ -190,12 +194,6 @@ class LLMValidator:
             )
             
             result = response.choices[0].message.content.strip()
-            logger.debug(f"LLM response: {result[:200]}...")
-            
-            # Clean up markdown code blocks if present
-            if result.startswith('```'):
-                # Remove markdown code blocks
-                result = result.replace('```json', '').replace('```', '').strip()
             
             # Parse JSON response
             data = json.loads(result)
@@ -205,10 +203,10 @@ class LLMValidator:
             # Extract location data
             location_data = {
                 'gmu_number': data.get('gmu_number'),
-                'county': data.get('county'),
                 'location_name': data.get('location_name'),
                 'coordinates': data.get('coordinates'),
                 'elevation': data.get('elevation'),
+                'location_confidence_radius': data.get('location_confidence_radius'),
                 'location_description': data.get('location_description')
             }
             
@@ -224,7 +222,7 @@ class LLMValidator:
         is_valid, confidence = self._simple_validation(context, keyword)
         return is_valid, confidence, {}
     
-    def analyze_full_text_for_sighting(self, full_text: str, species_mentioned: List[str]) -> Optional[Dict[str, Any]]:
+    def analyze_full_text_for_sighting(self, full_text: str, species_mentioned: List[str], subreddit: str = None) -> Optional[Dict[str, Any]]:
         """
         Analyze full post/comment text to determine if it contains wildlife sightings and extract location data.
         More comprehensive than the snippet-based validation.
@@ -232,6 +230,7 @@ class LLMValidator:
         Args:
             full_text: Complete text to analyze
             species_mentioned: List of species found in the text
+            subreddit: The subreddit where this was posted (for geographical context)
             
         Returns:
             Sighting details with location data if found, None otherwise
@@ -249,8 +248,10 @@ class LLMValidator:
             time.sleep(sleep_time)
         
         try:
+            subreddit_context = f"Posted in r/{subreddit}" if subreddit else "Reddit post"
             prompt = f"""
-            Analyze this Reddit post/comment for wildlife sightings in Colorado and extract location information.
+            Analyze this Reddit post/comment for wildlife sightings and extract location information.
+            {subreddit_context}
 
             Text: "{full_text[:1500]}"  # Limit to 1500 chars to avoid token limits
             
@@ -260,48 +261,26 @@ class LLMValidator:
             {{
                 "is_sighting": true/false (actual encounter, not plans/wishes),
                 "species": primary species if sighting,
-                "confidence": 0-100,
+                "confidence": 0-100 (confidence this is a real wildlife sighting),
                 "gmu_number": null or number (e.g., 12 from "GMU 12" or "unit 12"),
-                "county": null or Colorado county name,
                 "location_name": null or specific place (trail, peak, town),
-                "coordinates": ALWAYS provide [lat, lon] - use your best estimate based on location description,
+                "coordinates": null or [lat, lon] if mentioned,
                 "elevation": null or elevation in feet,
+                "location_confidence_radius": estimated geographical area radius in miles where the sighting occurred,
                 "location_description": brief location summary
             }}
             
-            IMPORTANT: Always provide coordinates as [latitude, longitude] based on:
-            - Exact coordinates if mentioned
-            - Known Colorado landmarks (peaks, lakes, towns, trails)
-            - GMU center points:
-              GMU 1: [40.6961, -108.9841], GMU 2: [40.7484, -108.521], GMU 3: [40.358, -108.421]
-              GMU 11: [40.1766, -108.3343], GMU 12: [40.0745, -108.119], GMU 13: [39.9202, -108.1033]
-              GMU 21: [40.0196, -107.8346], GMU 22: [39.8639, -107.7726], GMU 23: [39.7137, -107.8096]
-              GMU 35: [39.4972, -106.8516], GMU 36: [39.3938, -106.4761], GMU 37: [39.6282, -106.2476]
-              GMU 38: [39.7316, -106.074], GMU 39: [39.9253, -105.871], GMU 371: [39.5245, -106.2819]
-              GMU 471: [39.2765, -106.3736], GMU 49: [39.168, -105.8966], GMU 50: [39.5316, -105.8236]
-              GMU 500: [39.6501, -105.5957], GMU 501: [39.3891, -105.4788], GMU 51: [39.1668, -105.5821]
-              GMU 511: [38.7991, -105.4737], GMU 512: [38.4516, -105.4322], GMU 52: [38.9485, -105.0881]
-              GMU 521: [38.3853, -105.1021], GMU 53: [37.8915, -106.7966], GMU 54: [37.7513, -106.4653]
-              GMU 55: [38.0604, -106.2319], GMU 551: [37.7988, -106.1128], GMU 56: [38.5313, -106.2113]
-              GMU 561: [38.249, -106.2252], GMU 57: [38.8283, -105.9357], GMU 58: [38.8627, -105.6616]
-              GMU 581: [38.5906, -105.5926], GMU 59: [38.4982, -105.2814], GMU 591: [38.1885, -105.3286]
-            - General area descriptions (e.g., "near Denver" = [39.7392, -104.9903])
-            - If no location info, use Colorado center [39.5501, -105.7821]
-            
             Consider hunting success ("got my elk", "tagged out", "harvested") as valid sightings.
-            Also consider trail cam photos, hunting encounters, tracks/sign if fresh, and any actual wildlife observations.
-            Be inclusive - if someone mentions seeing wildlife, it's likely a sighting unless they explicitly say they didn't see it.
             
             Examples:
-            - "Finally got my bull elk in unit 12 near Durango" → {{"is_sighting": true, "species": "elk", "confidence": 95, "gmu_number": 12, "location_name": "Durango", "coordinates": [40.0745, -108.119]}}
-            - "Saw 6 deer at 10,500 feet on the Maroon Bells trail" → {{"is_sighting": true, "species": "deer", "confidence": 90, "elevation": 10500, "location_name": "Maroon Bells trail", "coordinates": [39.0708, -106.9889]}}
-            - "Bear spotted near Estes Park" → {{"is_sighting": true, "species": "bear", "confidence": 85, "location_name": "Estes Park", "coordinates": [40.3773, -105.5217]}}
-            - "Planning to hunt elk next season" → {{"is_sighting": false, "confidence": 98}}
+            - "Finally got my bull elk in unit 12 near Durango" → {{"is_sighting": true, "species": "elk", "confidence": 95, "gmu_number": 12, "location_name": "Durango", "location_confidence_radius": 8}}
+            - "Saw 6 deer at the bridge on Maroon Creek trail" → {{"is_sighting": true, "species": "deer", "confidence": 100, "location_name": "Maroon Creek trail", "location_confidence_radius": 1}}
+            - "Bear tracks somewhere in GMU 39" → {{"is_sighting": true, "species": "bear", "confidence": 90, "gmu_number": 39, "location_confidence_radius": 40}}
             """
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-4.1-nano-2025-04-14",
+                model="gpt-4.1-nano-2025-04-14",  # GPT-4.1 nano
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor for Colorado hunting/outdoor forums. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
@@ -311,12 +290,6 @@ class LLMValidator:
             )
             
             result = response.choices[0].message.content.strip()
-            logger.debug(f"LLM response: {result[:200]}...")
-            
-            # Clean up markdown code blocks if present
-            if result.startswith('```'):
-                # Remove markdown code blocks
-                result = result.replace('```json', '').replace('```', '').strip()
             
             # Parse JSON response
             data = json.loads(result)
@@ -331,7 +304,7 @@ class LLMValidator:
                 }
                 
                 # Add location fields if present
-                location_fields = ['gmu_number', 'county', 'location_name', 'coordinates', 'elevation', 'location_description']
+                location_fields = ['gmu_number', 'location_name', 'coordinates', 'elevation', 'location_confidence_radius', 'location_description']
                 for field in location_fields:
                     if data.get(field) is not None:
                         sighting_data[field] = data[field]
@@ -342,8 +315,6 @@ class LLMValidator:
             
         except Exception as e:
             logger.error(f"Full text LLM analysis failed: {e}")
-            if 'result' in locals():
-                logger.error(f"Raw LLM response was: {result}")
             return None
     
     def _simple_validation(self, context: str, keyword: str) -> Tuple[bool, float]:
@@ -394,12 +365,13 @@ class LLMValidator:
             # Default to false for safety
             return False, 0.5
     
-    def validate_sightings_batch(self, sightings: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def validate_sightings_batch(self, sightings: List[Dict[str, Any]], subreddit: str = None) -> List[Dict[str, Any]]:
         """
         Validate multiple sightings and extract location data, using cache where possible.
         
         Args:
             sightings: List of potential sightings to validate
+            subreddit: The subreddit where these were posted (for geographical context)
             
         Returns:
             List of validated sightings with confidence scores and location data
@@ -410,7 +382,8 @@ class LLMValidator:
             is_valid, confidence, location_data = self.validate_sighting_with_llm(
                 sighting['raw_text'],
                 sighting['keyword_matched'],
-                sighting['species']
+                sighting['species'],
+                subreddit
             )
             
             if is_valid and confidence > 0.7:  # Configurable threshold

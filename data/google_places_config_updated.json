@@ -1,6 +1,6 @@
 {
   "comment": "Verified Colorado trail place IDs for wildlife sighting extraction - 93 locations total",
-  "max_trails_per_run": 100,
+  "max_trails_per_run": 50,
   "trails": [
     {
       "place_id": "ChIJ18hsDtqCa4cRrdYsOQfng3w",

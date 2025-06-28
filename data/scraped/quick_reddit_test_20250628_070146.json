@@ -1,0 +1,48 @@
+{
+  "test_date": "2025-06-28T07:01:46.919051",
+  "source": "reddit_quick_test",
+  "subreddits": [
+    "cohunting",
+    "elkhunting"
+  ],
+  "lookback_days": 1,
+  "max_posts_per_subreddit": 5,
+  "total_sightings": 2,
+  "sightings": [
+    {
+      "species": "deer",
+      "raw_text": "I drew unit 33 mule deer for muzzleloader. Plan on hitting the east/ north",
+      "keyword_matched": "mule deer",
+      "source_url": "https://reddit.com/r/cohunting/comments/1llwq4m/new_hunter_pulled_a_mule_deer_tag_for_gmu_34_3rd/n06ermb/",
+      "source_type": "reddit",
+      "extracted_at": "2025-06-28 13:47:20.250518",
+      "llm_validated": true,
+      "confidence": 0.8,
+      "gmu_number": 33,
+      "location_name": "east/north",
+      "location_description": "unit 33, east/north area",
+      "reddit_post_title": "New hunter. Pulled a mule deer tag for GMU 34 3rd Rifle. How do I scout it?",
+      "sighting_date": "2025-06-27 19:36:37",
+      "subreddit": "cohunting",
+      "is_comment": true,
+      "comment_id": "n06ermb"
+    },
+    {
+      "species": "elk",
+      "confidence": 0.8,
+      "llm_validated": true,
+      "reddit_post_title": "KillBag",
+      "sighting_date": "2025-06-24 18:15:55",
+      "subreddit": "elkhunting",
+      "post_id": "1ljsp1r",
+      "source_url": "https://www.reddit.com/r/elkhunting/comments/1ljsp1r/killbag/",
+      "source_type": "reddit",
+      "raw_text": "KillBag Anybody ever used a KillBag to transport an elk? What size? How did it go??",
+      "coordinates": [
+        39.5501,
+        -105.7821
+      ],
+      "location_description": "Colorado general area"
+    }
+  ]
+}

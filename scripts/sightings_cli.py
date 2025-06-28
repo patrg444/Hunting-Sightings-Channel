@@ -15,7 +15,7 @@ from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from loguru import logger
 
-from scrapers import FourteenersScraper, SummitPostScraper, RedditScraper
+from scrapers import FourteenersRealScraper, RedditScraper
 from processors import GMUProcessor, TrailProcessor
 
 console = Console()
@@ -60,8 +60,7 @@ def run_scrapers(lookback_days: int = 1) -> List[Dict[str, Any]]:
     all_sightings = []
 
     scrapers = [
-        ('14ers.com', FourteenersScraper),
-        ('SummitPost', SummitPostScraper),
+        ('14ers.com', FourteenersRealScraper),
         ('Reddit', RedditScraper)
     ]
 

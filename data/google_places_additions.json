@@ -1,0 +1,323 @@
+{
+  "comment": "Top 41 Colorado locations to add for reaching ~90 total places",
+  "priority_additions": [
+    {
+      "name": "Black Canyon of the Gunnison National Park",
+      "gmu_hint": 62,
+      "type": "national_park",
+      "priority": "high",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Great Sand Dunes National Park and Preserve",
+      "gmu_hint": 68,
+      "type": "national_park",
+      "priority": "high",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Mesa Verde National Park",
+      "gmu_hint": 73,
+      "type": "national_park",
+      "priority": "high",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Colorado National Monument",
+      "gmu_hint": 40,
+      "type": "national_monument",
+      "priority": "high",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Garden of the Gods",
+      "gmu_hint": 58,
+      "type": "park",
+      "priority": "high",
+      "wildlife_potential": "medium",
+      "note": "Very high traffic, deer common"
+    },
+    {
+      "name": "Cherry Creek State Park",
+      "gmu_hint": 39,
+      "type": "state_park",
+      "priority": "high",
+      "wildlife_potential": "medium",
+      "note": "Denver metro, high traffic"
+    },
+    {
+      "name": "Chatfield State Park",
+      "gmu_hint": 39,
+      "type": "state_park",
+      "priority": "high",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Mount Evans Scenic Byway",
+      "gmu_hint": 39,
+      "type": "scenic",
+      "priority": "high",
+      "wildlife_potential": "very_high",
+      "note": "Mountain goats, bighorn sheep common"
+    },
+    {
+      "name": "Pikes Peak - America's Mountain",
+      "gmu_hint": 58,
+      "type": "scenic",
+      "priority": "high",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Rocky Mountain Arsenal National Wildlife Refuge",
+      "gmu_hint": 95,
+      "type": "wildlife_refuge",
+      "priority": "high",
+      "wildlife_potential": "very_high",
+      "note": "Bison herd, deer, eagles"
+    },
+    {
+      "name": "Genesee Park",
+      "gmu_hint": 39,
+      "type": "park",
+      "priority": "high",
+      "wildlife_potential": "very_high",
+      "note": "Buffalo herd viewing area"
+    },
+    {
+      "name": "Brainard Lake Recreation Area",
+      "gmu_hint": 20,
+      "type": "recreation_area",
+      "priority": "high",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Trail Ridge Road",
+      "gmu_hint": 20,
+      "type": "scenic",
+      "priority": "high",
+      "wildlife_potential": "very_high",
+      "note": "Highest continuous paved road in US"
+    },
+    {
+      "name": "Eleven Mile State Park",
+      "gmu_hint": 50,
+      "type": "state_park",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Spinney Mountain State Park",
+      "gmu_hint": 50,
+      "type": "state_park",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Ridgway State Park",
+      "gmu_hint": 62,
+      "type": "state_park",
+      "priority": "medium",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Chautauqua Park",
+      "gmu_hint": 38,
+      "type": "park",
+      "priority": "high",
+      "wildlife_potential": "medium",
+      "note": "Boulder, very high traffic"
+    },
+    {
+      "name": "Red Rocks Park and Amphitheatre",
+      "gmu_hint": 39,
+      "type": "park",
+      "priority": "medium",
+      "wildlife_potential": "low",
+      "note": "High traffic but less wildlife"
+    },
+    {
+      "name": "Rabbit Ears Pass",
+      "gmu_hint": 14,
+      "type": "scenic",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Vail Pass",
+      "gmu_hint": 36,
+      "type": "scenic",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Loveland Pass",
+      "gmu_hint": 39,
+      "type": "scenic",
+      "priority": "medium",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Cameron Pass",
+      "gmu_hint": 14,
+      "type": "scenic",
+      "priority": "medium",
+      "wildlife_potential": "high",
+      "note": "Moose common"
+    },
+    {
+      "name": "Wolf Creek Pass",
+      "gmu_hint": 76,
+      "type": "scenic",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Georgetown Wildlife Viewing Area",
+      "gmu_hint": 39,
+      "type": "wildlife",
+      "priority": "high",
+      "wildlife_potential": "very_high",
+      "note": "Bighorn sheep viewing"
+    },
+    {
+      "name": "Dinosaur National Monument",
+      "gmu_hint": 10,
+      "type": "national_monument",
+      "priority": "medium",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Boyd Lake State Park",
+      "gmu_hint": 95,
+      "type": "state_park",
+      "priority": "medium",
+      "wildlife_potential": "low"
+    },
+    {
+      "name": "Sylvan Lake State Park",
+      "gmu_hint": 36,
+      "type": "state_park",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Rifle Gap State Park",
+      "gmu_hint": 33,
+      "type": "state_park",
+      "priority": "medium",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Stagecoach State Park",
+      "gmu_hint": 14,
+      "type": "state_park",
+      "priority": "medium",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Bear Creek Lake Park",
+      "gmu_hint": 39,
+      "type": "park",
+      "priority": "medium",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Lair o' the Bear Park",
+      "gmu_hint": 39,
+      "type": "park",
+      "priority": "medium",
+      "wildlife_potential": "high",
+      "note": "Bear sightings common"
+    },
+    {
+      "name": "Ice Lake Basin Trail",
+      "gmu_hint": 74,
+      "type": "trail",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "American Basin",
+      "gmu_hint": 76,
+      "type": "trail",
+      "priority": "medium",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Conundrum Hot Springs Trail",
+      "gmu_hint": 49,
+      "type": "trail",
+      "priority": "low",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Cathedral Lake Trail",
+      "gmu_hint": 49,
+      "type": "trail",
+      "priority": "low",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Arapaho National Wildlife Refuge",
+      "gmu_hint": 17,
+      "type": "wildlife_refuge",
+      "priority": "medium",
+      "wildlife_potential": "very_high"
+    },
+    {
+      "name": "Monte Vista National Wildlife Refuge",
+      "gmu_hint": 68,
+      "type": "wildlife_refuge",
+      "priority": "medium",
+      "wildlife_potential": "very_high",
+      "note": "Sandhill cranes, elk"
+    },
+    {
+      "name": "Browns Park National Wildlife Refuge",
+      "gmu_hint": 2,
+      "type": "wildlife_refuge",
+      "priority": "low",
+      "wildlife_potential": "high"
+    },
+    {
+      "name": "Hoosier Pass",
+      "gmu_hint": 47,
+      "type": "scenic",
+      "priority": "low",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "Tennessee Pass",
+      "gmu_hint": 48,
+      "type": "scenic",
+      "priority": "low",
+      "wildlife_potential": "medium"
+    },
+    {
+      "name": "La Veta Pass",
+      "gmu_hint": 85,
+      "type": "scenic",
+      "priority": "low",
+      "wildlife_potential": "medium"
+    }
+  ],
+  "selection_criteria": {
+    "high_priority": [
+      "National Parks and Monuments (highest visitor traffic)",
+      "Wildlife refuges and viewing areas",
+      "Scenic byways with wildlife (Mount Evans, Trail Ridge Road)",
+      "High-traffic state parks near metro areas"
+    ],
+    "medium_priority": [
+      "Mountain passes with good wildlife potential",
+      "Popular hiking areas",
+      "State parks with moderate traffic"
+    ],
+    "considerations": [
+      "Focus on places with 100+ Google reviews",
+      "Include mix of Front Range and Western Slope",
+      "Prioritize known wildlife corridors",
+      "Consider seasonal accessibility"
+    ]
+  }
+}

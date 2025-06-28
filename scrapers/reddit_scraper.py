@@ -166,7 +166,8 @@ class RedditScraper(BaseScraper):
                         for mention in potential_mentions:
                             analysis = self.validator.analyze_full_text_for_sighting(
                                 mention['full_text'], 
-                                mention['species_mentioned']
+                                mention['species_mentioned'],
+                                subreddit_name  # Pass subreddit for location context
                             )
                             
                             if analysis and analysis.get('is_sighting'):
@@ -175,6 +176,7 @@ class RedditScraper(BaseScraper):
                                     'species': analysis['species'],
                                     'confidence': analysis['confidence'],
                                     'llm_validated': True,
+                                    'location_confidence_radius': analysis.get('location_confidence_radius'),
                                     'reddit_post_title': submission.title,
                                     'sighting_date': post_date,
                                     'subreddit': subreddit_name,

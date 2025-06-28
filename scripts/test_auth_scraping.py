@@ -7,7 +7,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from scrapers.fourteeners_auth_scraper import FourteenersAuthScraper
+from scrapers.fourteeners_scraper_real import FourteenersRealScraper  # Auth scraper deleted - use real scraper
 from rich.console import Console
 from rich.table import Table
 

@@ -1,0 +1,194 @@
+{
+  "new_places": [
+    {
+      "place_id": "ChIJ8Wo3SfxeP4cRvIuts5LWMT8",
+      "name": "Black Canyon of the Gunnison National Park",
+      "address": "Colorado, United States",
+      "total_ratings": 5375,
+      "lat": 38.5753936,
+      "lng": -107.7415961,
+      "gmu_hint": 62
+    },
+    {
+      "place_id": "ChIJx8vZHeYvFIcR2YMP0IqR1zM",
+      "name": "Great Sand Dunes National Park and Preserve",
+      "address": "Colorado, United States",
+      "total_ratings": 10796,
+      "lat": 37.7658491,
+      "lng": -105.6235976,
+      "gmu_hint": 68
+    },
+    {
+      "place_id": "ChIJH3HXLr9gOYcRYxj2G6KV9nk",
+      "name": "Mesa Verde National Park",
+      "address": "Colorado, United States",
+      "total_ratings": 10167,
+      "lat": 37.2308729,
+      "lng": -108.4618335,
+      "gmu_hint": 73
+    },
+    {
+      "place_id": "ChIJaUPDHsEDR4cR7cAxmf8VdRU",
+      "name": "Colorado National Monument",
+      "address": "Grand Junction, CO 81507, United States",
+      "total_ratings": 591,
+      "lat": 39.0505442,
+      "lng": -108.6920904,
+      "gmu_hint": 40
+    },
+    {
+      "place_id": "ChIJK24Qz-kCRYcRPf3mCvjLJlE",
+      "name": "Dinosaur National Monument",
+      "address": "Utah, United States",
+      "total_ratings": 3615,
+      "lat": 40.5130533,
+      "lng": -108.9487453,
+      "gmu_hint": 10
+    },
+    {
+      "place_id": "ChIJO9N8BMGIbIcR53Jr1zP5s3g",
+      "name": "Cherry Creek State Park",
+      "address": "4201 S Parker Rd, Aurora, CO 80014, United States",
+      "total_ratings": 9245,
+      "lat": 39.625962,
+      "lng": -104.8424778,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJRzsreAp9a4cRph6eAfN-eeE",
+      "name": "Chatfield State Park",
+      "address": "11500 N Roxborough Park Rd, Littleton, CO 80125, United States",
+      "total_ratings": 6804,
+      "lat": 39.543065,
+      "lng": -105.064824,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJ5zTj_rBSaYcRBici35tBQSY",
+      "name": "Boyd Lake State Park",
+      "address": "3720 N County Rd 11c, Loveland, CO 80538, United States",
+      "total_ratings": 2814,
+      "lat": 40.4315078,
+      "lng": -105.0452211,
+      "gmu_hint": 95
+    },
+    {
+      "place_id": "ChIJEy05Bzkza4cRE-Y_-04qVBs",
+      "name": "Eleven Mile State Park",
+      "address": "4186, 4344 Co Rd 92, Lake George, CO 80827, United States",
+      "total_ratings": 127,
+      "lat": 38.9488663,
+      "lng": -105.5273563,
+      "gmu_hint": 50
+    },
+    {
+      "place_id": "ChIJ-zMaGzEsa4cRqzx4DPqqJsU",
+      "name": "Spinney Mountain State Park",
+      "address": "4229 County Road 92, Lake George, CO 80827, United States",
+      "total_ratings": 335,
+      "lat": 38.985918,
+      "lng": -105.6471178,
+      "gmu_hint": 50
+    },
+    {
+      "place_id": "ChIJJ_3D-Ls-P4cRhx359u6etqM",
+      "name": "Ridgway State Park",
+      "address": "28555 US-550, Ridgway, CO 81432, United States",
+      "total_ratings": 1759,
+      "lat": 38.2291606,
+      "lng": -107.7469999,
+      "gmu_hint": 62
+    },
+    {
+      "place_id": "ChIJA1D8CR7OQYcRqvnqvbAzB7g",
+      "name": "Sylvan Lake State Park",
+      "address": "10200 Brush Creek Rd, Eagle, CO 81631, United States",
+      "total_ratings": 431,
+      "lat": 39.4804996,
+      "lng": -106.7326222,
+      "gmu_hint": 36
+    },
+    {
+      "place_id": "ChIJ4SsZSSgUQocRcpYlWDa1R3M",
+      "name": "Stagecoach State Park",
+      "address": "25500 Co Rd 14, Oak Creek, CO 80467, United States",
+      "total_ratings": 617,
+      "lat": 40.2845478,
+      "lng": -106.8580377,
+      "gmu_hint": 14
+    },
+    {
+      "place_id": "ChIJk5zMtRJQE4cRq22_Y1Lf6QQ",
+      "name": "Garden of the Gods",
+      "address": "Colorado Springs, CO 80904, United States",
+      "total_ratings": 53746,
+      "lat": 38.8717933,
+      "lng": -104.8861757,
+      "gmu_hint": 58
+    },
+    {
+      "place_id": "ChIJQYHoLf_ua4cRRs_4YtJXAK8",
+      "name": "Brainard Lake Recreation Area",
+      "address": "Brainard Lake Rd, Ward, CO 80481, United States",
+      "total_ratings": 337,
+      "lat": 40.08093239999999,
+      "lng": -105.5353059,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJR8nnhIuoa4cRfvxP0kFTnxg",
+      "name": "Mount Blue Sky Rd",
+      "address": "Mount Blue Sky Rd, Colorado 80439, USA",
+      "total_ratings": 0,
+      "lat": 39.6142175,
+      "lng": -105.61161,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJjwkT52lWE4cR5nAA04dvUVU",
+      "name": "Pikes Peak Hwy",
+      "address": "Pikes Peak Hwy, Colorado, USA",
+      "total_ratings": 0,
+      "lat": 38.9022016,
+      "lng": -105.0035081,
+      "gmu_hint": 58
+    },
+    {
+      "place_id": "ChIJ0Z3fry94aYcREZEEYS_kCIY",
+      "name": "Trail Ridge Rd",
+      "address": "Trail Ridge Rd, Colorado, USA",
+      "total_ratings": 0,
+      "lat": 40.393306,
+      "lng": -105.7085751,
+      "gmu_hint": 20
+    },
+    {
+      "place_id": "ChIJv95cBwOya4cRdEjS6XDPAvg",
+      "name": "Wildlife Viewing Area",
+      "address": "Georgetown, CO 80444, United States",
+      "total_ratings": 143,
+      "lat": 39.7313555,
+      "lng": -105.6915578,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJn8Cr1GSZa4cRN_vFdoM3ayg",
+      "name": "Genesee Park",
+      "address": "26771 Genesee Ln, Golden, CO 80401, United States",
+      "total_ratings": 1885,
+      "lat": 39.7115034,
+      "lng": -105.3036258,
+      "gmu_hint": 39
+    },
+    {
+      "place_id": "ChIJFYTr3bR6bIcRDFQWHjk0Jw8",
+      "name": "Rocky Mountain Arsenal National Wildlife Refuge",
+      "address": "6550 Gateway Rd, Commerce City, CO 80022, United States",
+      "total_ratings": 5141,
+      "lat": 39.838417,
+      "lng": -104.8485687,
+      "gmu_hint": 95
+    }
+  ],
+  "total_found": 21
+}
