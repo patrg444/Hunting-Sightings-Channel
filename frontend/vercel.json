@@ -1,8 +1,8 @@
 {
-  "buildCommand": "npm run build:prod",
+  "buildCommand": "npm install && npm run build:prod",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "installCommand": "npm install --production=false",
+  "framework": null,
+  "installCommand": "echo 'Skipping auto install'",
   "devCommand": "npm run dev",
   "rewrites": [
     {
