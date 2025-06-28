@@ -1,14 +1,43 @@
 import { createClient } from '@supabase/supabase-js';
 import type { User, LoginCredentials, SignupCredentials } from '@/types';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from '@/config/constants';
 
-// Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key';
+// Initialize Supabase client with error handling
+let supabase: any;
+try {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY || SUPABASE_URL === 'undefined' || SUPABASE_ANON_KEY === 'undefined') {
+    throw new Error('Supabase configuration is missing');
+  }
+  supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch (error) {
+  console.error('Failed to initialize Supabase client:', error);
+  // Create a mock client that returns errors
+  supabase = {
+    auth: {
+      signInWithPassword: async () => ({ data: null, error: new Error('Supabase not configured') }),
+      signUp: async () => ({ data: null, error: new Error('Supabase not configured') }),
+      signOut: async () => ({ error: new Error('Supabase not configured') }),
+      getSession: async () => ({ data: { session: null }, error: null }),
+      getUser: async () => ({ data: { user: null }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+    },
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          gte: () => ({
+            lte: () => ({
+              order: () => ({
+                limit: () => ({ data: [], error: null, count: 0 })
+              })
+            })
+          })
+        })
+      })
+    })
+  };
+}
 
-// Check if Supabase is configured
-const isSupabaseConfigured = supabaseUrl !== 'https://placeholder.supabase.co' && supabaseAnonKey !== 'placeholder-key';
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export { supabase };
 
 // Auth service methods
 export const authService = {
@@ -73,7 +102,7 @@ export const authService = {
 
   // Subscribe to auth state changes
   onAuthStateChange(callback: (user: User | null) => void) {
-    return supabase.auth.onAuthStateChange(async (event, session) => {
+    return supabase.auth.onAuthStateChange(async (_, session) => {
       if (session?.user) {
         callback({
           id: session.user.id,

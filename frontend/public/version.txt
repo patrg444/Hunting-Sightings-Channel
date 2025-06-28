@@ -1,0 +1,2 @@
+Version: 2025-06-28-00:40
+Build: CORRECT Frontend - Supabase integration, all filters working, no router errors
