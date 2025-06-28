@@ -20,7 +20,7 @@ export const GMULayer: React.FC = () => {
   }, []);
 
   // Converted `gmuStyle` from an object to a function for react-leaflet v3+
-  const gmuStyle = () => {
+  const gmuStyle = (feature: any) => {
     return {
       color: '#1e40af',
       weight: 2,

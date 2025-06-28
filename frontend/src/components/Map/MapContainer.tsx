@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer as LeafletMap, TileLayer, ZoomControl } from 'react-leaflet';
 import { LatLng } from 'leaflet';
+// import { GMULayer } from './GMULayer';
 import { SightingClusters } from './SightingClusters';
 import { useStore } from '@/store/store';
-import { supabaseSightingsService } from '@/services/supabaseSightings';
+import { sightingsService } from '@/services/sightings';
 import 'leaflet/dist/leaflet.css';
 
 export const MapContainer: React.FC = () => {
@@ -11,7 +12,7 @@ export const MapContainer: React.FC = () => {
     filters, 
     currentPage, 
     setSightings, 
- 
+    setLoading, 
     setError 
   } = useStore();
   
@@ -31,14 +32,14 @@ export const MapContainer: React.FC = () => {
         
         effectiveFilters = {
           ...filters,
-          startDate: fiveDaysAgo.toISOString().split('T')[0] as any,
+          startDate: fiveDaysAgo.toISOString().split('T')[0],
         };
         
-        // Use supabase service for production data
-        const response = await supabaseSightingsService.getSightings(effectiveFilters);
-        console.log('Supabase API response:', response);
+        // Use sightings service
+        const response = await sightingsService.getSightings(effectiveFilters);
+        console.log('Sightings API response:', response);
         
-        // Sightings are already transformed by supabaseSightingsService
+        // Transform sightings - filter to last 5 days on frontend too
         const transformedSightings = response.sightings
           .filter(s => {
             if (!s.date && !s.sighting_date && !s.created_at) return false;
@@ -48,7 +49,7 @@ export const MapContainer: React.FC = () => {
           .filter(s => s !== null);
         
         console.log(`Loaded ${transformedSightings.length} sightings (filtered to last 5 days)`);
-        setSightings(transformedSightings, response.total || transformedSightings.length);
+        setSightings(transformedSightings, transformedSightings.length);
       } catch (error) {
         console.error('Failed to fetch sightings:', error);
         setError('Failed to load sightings. Please refresh the page.');
@@ -73,6 +74,7 @@ export const MapContainer: React.FC = () => {
       
       <ZoomControl position="topright" />
       
+      {/* <GMULayer /> */}
       <SightingClusters />
     </LeafletMap>
   );

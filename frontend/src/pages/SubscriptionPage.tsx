@@ -1,345 +1,332 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useStore } from '../store/store';
-import { authService } from '../services/auth';
-import { Check, X, Loader2, CreditCard, Calendar, AlertCircle } from 'lucide-react';
-import axios from 'axios';
-import { API_URL } from '../config/constants';
+import React, { useState } from 'react';
+import { Check, X, CreditCard, Calendar, Clock, AlertCircle } from 'lucide-react';
+import { useStore } from '@/store/store';
 
-interface SubscriptionPlan {
-  id: string;
+interface SubscriptionFeature {
   name: string;
-  price: number;
-  interval: 'month' | 'year';
-  features: string[];
-  highlighted?: boolean;
+  freeTrialDays: number;
+  proValue: string;
+  description: string;
 }
 
-interface UserSubscription {
-  plan: string;
-  status: 'active' | 'canceled' | 'past_due';
-  currentPeriodEnd: string;
-  cancelAtPeriodEnd: boolean;
-}
-
-const PLANS: SubscriptionPlan[] = [
+const features: SubscriptionFeature[] = [
   {
-    id: 'free',
-    name: 'Free',
-    price: 0,
-    interval: 'month',
-    features: [
-      'View wildlife sightings',
-      'Basic map features',
-      'Single filter at a time',
-      'Last 30 days of data'
-    ]
+    name: 'Historical Data Access',
+    freeTrialDays: 7,
+    proValue: '365 days',
+    description: 'Access to wildlife sighting history'
   },
   {
-    id: 'pro_monthly',
-    name: 'Pro Monthly',
-    price: 9.99,
-    interval: 'month',
-    highlighted: true,
-    features: [
-      'Everything in Free',
-      'Advanced filtering',
-      'Multiple filters at once',
-      'Historical data (1 year)',
-      'Email notifications',
-      'Export sightings data',
-      'Priority support'
-    ]
+    name: 'Table View',
+    freeTrialDays: 7,
+    proValue: 'Unlimited',
+    description: 'View sightings in a sortable table format'
   },
   {
-    id: 'pro_yearly',
-    name: 'Pro Yearly',
-    price: 99.99,
-    interval: 'year',
-    features: [
-      'Everything in Pro Monthly',
-      'Save 17% compared to monthly',
-      'Early access to new features',
-      'API access (coming soon)'
-    ]
+    name: 'Enhanced Map Tools',
+    freeTrialDays: 7,
+    proValue: 'All tools',
+    description: 'Advanced filtering and visualization options'
+  },
+  {
+    name: 'Full Sighting Details',
+    freeTrialDays: 7,
+    proValue: 'Complete info',
+    description: 'See all details including exact locations'
+  },
+  {
+    name: 'Multi-Filtering',
+    freeTrialDays: 7,
+    proValue: 'Advanced filters',
+    description: 'Filter by multiple criteria simultaneously'
+  },
+  {
+    name: 'Saved Searches',
+    freeTrialDays: 7,
+    proValue: '50 searches',
+    description: 'Save and quickly access your favorite searches'
+  },
+  {
+    name: 'Offline GPS Data',
+    freeTrialDays: 7,
+    proValue: 'Download enabled',
+    description: 'Download sighting data for offline use'
   }
 ];
 
-export function SubscriptionPage() {
-  const navigate = useNavigate();
+export const SubscriptionPage: React.FC = () => {
   const { user } = useStore();
-  const [loading, setLoading] = useState(true);
-  const [processing, setProcessing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [subscription, setSubscription] = useState<UserSubscription | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  // Mock subscription status - replace with actual check
+  const isTrialing = true;
+  const trialDaysLeft = 5;
+  const currentPlan = 'free_trial';
+
+  const handleSubscribe = async () => {
     if (!user) {
-      navigate('/');
+      // Redirect to login
       return;
     }
 
-    fetchSubscription();
-  }, [user, navigate]);
-
-  const fetchSubscription = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const token = await authService.getAccessToken();
-      const response = await axios.get(`${API_URL}/api/v1/users/${user?.id}/subscription`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setSubscription(response.data);
+      // Handle subscription with Stripe
+      console.log('Subscribing to:', billingPeriod);
     } catch (error) {
-      console.error('Failed to fetch subscription:', error);
-      // Assume free plan if fetch fails
-      setSubscription(null);
+      console.error('Subscription error:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubscribe = async (planId: string) => {
-    if (planId === 'free') return;
-
-    try {
-      setProcessing(true);
-      setError(null);
-      
-      const token = await authService.getAccessToken();
-      const response = await axios.post(
-        `${API_URL}/api/v1/subscriptions/create-checkout`, 
-        { planId },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      // Redirect to Stripe checkout
-      if (response.data.checkoutUrl) {
-        window.location.href = response.data.checkoutUrl;
-      }
-    } catch (error) {
-      console.error('Failed to create checkout:', error);
-      setError('Failed to start subscription process. Please try again.');
-    } finally {
-      setProcessing(false);
-    }
-  };
-
-  const handleCancelSubscription = async () => {
-    if (!confirm('Are you sure you want to cancel your subscription? You will retain access until the end of your billing period.')) {
-      return;
-    }
-
-    try {
-      setProcessing(true);
-      setError(null);
-      
-      const token = await authService.getAccessToken();
-      await axios.post(
-        `${API_URL}/api/v1/subscriptions/cancel`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      await fetchSubscription();
-    } catch (error) {
-      console.error('Failed to cancel subscription:', error);
-      setError('Failed to cancel subscription. Please try again.');
-    } finally {
-      setProcessing(false);
-    }
-  };
-
-  const currentPlanId = subscription?.plan || 'free';
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    );
-  }
+  const monthlyPrice = 9.99;
+  const yearlyPrice = 99.99;
+  const yearlySavings = (monthlyPrice * 12) - yearlyPrice;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Plan</h1>
-          <p className="text-xl text-gray-600">
-            Unlock advanced features and support wildlife conservation
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
+            <CreditCard className="w-8 h-8 mr-3 text-green-600" />
+            Subscription
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Manage your subscription and access to premium features
           </p>
         </div>
 
-        {/* Current Subscription Status */}
-        {subscription && subscription.status === 'active' && (
-          <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <div className="flex items-center justify-between">
+        {/* Current Status */}
+        {isTrialing && (
+          <div className="mb-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+            <div className="flex items-start">
+              <AlertCircle className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" />
               <div>
-                <p className="text-blue-900 font-medium">
-                  Current Plan: {PLANS.find(p => p.id === subscription.plan)?.name}
-                </p>
-                <p className="text-sm text-blue-700">
-                  {subscription.cancelAtPeriodEnd
-                    ? `Cancels on ${new Date(subscription.currentPeriodEnd).toLocaleDateString()}`
-                    : `Renews on ${new Date(subscription.currentPeriodEnd).toLocaleDateString()}`
-                  }
+                <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">Free Trial Active</h3>
+                <p className="mt-1 text-blue-700 dark:text-blue-300">
+                  You have <strong>{trialDaysLeft} days</strong> remaining in your free trial.
+                  Subscribe now to maintain access to all features after your trial ends.
                 </p>
               </div>
-              {subscription.plan !== 'free' && !subscription.cancelAtPeriodEnd && (
-                <button
-                  onClick={handleCancelSubscription}
-                  disabled={processing}
-                  className="text-sm text-blue-600 hover:text-blue-700"
-                >
-                  Cancel Subscription
-                </button>
-              )}
             </div>
-          </div>
-        )}
-
-        {/* Error Message */}
-        {error && (
-          <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
-            <AlertCircle className="w-5 h-5 text-red-500 mr-2 flex-shrink-0" />
-            <span className="text-red-700">{error}</span>
           </div>
         )}
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {PLANS.map((plan) => {
-            const isCurrentPlan = plan.id === currentPlanId;
-            const isDowngrade = PLANS.findIndex(p => p.id === plan.id) < PLANS.findIndex(p => p.id === currentPlanId);
-            
-            return (
-              <div
-                key={plan.id}
-                className={`bg-white rounded-lg shadow-lg overflow-hidden ${
-                  plan.highlighted ? 'ring-2 ring-blue-500' : ''
+        <div className="mb-12">
+          <div className="flex justify-center mb-8">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-1 inline-flex">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  billingPeriod === 'monthly'
+                    ? 'bg-green-600 text-white'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
                 }`}
               >
-                {plan.highlighted && (
-                  <div className="bg-blue-500 text-white text-center py-2 text-sm font-medium">
-                    Most Popular
-                  </div>
-                )}
-                
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                  
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-gray-900">
-                      ${plan.price}
-                    </span>
-                    <span className="text-gray-600">/{plan.interval}</span>
-                  </div>
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod('yearly')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  billingPeriod === 'yearly'
+                    ? 'bg-green-600 text-white'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+              >
+                Yearly
+                <span className="ml-1 text-xs">Save ${yearlySavings.toFixed(0)}</span>
+              </button>
+            </div>
+          </div>
 
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {isCurrentPlan ? (
-                    <button
-                      disabled
-                      className="w-full py-3 px-4 bg-gray-100 text-gray-600 rounded-lg font-medium cursor-not-allowed"
-                    >
-                      Current Plan
-                    </button>
-                  ) : isDowngrade ? (
-                    <button
-                      disabled
-                      className="w-full py-3 px-4 bg-gray-100 text-gray-600 rounded-lg font-medium cursor-not-allowed"
-                    >
-                      Downgrade Not Available
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleSubscribe(plan.id)}
-                      disabled={processing}
-                      className={`w-full py-3 px-4 rounded-lg font-medium transition-colors ${
-                        plan.highlighted
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : 'bg-gray-900 text-white hover:bg-gray-800'
-                      } disabled:opacity-50 disabled:cursor-not-allowed`}
-                    >
-                      {processing ? (
-                        <span className="flex items-center justify-center">
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Processing...
-                        </span>
-                      ) : (
-                        'Upgrade Now'
-                      )}
-                    </button>
-                  )}
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Free Plan */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Free</h3>
+              <div className="mb-4">
+                <span className="text-3xl font-bold">$0</span>
+                <span className="text-gray-600 dark:text-gray-400">/month</span>
               </div>
-            );
-          })}
-        </div>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">Basic access to wildlife sightings</p>
+              
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">View recent sightings (5 days)</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Basic map view</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Simple filtering</span>
+                </li>
+                <li className="flex items-start">
+                  <X className="w-5 h-5 text-gray-400 mr-2 flex-shrink-0" />
+                  <span className="text-gray-500 dark:text-gray-400">Historical data</span>
+                </li>
+                <li className="flex items-start">
+                  <X className="w-5 h-5 text-gray-400 mr-2 flex-shrink-0" />
+                  <span className="text-gray-500 dark:text-gray-400">Advanced features</span>
+                </li>
+              </ul>
 
-        {/* FAQ Section */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Frequently Asked Questions
-          </h2>
-          
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Can I cancel my subscription anytime?
-              </h3>
-              <p className="text-gray-600">
-                Yes! You can cancel your subscription at any time. You'll retain access to Pro features until the end of your billing period.
-              </p>
+              <button
+                disabled
+                className="w-full py-2 px-4 bg-gray-200 text-gray-500 font-medium rounded-md cursor-not-allowed"
+              >
+                Current Plan
+              </button>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                What payment methods do you accept?
-              </h3>
-              <p className="text-gray-600">
-                We accept all major credit cards and debit cards through our secure payment processor, Stripe.
-              </p>
-            </div>
+            {/* Pro Plan */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-2 border-green-500 relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  Recommended
+                </span>
+              </div>
+              
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Pro</h3>
+              <div className="mb-4">
+                <span className="text-3xl font-bold">
+                  ${billingPeriod === 'monthly' ? monthlyPrice : yearlyPrice}
+                </span>
+                <span className="text-gray-600 dark:text-gray-400">
+                  /{billingPeriod === 'monthly' ? 'month' : 'year'}
+                </span>
+                {billingPeriod === 'yearly' && (
+                  <p className="text-sm text-green-600 mt-1">
+                    Save ${yearlySavings.toFixed(0)} per year
+                  </p>
+                )}
+              </div>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">Full access to all features</p>
+              
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">365 days of historical data</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Table view & data export</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Enhanced map tools</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Multi-filtering & saved searches</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Download for offline GPS</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Email notifications</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300">Priority support</span>
+                </li>
+              </ul>
 
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Is my payment information secure?
-              </h3>
-              <p className="text-gray-600">
-                Absolutely. We use Stripe for payment processing and never store your credit card information on our servers.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                How does the yearly plan save money?
-              </h3>
-              <p className="text-gray-600">
-                The yearly plan costs $99.99 per year, which works out to about $8.33 per month - saving you 17% compared to the monthly plan.
-              </p>
+              <button
+                onClick={handleSubscribe}
+                disabled={loading}
+                className="w-full py-2 px-4 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Processing...' : 'Subscribe to Pro'}
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Feature Comparison */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <div className="p-6 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Feature Comparison</h2>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              See what's included in each plan
+            </p>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Feature
+                  </th>
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Free Trial
+                    <span className="block text-xs font-normal normal-case mt-1">
+                      ({trialDaysLeft} days left)
+                    </span>
+                  </th>
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Free
+                  </th>
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Pro
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                {features.map((feature) => (
+                  <tr key={feature.name}>
+                    <td className="px-6 py-4">
+                      <div>
+                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          {feature.name}
+                        </div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {feature.description}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <Check className="w-5 h-5 text-green-500 mx-auto" />
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {feature.freeTrialDays} days
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <X className="w-5 h-5 text-gray-400 mx-auto" />
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <Check className="w-5 h-5 text-green-500 mx-auto" />
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {feature.proValue}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* FAQ */}
         <div className="mt-12 text-center">
-          <button
-            onClick={() => navigate('/')}
-            className="text-blue-600 hover:text-blue-700"
-          >
-            ← Back to Map
-          </button>
+          <p className="text-gray-600 dark:text-gray-400">
+            Questions about billing? Contact us at{' '}
+            <a href="mailto:support@wildlifesightings.com" className="text-green-600 hover:text-green-700">
+              support@wildlifesightings.com
+            </a>
+          </p>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            All payments are processed securely through Stripe. Cancel anytime.
+          </p>
         </div>
       </div>
     </div>
   );
-}
+};

@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { supabase } from './auth';
-import { API_URL } from '@/config/constants';
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: API_URL ? `${API_URL}/api/v1` : '/api/v1',
+  baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api/v1` : '/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },

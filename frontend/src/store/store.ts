@@ -12,6 +12,7 @@ interface AppState {
   error: string | null;
   isSidebarOpen: boolean;
   isMobileMenuOpen: boolean;
+  viewMode: 'map' | 'table';
   
   // Sightings state
   sightings: Sighting[];
@@ -37,6 +38,7 @@ interface AppState {
   updateFilters: (filters: Partial<Filters>) => void;
   clearFilters: () => void;
   setPreferences: (preferences: UserPreferences | null) => void;
+  setViewMode: (mode: 'map' | 'table') => void;
 }
 
 const initialFilters: Filters = {};
@@ -51,6 +53,7 @@ export const useStore = create<AppState>()(
       error: null,
       isSidebarOpen: true,
       isMobileMenuOpen: false,
+      viewMode: 'map',
       sightings: [],
       selectedSighting: null,
       totalSightings: 0,
@@ -74,6 +77,7 @@ export const useStore = create<AppState>()(
         })),
       clearFilters: () => set({ filters: initialFilters, currentPage: 1 }),
       setPreferences: (preferences) => set({ preferences }),
+      setViewMode: (viewMode) => set({ viewMode }),
     }),
     {
       name: 'wildlife-sightings-store',

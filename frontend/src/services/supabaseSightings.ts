@@ -36,18 +36,6 @@ export const supabaseSightingsService = {
         query = query.lte('sighting_date', dateStr);
       }
 
-      // Apply source filter
-      if (filters.source) {
-        query = query.ilike('source_type', `%${filters.source}%`);
-      }
-
-      // Apply location filter - search in location_name
-      if (filters.lat && filters.lon && filters.radiusMiles) {
-        // For now, just filter by location name if provided
-        // Full spatial queries would require PostGIS functions
-        console.log('Location radius filter not yet implemented for Supabase');
-      }
-
       // Order by date descending and limit
       query = query.order('sighting_date', { ascending: false }).limit(500);
 
