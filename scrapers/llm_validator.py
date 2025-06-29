@@ -54,7 +54,7 @@ class LLMValidator:
                 # Simple initialization with just API key
                 self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
                 self.llm_available = True
-                self.model = "gpt-4o-mini"  # Better model for geocoding
+                self.model = "gpt-4.1-nano-2025-04-14"  # Faster model with good accuracy
                 logger.info(f"LLM validation enabled with OpenAI using model: {self.model}")
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {e}")
@@ -213,7 +213,7 @@ class LLMValidator:
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-4o-mini",  # Use mini model for better geocoding
+                model=self.model,
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
@@ -248,6 +248,10 @@ class LLMValidator:
                 end = result.find("```", start)
                 if end > start:
                     result = result[start:end].strip()
+            
+            # Remove comments from JSON (nano model adds them)
+            import re
+            result = re.sub(r'//.*$', '', result, flags=re.MULTILINE)
             
             # Parse JSON response
             data = json.loads(result)
@@ -346,7 +350,7 @@ class LLMValidator:
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-4o-mini",  # Use mini model for better geocoding
+                model=self.model,
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor for Colorado hunting/outdoor forums. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
@@ -369,6 +373,10 @@ class LLMValidator:
                 end = result.find("```", start)
                 if end > start:
                     result = result[start:end].strip()
+            
+            # Remove comments from JSON (nano model adds them)
+            import re
+            result = re.sub(r'//.*$', '', result, flags=re.MULTILINE)
             
             # Parse JSON response
             data = json.loads(result)

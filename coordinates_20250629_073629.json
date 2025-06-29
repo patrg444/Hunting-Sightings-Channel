@@ -1,0 +1,2608 @@
+{
+  "processed": 391,
+  "successful": 289,
+  "timestamp": "20250629_073629",
+  "sightings": [
+    {
+      "id": "1826c44e-41bf-4afe-8557-dbe272237df6",
+      "location_name": "Bear Creek Falls, Ouray",
+      "species": "bear",
+      "coordinates": [
+        38.055,
+        -107.679
+      ]
+    },
+    {
+      "id": "b961b289-cfd9-4bf3-a0e1-ac571731aafb",
+      "location_name": "Bear Peak",
+      "species": "bear",
+      "coordinates": [
+        40.005,
+        -105.297
+      ]
+    },
+    {
+      "id": "b1f565de-035c-4fc2-89fe-110d442e8d31",
+      "location_name": "Elk Falls",
+      "species": "elk",
+      "coordinates": [
+        39.582,
+        -106.043
+      ]
+    },
+    {
+      "id": "4ade29a5-adbc-4aca-9958-64609bcb309b",
+      "location_name": "Trail Ridge Road, Boulder Field, Ypsilon Lake, Bear Lake Rd. corridor",
+      "species": "bear",
+      "coordinates": [
+        40.3925,
+        -105.6836
+      ]
+    },
+    {
+      "id": "717b2fb4-a558-43be-8357-f9bc43ffcdae",
+      "location_name": "Staunton State Park",
+      "species": "elk",
+      "coordinates": [
+        39.53,
+        -105.232
+      ]
+    },
+    {
+      "id": "f7d12b23-3700-4f65-8c80-d9fea7adc80f",
+      "location_name": "Unnamed peak, Bear Creek, Ouray, Colorado",
+      "species": "bear",
+      "coordinates": [
+        38.0558,
+        -107.6794
+      ]
+    },
+    {
+      "id": "78ec775b-9f97-4212-af9f-722851b305db",
+      "location_name": "Quandary Peak",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "0c377305-bf51-4d5f-b328-8c8b5892cb0d",
+      "location_name": "Yellow Jacket Mine, Bear Creek, Ouray County",
+      "species": "bear",
+      "coordinates": [
+        38.0558,
+        -107.6794
+      ]
+    },
+    {
+      "id": "79a8e03d-fbe0-4942-bdd6-2e53ca1f52ab",
+      "location_name": "Crestone, Sangre de Cristo Wilderness Area, Willow Lake",
+      "species": "bear",
+      "coordinates": [
+        37.95,
+        -105.52
+      ]
+    },
+    {
+      "id": "ae5c6dd3-a28c-40f3-a21f-1d40fb44d6f0",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake, Loch",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "8463d415-9f1b-4609-8e53-18dfa9572fc3",
+      "location_name": "Quandary Peak",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "83a58c57-f482-4533-88fc-a0d444941fef",
+      "location_name": "Bear Lake area, RMNP",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "941252b5-c9bd-4f2d-bd97-7572d9e1c1b9",
+      "location_name": "Bear Lake",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "29b60e4e-1bac-4514-9994-eb9809b244a7",
+      "location_name": "Moraine Park and Sheep Lakes",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "61d41d0b-9345-4922-aee8-f292484f34b4",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake area",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "33fba9db-f6ba-4d78-a87e-60228876711e",
+      "location_name": "Estes Park and Bear Lake Road in Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "2654a9d3-6052-4f3b-9e2a-c346ccb97541",
+      "location_name": "Rocky Mountain National Park (RMNP), Estes Park, Bear Lake area",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "3bc941de-a6e4-4132-935b-a61bbccd6197",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake Area, Glacier Gorge trailhead, Moraine Park, Old Fall River Road, Trail Ridge Road, Grand Lake",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "cddb51c2-defb-43de-8ea1-d41c5e83a1f8",
+      "location_name": "Deer Mountain Trailhead near Estes Park, CO",
+      "species": "deer",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "f7c46d85-cd51-49ee-afbe-6c41c04dc6f6",
+      "location_name": "Bear Lake Corridor, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "e5b01d99-d997-44f3-bc41-c9fff5240612",
+      "location_name": "Bear Lake area, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "7e3d41b6-a6fd-4e95-afbe-463275df01f5",
+      "location_name": "Bear Lake Loop, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "fb704a13-f3f5-4f32-8cb1-67d70c2c92f7",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake area",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "3d0f3b02-fa98-4f1c-a46d-2cc7190f8ded",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "dc0aa7ae-687c-4d96-9f20-8ccad5289501",
+      "location_name": "RMNP (Rocky Mountain National Park)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "ad231b1d-a646-4fe9-a3e7-9aa62d3dd642",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "240dda0e-ae93-44cd-9afb-ea8cbb152bf9",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake area",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "628e8ed0-5d3f-4d3a-92cd-ba507aea7678",
+      "location_name": "Grand Lake entrance, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.252,
+        -105.8233
+      ]
+    },
+    {
+      "id": "308f615f-4fe9-4fe2-91d9-f18455840ddc",
+      "location_name": "Estes/RMNP (Rocky Mountain National Park)",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "9e933681-f372-404a-a92e-7543469bf780",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3428,
+        -105.6836
+      ]
+    },
+    {
+      "id": "a2ea9264-7117-42ff-b362-c95543dd8dd5",
+      "location_name": "Bear Lake/Nymph Lake in Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "aa056d94-a704-4dd1-a4a5-d750b6c05c70",
+      "location_name": "RMNP (Rocky Mountain National Park)",
+      "species": "elk",
+      "coordinates": [
+        40.3428,
+        -105.6836
+      ]
+    },
+    {
+      "id": "3effd7b1-5044-40c1-9c5b-b87f0b1266a3",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3428,
+        -105.6836
+      ]
+    },
+    {
+      "id": "9336b1f4-3b12-4326-b9d1-4a610e8999fc",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake area",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "8af852c3-de44-4b7d-b7d6-59d6b4b52e2b",
+      "location_name": "Bear Lake",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "f460b20a-2d74-4165-b8f9-f764004b77d1",
+      "location_name": "Bear Lake area, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "31ea041b-0c51-44ad-b724-0c471b29b73d",
+      "location_name": "Bear Lake to Emerald Lake trail",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "bc474ff8-c874-4381-93ba-4d702b898255",
+      "location_name": "Rocky Mountain National Park, Bear Lake and Emerald Lake trails",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "df7888ef-b15e-4e06-9527-6cfa8de31130",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "f755e356-c6fa-4e4c-a4c3-39dac302d7fb",
+      "location_name": "Bear Lake corridor, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "133a8831-83d2-4126-bead-0662c9604be2",
+      "location_name": "RMNP / Estes Park area",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "88688682-65fd-48c9-add9-ff0c4c6bf25c",
+      "location_name": "Rocky Mountain National Park, Bear Lake Corridor",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "6e79b5ce-d4da-462a-bca2-9a49901d6948",
+      "location_name": "Glacier Gorge Trailhead, RMNP",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "1468fca1-f927-46c8-af8a-f748bce39560",
+      "location_name": "Rocky Mountain National Park (RMNP), Timber Creek Campground, Bear Lake Access area",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "6076ff79-e485-45d7-8100-f94cce7931fd",
+      "location_name": "Bear Lake, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "fc862610-3e3a-4063-b972-feffd816e453",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "4c68c982-5c82-4d11-82b1-4e8a03640a06",
+      "location_name": "RMNP (Rocky Mountain National Park), Bear Lake corridor",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "e062ca01-9dd0-47a5-8fb0-23726a7e2b3c",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "e3cfc867-3548-413c-bca4-67136fdba4ea",
+      "location_name": "Bear Lake Area, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "dcca89c9-69fc-4e4e-a74a-325cc0708642",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake corridor, Emerald Lake, Lake Haiyaha, Trail Ridge Road",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "fde5b5ad-704d-4937-ac8d-edc99afac593",
+      "location_name": "Bear Lake & Trail Ridge Road, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "f271b2bc-eb5b-41a6-b0e2-3679f62a954a",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "e0eeca0a-9002-4117-a3c1-4eab2263cfc0",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "a443569e-23ac-4d1d-a300-e5256efc9c6c",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3428,
+        -105.6836
+      ]
+    },
+    {
+      "id": "6b0d2a3a-cca9-4ba8-9105-76052d782abf",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3428,
+        -105.6836
+      ]
+    },
+    {
+      "id": "1957d597-5dd8-464c-bb2b-347e908a302c",
+      "location_name": "Rocky Mountain National Park (RMNP), Bear Lake area",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "850f462a-dd44-469f-8bf1-339733b4b086",
+      "location_name": "Bear Lake area, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "643a3a59-ee37-4a53-a78a-c928f89111c9",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3428,
+        -105.6836
+      ]
+    },
+    {
+      "id": "413542d9-dcba-4f4e-bf30-1d3dc0395dda",
+      "location_name": "Bear Lake, RMNP",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "5a74d762-116e-4015-867d-ac5971fe2a20",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "59da5572-0268-458d-a0ae-64eb83201677",
+      "location_name": "Rocky Mountain National Park (RMNP), Estes Park, Colorado",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "2973eeb6-f0a2-4326-b8ee-a33f127ab168",
+      "location_name": "RMNP Bear Lake Corridor",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "45a47d40-9f16-4265-a46b-7be1fdbb23a5",
+      "location_name": "Glacier Basin, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "df07b2b9-b4d0-429b-96bf-b47e56fe1863",
+      "location_name": "Bear Lake Area, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "2c634d46-85d7-448e-8703-c8d8027f523e",
+      "location_name": "Bear Lake Rd., RMNP",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "d689016d-e9dc-4c89-91a2-2c92fc9cb1b2",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "f0826da7-f4fa-4292-83e5-8874b1126e96",
+      "location_name": "Estes Park / Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "5f21d624-3718-4b22-a01d-2cdf3a9a2940",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "0ce14779-7786-499d-a3ee-3cbd3c84dd9a",
+      "location_name": "Bear Lake Road, Glacier Gorge, Mills Lake, The Loch",
+      "species": "bear",
+      "coordinates": [
+        40.31,
+        -105.64
+      ]
+    },
+    {
+      "id": "4d5d5be5-77ae-464c-91b1-266b8f9cd253",
+      "location_name": "Glacier Basin, Bear Lake Rd, Beaver Meadows gate, Bear Lake Trailhead",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "52b71a0c-d803-4e94-bfd5-1bcd21e578cc",
+      "location_name": "Bear Lake area, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "3e0c5b20-a8d2-4fb5-a0fc-24b4513b6213",
+      "location_name": "Rocky Mountain National Park",
+      "species": "elk",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "8e25b560-b4c9-4b1d-ac21-6e0f02a68624",
+      "location_name": "Deer Mountain Trailhead near Estes Park",
+      "species": "deer",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "5636689a-17cb-40ee-96ac-e1158d5d208c",
+      "location_name": "Bear Lake trailhead, Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "b7eb8066-f431-44f4-900f-08d49f7e792e",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "db3ddbf9-00a1-43ed-8a0e-9d4b47827ecc",
+      "location_name": "Rocky Mountain National Park",
+      "species": "elk",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "d5dfb086-8c49-4dbd-ab06-eaf59529f57a",
+      "location_name": "Estes Park / Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "3f81666c-fd81-4efd-b18b-2b54799f486c",
+      "location_name": "Bear Lake Road / Glacier Basin",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "eb47b67a-73b7-45e5-afb6-f78f0f6149d7",
+      "location_name": "Rocky Mountain National Park (RMNP)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "4a3e1ab5-702c-4230-8c6e-6b5a7a530eaa",
+      "location_name": "RMNP (Rocky Mountain National Park)",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "45923489-5670-4c13-8317-9abb3e441a3e",
+      "location_name": "Incline (Manitou Incline)",
+      "species": "bear",
+      "coordinates": [
+        39.058,
+        -105.045
+      ]
+    },
+    {
+      "id": "7ddc2124-e2d7-4c0c-8e38-ddc2c30b6581",
+      "location_name": "Cheyenne Mountain, Colorado Springs",
+      "species": "bear",
+      "coordinates": [
+        38.7472,
+        -104.876
+      ]
+    },
+    {
+      "id": "9f1c35e1-6807-45f5-8add-525cb920d050",
+      "location_name": "Rock Island Trail east of Academy",
+      "species": "deer",
+      "coordinates": [
+        39.052,
+        -104.878
+      ]
+    },
+    {
+      "id": "54d07abb-8f3b-41d5-90ef-8735e7d85bf1",
+      "location_name": "the Incline (Manitou Springs area)",
+      "species": "bear",
+      "coordinates": [
+        40.0522,
+        -105.8164
+      ]
+    },
+    {
+      "id": "e8e2c161-af03-4795-b206-44dc63102783",
+      "location_name": "Colorado Springs area",
+      "species": "deer",
+      "coordinates": [
+        38.8339,
+        -104.8214
+      ]
+    },
+    {
+      "id": "2437a529-195f-416b-80c8-ed40bb72f4ec",
+      "location_name": "Georgetown",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.72,
+        -105.695
+      ]
+    },
+    {
+      "id": "85f6dfdd-739b-4215-9065-5b4d84e338aa",
+      "location_name": "Deer Mountain Trailhead near Estes Park",
+      "species": "deer",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "fb5e2ba3-51c6-474f-9bde-ae02ee9b72ff",
+      "location_name": "Near Montrose, Colorado",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.5333,
+        -107.8833
+      ]
+    },
+    {
+      "id": "7d289adf-5c05-42a5-ae65-82551d7bbef7",
+      "location_name": "Near Montrose, Colorado",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.5025,
+        -107.8766
+      ]
+    },
+    {
+      "id": "81a07123-4cc1-4770-af26-39bce3f62d51",
+      "location_name": "Boulder",
+      "species": "bear",
+      "coordinates": [
+        40.015,
+        -105.2705
+      ]
+    },
+    {
+      "id": "2e55ed9e-63ba-401c-9b37-a54820ac014c",
+      "location_name": "Deer Mountain Trailhead near Estes Park",
+      "species": "deer",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "bcd93fe5-aeda-43e3-aa51-1b778e4614dc",
+      "location_name": "Rocky Mountain National Park",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "4c1c13bc-af90-4b5c-ae97-bc8d4d283039",
+      "location_name": "mainland south of J",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "c71f6700-426e-41cc-9568-67f0b235ba24",
+      "location_name": "North Georgia",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "0845ef7e-3fc3-4efc-a27a-d42e1f65dfbb",
+      "location_name": "Leavenworth, Kansas",
+      "species": "deer",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "626d8c7a-fefc-4f83-8e28-398491baddde",
+      "location_name": "Big Cypress",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "e1bbe373-8eee-4c92-b8b5-1c44441d006b",
+      "location_name": "Beulah, CO",
+      "species": "bear",
+      "coordinates": [
+        38.8017,
+        -104.7114
+      ]
+    },
+    {
+      "id": "f260671f-5e69-4ee9-a495-7dd562bbe456",
+      "location_name": "backyard in Colorado",
+      "species": "deer",
+      "coordinates": [
+        39.1911,
+        -106.8175
+      ]
+    },
+    {
+      "id": "04dba490-e91d-4724-8052-7ec30c2f598d",
+      "location_name": "Adirondacks",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "a705ed5c-22ba-47ed-bbc7-1e9d82ccfce0",
+      "location_name": "out west (Colorado)",
+      "species": "deer",
+      "coordinates": [
+        39.6403,
+        -106.3742
+      ]
+    },
+    {
+      "id": "31336799-2846-4ab5-82b2-69f3b1a10b35",
+      "location_name": "Black Forest",
+      "species": "deer",
+      "coordinates": [
+        39.6403,
+        -106.3742
+      ]
+    },
+    {
+      "id": "0c7b27f7-2547-4f0a-aada-1a0820578f2c",
+      "location_name": "new woods / public land in Colorado",
+      "species": "deer",
+      "coordinates": [
+        40.252,
+        -105.8233
+      ]
+    },
+    {
+      "id": "d337982d-cfa2-4172-af0c-9b4bddbe358b",
+      "location_name": "near a corn field in Colorado",
+      "species": "deer",
+      "coordinates": [
+        39.1911,
+        -106.8175
+      ]
+    },
+    {
+      "id": "26b78a2c-33a9-463b-87c7-006ef0f2ce6f",
+      "location_name": "Wyoming",
+      "species": "elk",
+      "coordinates": [
+        40.9942,
+        -105.8701
+      ]
+    },
+    {
+      "id": "0adc966b-c121-4152-bde7-9604e1a141c9",
+      "location_name": "Wyoming public land",
+      "species": "elk",
+      "coordinates": [
+        40.252,
+        -105.8233
+      ]
+    },
+    {
+      "id": "da24ba0a-c800-4f24-84ea-0a977f692250",
+      "location_name": "north of Aspen, Colorado",
+      "species": "elk",
+      "coordinates": [
+        39.1911,
+        -106.8175
+      ]
+    },
+    {
+      "id": "d0383247-0e19-4a78-ac9b-cefa89799587",
+      "location_name": "Douglas County, south of Denver",
+      "species": "elk",
+      "coordinates": [
+        39.53,
+        -105.0
+      ]
+    },
+    {
+      "id": "6e36aaa7-06eb-45f6-adde-8e7ab9236da4",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7474,
+        -106.3194
+      ]
+    },
+    {
+      "id": "6eeae348-3815-4f96-8bec-5795c6154ab6",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7474,
+        -106.3194
+      ]
+    },
+    {
+      "id": "543958a3-856c-4a79-86b7-a7f0188a8322",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1324,
+        -106.2874
+      ]
+    },
+    {
+      "id": "7f89fa56-83ae-47fe-aa89-9f265bbfae78",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.735,
+        -106.163
+      ]
+    },
+    {
+      "id": "bc896cf0-4174-48cc-8528-e896bf3e3746",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        38.747,
+        -106.987
+      ]
+    },
+    {
+      "id": "5c1c3791-3161-4f6c-b3d4-f12180e33ad3",
+      "location_name": "Mount Bierstadt",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.5928,
+        -105.6438
+      ]
+    },
+    {
+      "id": "d0cda9ad-797c-424b-a70d-d98466e43fe6",
+      "location_name": "Mount Massive",
+      "species": "pika",
+      "coordinates": [
+        39.72,
+        -106.445
+      ]
+    },
+    {
+      "id": "e5065f91-eade-4740-a9e8-ea19f75c076a",
+      "location_name": "Torreys Peak",
+      "species": "elk",
+      "coordinates": [
+        39.6333,
+        -105.8833
+      ]
+    },
+    {
+      "id": "2e1d48e9-c758-4c49-ad6d-02a1141b98a0",
+      "location_name": "Longs Peak",
+      "species": "deer",
+      "coordinates": [
+        40.6844,
+        -105.5217
+      ]
+    },
+    {
+      "id": "0ee6dadc-5b2d-4428-b02a-b0483ca71d67",
+      "location_name": "Quandary Peak",
+      "species": "marmot",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "f8547d55-1b50-412e-9205-9f91cd23a828",
+      "location_name": "Grays Peak",
+      "species": "elk",
+      "coordinates": [
+        39.615,
+        -106.4454
+      ]
+    },
+    {
+      "id": "b7a7eedc-a3fa-4d45-a66f-ab72952c8670",
+      "location_name": "Grays Peak",
+      "species": "moose",
+      "coordinates": [
+        39.615,
+        -106.4454
+      ]
+    },
+    {
+      "id": "1e117933-93d0-48a5-8d67-16cac5f49f3c",
+      "location_name": "Mount Elbert",
+      "species": "elk",
+      "coordinates": [
+        39.0724,
+        -106.4454
+      ]
+    },
+    {
+      "id": "1d6ed31c-c600-47cc-a938-2558ac16c972",
+      "location_name": "Capitol Peak",
+      "species": "black_bear",
+      "coordinates": [
+        39.799,
+        -106.4454
+      ]
+    },
+    {
+      "id": "ff9f8a4e-da6b-4a62-a4d6-630c674e1eef",
+      "location_name": "Quandary Peak",
+      "species": "deer",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "eae194b9-35e8-4b77-813b-5f2d9a6c151e",
+      "location_name": "Quandary Peak",
+      "species": "deer",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "35849d4a-76a1-41ea-a8ec-e8aafab39055",
+      "location_name": "Mount Evans",
+      "species": "elk",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "f0f4d69a-5f59-432c-91ef-7a65f5e0f4bb",
+      "location_name": "Torreys Peak",
+      "species": "elk",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "f57db59d-4bf2-47fb-aaeb-648ffea564fa",
+      "location_name": "Pikes Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.8409,
+        -105.0448
+      ]
+    },
+    {
+      "id": "aa1c7690-5212-4f91-a63e-a262b00b1212",
+      "location_name": "Pikes Peak",
+      "species": "deer",
+      "coordinates": [
+        38.8409,
+        -105.0448
+      ]
+    },
+    {
+      "id": "9da3e72f-646c-4af2-974b-02c337c0cc5d",
+      "location_name": "Torreys Peak",
+      "species": "elk",
+      "coordinates": [
+        39.6322,
+        -105.8172
+      ]
+    },
+    {
+      "id": "b39fb6a4-d750-4932-a4e4-84492e7a4c9b",
+      "location_name": "Mount Bierstadt",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.5781,
+        -105.6433
+      ]
+    },
+    {
+      "id": "f47eac0d-b3f4-41ab-849e-0a02919c920f",
+      "location_name": "Pikes Peak",
+      "species": "ptarmigan",
+      "coordinates": [
+        38.8409,
+        -105.0448
+      ]
+    },
+    {
+      "id": "06e3ed09-29dc-462e-b89c-672e064312c8",
+      "location_name": "Pikes Peak",
+      "species": "marmot",
+      "coordinates": [
+        38.8409,
+        -105.0448
+      ]
+    },
+    {
+      "id": "d69c1004-ab4c-42b1-b806-866c990dbfa1",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7478,
+        -106.4684
+      ]
+    },
+    {
+      "id": "999ebcb2-9187-464d-a095-2e6526854013",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7478,
+        -106.4684
+      ]
+    },
+    {
+      "id": "e6e43442-6ed4-463c-bfde-027184674dc8",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1328,
+        -105.8262
+      ]
+    },
+    {
+      "id": "2d5483a1-cc17-4720-b4a8-563b4d076d7f",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        40.7111,
+        -105.6438
+      ]
+    },
+    {
+      "id": "94559479-3da7-4079-8fb2-f2df31bbb712",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        39.1183,
+        -106.3514
+      ]
+    },
+    {
+      "id": "cacd8dd7-969b-4cc2-9f74-e90165e0ee67",
+      "location_name": "Mount Bierstadt",
+      "species": "elk",
+      "coordinates": [
+        39.5924,
+        -105.6438
+      ]
+    },
+    {
+      "id": "782bb394-335d-4f1d-985d-ff91ee65dc77",
+      "location_name": "Mount Evans",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "87c93404-59bc-452a-bf2a-7c18fded4401",
+      "location_name": "Mount Bierstadt",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.5924,
+        -105.6438
+      ]
+    },
+    {
+      "id": "19501a91-880a-421e-8fd0-4fccd9b61a17",
+      "location_name": "Quandary Peak",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "4759e1e2-d81b-4a56-9096-9f34c7052279",
+      "location_name": "Capitol Peak",
+      "species": "black_bear",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "3221fc9a-d8ac-4f09-9ec0-4b9d90e34cd7",
+      "location_name": "Mount Massive",
+      "species": "ptarmigan",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "bd0a8f2a-5ec6-4d44-b031-273920df4d6e",
+      "location_name": "Mount Elbert",
+      "species": "black_bear",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "ad2d2cb8-56b2-454d-a314-cacb46435c06",
+      "location_name": "Mount Evans",
+      "species": "elk",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "3efaadf9-be41-406c-a838-5943fac3e434",
+      "location_name": "Mount Bierstadt",
+      "species": "moose",
+      "coordinates": [
+        39.5828,
+        -105.6702
+      ]
+    },
+    {
+      "id": "5466feed-be84-4044-aa45-f97995e0d2d8",
+      "location_name": "Mount Massive",
+      "species": "deer",
+      "coordinates": [
+        39.0659,
+        -106.4454
+      ]
+    },
+    {
+      "id": "92c5116f-a40a-4e14-859d-ab06849bc80b",
+      "location_name": "Capitol Peak",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.02,
+        -106.5167
+      ]
+    },
+    {
+      "id": "69510475-be56-410f-a91d-ebcbdd3e0413",
+      "location_name": "Torreys Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.5828,
+        -106.0592
+      ]
+    },
+    {
+      "id": "c77357a0-7fbf-47a0-b8d4-7db1e071d915",
+      "location_name": "Capitol Peak",
+      "species": "black_bear",
+      "coordinates": [
+        39.02,
+        -106.5167
+      ]
+    },
+    {
+      "id": "8e9e16aa-2ae0-4773-809f-afe8c99de930",
+      "location_name": "Mount Evans",
+      "species": "marmot",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "bbd25906-12b3-485f-97bd-da27a21b0193",
+      "location_name": "Longs Peak",
+      "species": "black_bear",
+      "coordinates": [
+        40.5844,
+        -105.6948
+      ]
+    },
+    {
+      "id": "59499c1a-502d-476d-9028-c5b3947d779c",
+      "location_name": "Mount Evans",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "486da272-ba81-4353-8160-6759f035fc5d",
+      "location_name": "Torreys Peak",
+      "species": "marmot",
+      "coordinates": [
+        39.7044,
+        -105.9389
+      ]
+    },
+    {
+      "id": "95c32693-fa2d-4902-bc5b-23b4e13fcc1c",
+      "location_name": "Grays Peak",
+      "species": "ptarmigan",
+      "coordinates": [
+        39.72,
+        -106.439
+      ]
+    },
+    {
+      "id": "abdf29f8-9add-4ec7-90c2-28c1f5fddc7f",
+      "location_name": "Capitol Peak",
+      "species": "elk",
+      "coordinates": [
+        39.935,
+        -106.058
+      ]
+    },
+    {
+      "id": "5413bfdb-cce1-4a74-972d-6257825ecb7b",
+      "location_name": "Mount Bierstadt",
+      "species": "deer",
+      "coordinates": [
+        39.578,
+        -105.668
+      ]
+    },
+    {
+      "id": "e4f6c1fe-b32b-405d-8ed8-b6f44c90cf3b",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        37.973,
+        -106.468
+      ]
+    },
+    {
+      "id": "0d50990b-6db6-4113-a636-da18a41ba77e",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        37.973,
+        -106.468
+      ]
+    },
+    {
+      "id": "f1c56c5b-69eb-4efa-aebb-d1259e9279ec",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        37.862,
+        -106.781
+      ]
+    },
+    {
+      "id": "bbbef2a4-160c-4b17-9eca-8193cbe80bda",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.8784,
+        -106.4454
+      ]
+    },
+    {
+      "id": "99caf6b5-f327-46d5-a410-1ea0b3418075",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        39.119,
+        -106.4454
+      ]
+    },
+    {
+      "id": "5e490e75-1ccc-4d82-bc59-2a4c49fd25e6",
+      "location_name": "Mount Massive",
+      "species": "black_bear",
+      "coordinates": [
+        39.6263,
+        -106.495
+      ]
+    },
+    {
+      "id": "f04bd579-19cb-4cdc-9388-a09daaa6445d",
+      "location_name": "Grays Peak",
+      "species": "deer",
+      "coordinates": [
+        39.615,
+        -106.4454
+      ]
+    },
+    {
+      "id": "df522f70-f650-441f-95d6-ff0e8e0febb0",
+      "location_name": "Mount Evans",
+      "species": "elk",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "4f27d829-bf04-439a-aa15-35f5ba3dfe0e",
+      "location_name": "Torreys Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.6322,
+        -105.8233
+      ]
+    },
+    {
+      "id": "c5727e0d-4c82-4b1d-882f-616e3d9cad5a",
+      "location_name": "Mount Bierstadt",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "9160702d-98e6-43c0-8119-51395162cd71",
+      "location_name": "Quandary Peak",
+      "species": "ptarmigan",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "4112661b-b27e-456a-ba30-5551bb693a27",
+      "location_name": "Mount Elbert",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "13d2127d-c754-4844-978f-e92c289b55ef",
+      "location_name": "Torreys Peak",
+      "species": "marmot",
+      "coordinates": [
+        39.72,
+        -105.938
+      ]
+    },
+    {
+      "id": "f29921dc-9f24-408e-aab3-1696b52661f2",
+      "location_name": "Mount Elbert",
+      "species": "elk",
+      "coordinates": [
+        39.308,
+        -106.445
+      ]
+    },
+    {
+      "id": "3e50fbe6-4af6-42ae-86df-a7500f36fefc",
+      "location_name": "Capitol Peak",
+      "species": "black_bear",
+      "coordinates": [
+        39.635,
+        -106.445
+      ]
+    },
+    {
+      "id": "5083f7e2-8073-44d1-8850-c058d054d2e9",
+      "location_name": "Mount Massive",
+      "species": "deer",
+      "coordinates": [
+        39.095,
+        -106.445
+      ]
+    },
+    {
+      "id": "eba84779-de9c-4332-b2e5-360a48ad0668",
+      "location_name": "Mount Evans",
+      "species": "deer",
+      "coordinates": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "id": "a3609875-49d9-4fa1-9ab8-8d05286fd431",
+      "location_name": "Grays Peak",
+      "species": "elk",
+      "coordinates": [
+        40.546,
+        -105.666
+      ]
+    },
+    {
+      "id": "f8e81ff5-8439-4272-954d-0182e3e6a150",
+      "location_name": "Mount Massive",
+      "species": "elk",
+      "coordinates": [
+        39.108,
+        -106.445
+      ]
+    },
+    {
+      "id": "2330905e-6f42-446a-8159-11a5c302d56e",
+      "location_name": "Mount Bierstadt",
+      "species": "moose",
+      "coordinates": [
+        39.585,
+        -105.6438
+      ]
+    },
+    {
+      "id": "415e948c-18ba-4249-a614-c4631dd44b42",
+      "location_name": "Longs Peak",
+      "species": "black_bear",
+      "coordinates": [
+        40.612,
+        -105.51
+      ]
+    },
+    {
+      "id": "2836508c-3864-422d-8880-4dde8fbc7cc2",
+      "location_name": "Mount Elbert",
+      "species": "deer",
+      "coordinates": [
+        39.308,
+        -106.445
+      ]
+    },
+    {
+      "id": "cefdce40-9f80-4106-bc7f-6980ca9550cd",
+      "location_name": "Pikes Peak",
+      "species": "elk",
+      "coordinates": [
+        38.8409,
+        -105.0448
+      ]
+    },
+    {
+      "id": "bc863fc9-64be-4dd4-8d0d-7868e776b14d",
+      "location_name": "Quandary Peak",
+      "species": "ptarmigan",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "cee29343-730a-424a-8b9e-3f65d06837a3",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7474,
+        -106.3772
+      ]
+    },
+    {
+      "id": "75a9063a-c18b-4a03-bd61-c60e88520af6",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7474,
+        -106.3772
+      ]
+    },
+    {
+      "id": "4b6e08ae-2b05-4b14-98fa-8c8baf41579d",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1324,
+        -105.6744
+      ]
+    },
+    {
+      "id": "ef34771b-6a83-49b1-8155-4219503b56a3",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.8784,
+        -106.3128
+      ]
+    },
+    {
+      "id": "79f44d24-02eb-4f9a-aa92-4d35c6aa8557",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        38.7474,
+        -106.9878
+      ]
+    },
+    {
+      "id": "2e75070d-0373-4f7a-8b9f-8b006c846dca",
+      "location_name": "Tabeguache Peak",
+      "species": "elk",
+      "coordinates": [
+        38.7474,
+        -106.9878
+      ]
+    },
+    {
+      "id": "8e28d780-e3e4-4534-b400-e7e00e079d3d",
+      "location_name": "Shavano Peak",
+      "species": "black_bear",
+      "coordinates": [
+        38.8038,
+        -106.2514
+      ]
+    },
+    {
+      "id": "15fd9efb-983e-45c3-bb38-f23e4305bdd5",
+      "location_name": "Mount Antero",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.4684,
+        -106.1774
+      ]
+    },
+    {
+      "id": "6ee32b8a-2a53-4655-8069-3d1601558ecb",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7472,
+        -106.2784
+      ]
+    },
+    {
+      "id": "a3da3c63-11a8-46b7-9448-b0485a9d0723",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7472,
+        -106.2784
+      ]
+    },
+    {
+      "id": "198432b6-aa61-4f14-95c5-effaab3f8e2c",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1322,
+        -105.8054
+      ]
+    },
+    {
+      "id": "76dd2acc-f9c1-4899-b422-30a30a2c9477",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1322,
+        -105.8054
+      ]
+    },
+    {
+      "id": "8bd4e49e-2cf9-47b1-8e82-4975fe979b7b",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        36.7644,
+        -107.8124
+      ]
+    },
+    {
+      "id": "95a579f5-45de-485b-aca1-08d757725555",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7472,
+        -106.2324
+      ]
+    },
+    {
+      "id": "9b2cbf88-d383-438b-b9ee-e05cbf87a499",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7472,
+        -106.2324
+      ]
+    },
+    {
+      "id": "9aa85c06-aad5-499e-a3c5-509a62ba0e7d",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.7468,
+        -106.2324
+      ]
+    },
+    {
+      "id": "94d83326-9020-481d-80fe-b02605bec35d",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.7468,
+        -106.2324
+      ]
+    },
+    {
+      "id": "f76576e5-cbbb-45c7-8573-4d6c0e95d58e",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        38.2692,
+        -106.4454
+      ]
+    },
+    {
+      "id": "bfbdebb6-a2f5-4eb7-bc3a-b9af56f4a8ea",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7472,
+        -106.2974
+      ]
+    },
+    {
+      "id": "c8e3cb30-d1bf-4c50-a1ca-ff14ec3e7f4f",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7472,
+        -106.2974
+      ]
+    },
+    {
+      "id": "cd7bb451-6a67-4a80-987b-7703e854fef5",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.7472,
+        -106.2974
+      ]
+    },
+    {
+      "id": "9d563d75-d1f7-4c4d-9c29-c3b2eedf997e",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.7472,
+        -106.2974
+      ]
+    },
+    {
+      "id": "948ff596-5949-46f0-bbef-f83e9325033f",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        38.2692,
+        -106.4454
+      ]
+    },
+    {
+      "id": "03fe85c0-364f-4451-b9e3-3ba99f003e07",
+      "location_name": "Mount Elbert",
+      "species": "elk",
+      "coordinates": [
+        39.3088,
+        -106.4454
+      ]
+    },
+    {
+      "id": "855b181f-fbde-4fe9-8331-d9a79f4cd6e4",
+      "location_name": "Capitol Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.02,
+        -106.795
+      ]
+    },
+    {
+      "id": "f090218c-d450-4bf9-b3f5-ecc95983cd0d",
+      "location_name": "Capitol Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.02,
+        -106.795
+      ]
+    },
+    {
+      "id": "693f91c2-709d-429d-bf93-40d90ff87250",
+      "location_name": "Capitol Peak",
+      "species": "bear",
+      "coordinates": [
+        39.02,
+        -106.795
+      ]
+    },
+    {
+      "id": "348f92c2-46c8-480d-a0c5-6245fd2d42b8",
+      "location_name": "Capitol Peak",
+      "species": "bear",
+      "coordinates": [
+        39.02,
+        -106.795
+      ]
+    },
+    {
+      "id": "5e11eeb6-7c72-4deb-ba93-fbccd44e2750",
+      "location_name": "Longs Peak",
+      "species": "elk",
+      "coordinates": [
+        40.5853,
+        -105.5267
+      ]
+    },
+    {
+      "id": "6edae3f4-4275-44a3-99cf-8b148f1073e2",
+      "location_name": "Longs Peak",
+      "species": "elk",
+      "coordinates": [
+        40.5853,
+        -105.5267
+      ]
+    },
+    {
+      "id": "de63efe1-f9dc-4ad1-8670-e887806cb81b",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7478,
+        -106.4682
+      ]
+    },
+    {
+      "id": "55239668-fc1e-4df7-b829-647ca94b66cf",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7478,
+        -106.4682
+      ]
+    },
+    {
+      "id": "1a81c787-cb65-4c1f-94b7-4731d1e0743f",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1324,
+        -105.6688
+      ]
+    },
+    {
+      "id": "0462eec7-6d68-4a86-b2b7-73bd05434e32",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        40.7111,
+        -106.4534
+      ]
+    },
+    {
+      "id": "c9991a2c-67b3-4237-aa81-2bb65cc5d962",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        38.0968,
+        -106.9434
+      ]
+    },
+    {
+      "id": "1cf8192f-ec1b-40a0-a5cd-599c25aa645c",
+      "location_name": "Mount Elbert",
+      "species": "elk",
+      "coordinates": [
+        39.1084,
+        -106.4454
+      ]
+    },
+    {
+      "id": "15daf53b-ca62-487a-8596-446278437ea1",
+      "location_name": "Capitol Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.8422,
+        -106.4454
+      ]
+    },
+    {
+      "id": "ee39cc76-849c-4aa6-aca3-b31f4b487bb0",
+      "location_name": "Capitol Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.8422,
+        -106.4454
+      ]
+    },
+    {
+      "id": "b31620b8-e650-4f55-b361-38cd361260f8",
+      "location_name": "Capitol Peak",
+      "species": "bear",
+      "coordinates": [
+        40.6364,
+        -106.4484
+      ]
+    },
+    {
+      "id": "35b09199-42b9-434b-8250-480e5cc9da8f",
+      "location_name": "Capitol Peak",
+      "species": "bear",
+      "coordinates": [
+        40.6364,
+        -106.4484
+      ]
+    },
+    {
+      "id": "560f329d-ba24-474c-95a8-14e41ac128fa",
+      "location_name": "Longs Peak",
+      "species": "elk",
+      "coordinates": [
+        40.5853,
+        -105.5178
+      ]
+    },
+    {
+      "id": "d614cb55-8dec-4363-b828-0d5668131ec4",
+      "location_name": "Longs Peak",
+      "species": "elk",
+      "coordinates": [
+        40.5853,
+        -105.5178
+      ]
+    },
+    {
+      "id": "fe5b7606-a284-49ee-9ce4-79ad0f07e830",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7478,
+        -106.4683
+      ]
+    },
+    {
+      "id": "2fac8cad-69b3-42a9-b33f-2ef74038461f",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7469,
+        -106.2688
+      ]
+    },
+    {
+      "id": "97d6e41f-50ef-4b0f-bd32-7b03542ec25f",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.2689,
+        -106.4454
+      ]
+    },
+    {
+      "id": "ae40d628-8fa7-4de0-a5c5-3f40dea8c22e",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.2689,
+        -106.4454
+      ]
+    },
+    {
+      "id": "ebcae161-7316-48ef-82aa-3729a9a90ada",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        36.7469,
+        -106.2688
+      ]
+    },
+    {
+      "id": "648ba78d-5b85-4a2b-88e7-079d9c33785e",
+      "location_name": "Capitol Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.02,
+        -106.808
+      ]
+    },
+    {
+      "id": "89b4d126-8405-48db-9deb-3bfba8b8901d",
+      "location_name": "Longs Peak",
+      "species": "elk",
+      "coordinates": [
+        40.5853,
+        -105.1712
+      ]
+    },
+    {
+      "id": "678834d3-30f8-4833-b9d6-c7546d00be04",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7474,
+        -106.4684
+      ]
+    },
+    {
+      "id": "ac42f53b-c3a0-46c5-9107-df33bb2c11bc",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7474,
+        -106.4684
+      ]
+    },
+    {
+      "id": "d7ffcf81-2e52-4f5d-af14-46552c250f34",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1324,
+        -106.287
+      ]
+    },
+    {
+      "id": "b6a1d4a1-4c15-48bc-852e-742279040443",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.1324,
+        -106.287
+      ]
+    },
+    {
+      "id": "15d3e303-18b4-4218-8323-9812f04e24e8",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        36.6364,
+        -106.5824
+      ]
+    },
+    {
+      "id": "d1409577-1cd2-46c1-9f50-5b5e16010540",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        36.7478,
+        -106.3774
+      ]
+    },
+    {
+      "id": "cca94132-ae74-4f3b-9396-b784b782153e",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7478,
+        -106.3774
+      ]
+    },
+    {
+      "id": "0c9350ff-85d0-4dc6-9ce6-75861be03b7b",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.7478,
+        -106.3774
+      ]
+    },
+    {
+      "id": "47b41b4d-fb40-4e84-9068-31a2dce295b4",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        36.7478,
+        -106.3774
+      ]
+    },
+    {
+      "id": "7d790507-d6c4-49fb-b1a6-4246750760d2",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        38.7472,
+        -106.9878
+      ]
+    },
+    {
+      "id": "d714d0fc-3fc3-463f-ae04-6dd10425ec6c",
+      "location_name": "Georgetown Lake",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.7114,
+        -106.9744
+      ]
+    },
+    {
+      "id": "2edbe1b6-81ee-450c-b8ae-5c95db6688d5",
+      "location_name": "Lake Agnes Trailhead",
+      "species": "elk",
+      "coordinates": [
+        39.095,
+        -106.985
+      ]
+    },
+    {
+      "id": "b43ca754-1ef5-44ed-b014-2f2edbd0cb86",
+      "location_name": "Emerald Lake",
+      "species": "bear",
+      "coordinates": [
+        40.31,
+        -105.612
+      ]
+    },
+    {
+      "id": "d0ae59cc-3e70-4ec7-9378-ab72894be9e7",
+      "location_name": "Bighorn Trailhead",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "63af9b4d-91e9-4cb2-9ed1-21d6a997b4a6",
+      "location_name": "Bighorn Trailhead",
+      "species": "elk",
+      "coordinates": [
+        40.9278,
+        -105.6744
+      ]
+    },
+    {
+      "id": "ea397537-569a-426a-87f6-d16c6e0a15fa",
+      "location_name": "Chicago Lakes",
+      "species": "moose",
+      "coordinates": [
+        39.255,
+        -105.585
+      ]
+    },
+    {
+      "id": "627fa2f3-d340-4c17-9182-e3aeb66184db",
+      "location_name": "Timber Creek Campground",
+      "species": "elk",
+      "coordinates": [
+        39.615,
+        -106.468
+      ]
+    },
+    {
+      "id": "f3684c4a-171e-400e-bbcc-3adbfc1f5858",
+      "location_name": "Sprague Lake",
+      "species": "deer",
+      "coordinates": [
+        40.342,
+        -105.677
+      ]
+    },
+    {
+      "id": "0cdb25c3-0f82-4fae-9639-e003a1831492",
+      "location_name": "Mayflower Gulch Trail",
+      "species": "elk",
+      "coordinates": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "id": "26458936-c4a4-4562-865c-aec388f908c3",
+      "location_name": "Mueller State Park",
+      "species": "elk",
+      "coordinates": [
+        39.6912,
+        -105.2214
+      ]
+    },
+    {
+      "id": "37156bdb-759c-4068-8aaf-83fe288827a1",
+      "location_name": "Bear Mtn Road gate",
+      "species": "bear",
+      "coordinates": [
+        40.6934,
+        -105.3194
+      ]
+    },
+    {
+      "id": "bfb1a6c2-b4bd-4d4c-aecd-0f4be8c3b8f0",
+      "location_name": "Estes Park",
+      "species": "elk",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "9841264f-b2a0-43c6-b753-7f2b94179d39",
+      "location_name": "Sheep Lakes",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "b947d225-430b-4e1a-a258-e60129670cb0",
+      "location_name": "middle St. Vrain",
+      "species": "elk",
+      "coordinates": [
+        40.25,
+        -105.6
+      ]
+    },
+    {
+      "id": "59495e2a-2c1b-4f1c-8329-b7a93a6c51c0",
+      "location_name": "Antelope Valley",
+      "species": "pronghorn",
+      "coordinates": [
+        40.252,
+        -105.8233
+      ]
+    },
+    {
+      "id": "860cdc08-5528-464e-b2b2-8696bc20f85c",
+      "location_name": "Virginia",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "69d529bd-d4ba-4bf9-8c2f-d84cb7c9d378",
+      "location_name": "south of Denver",
+      "species": "elk",
+      "coordinates": [
+        39.5692,
+        -104.9852
+      ]
+    },
+    {
+      "id": "27457a8e-1f89-4b37-92b8-3e7a3ef19ac2",
+      "location_name": "Capitol Lake",
+      "species": "bear",
+      "coordinates": [
+        40.5833,
+        -105.8833
+      ]
+    },
+    {
+      "id": "92fd7091-b0dd-4c5b-84d4-a24ca17b7150",
+      "location_name": "Elk are frequently spotted in the Capitol Creek",
+      "species": "elk",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "96931a4a-83aa-4f20-be95-8a0035370bbf",
+      "location_name": "Snowmass Mountain",
+      "species": "bear",
+      "coordinates": [
+        39.105,
+        -106.937
+      ]
+    },
+    {
+      "id": "c393c421-590a-4a31-9557-a1909315dfd2",
+      "location_name": "Snowmass Mountain",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "55853e68-7544-4d8e-bba2-1c3e939b394c",
+      "location_name": "Snowmass Mountain",
+      "species": "deer",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "id": "a742eaaa-2937-47ed-9963-536abd6b74be",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        36.7478,
+        -106.3194
+      ]
+    },
+    {
+      "id": "634d104d-4271-40eb-9388-9bbbd2fa07e6",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.2972,
+        -106.4458
+      ]
+    },
+    {
+      "id": "fd53978c-4cbb-4b80-ae0a-2de01dc14da5",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.2972,
+        -106.4458
+      ]
+    },
+    {
+      "id": "b98e7ba5-1e68-4bb1-8fed-b771d05e5907",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        36.7478,
+        -106.3194
+      ]
+    },
+    {
+      "id": "323d66fe-5ca2-425a-ac3c-1280d81262fc",
+      "location_name": "Torreys Peak, Grays Peak, Mt. Edwards, McClellan Mountain",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.6314,
+        -105.9382
+      ]
+    },
+    {
+      "id": "f819bdcf-3b04-4d96-aacf-3465c972674d",
+      "location_name": "Torreys Peak, Grays Peak, Mt. Edwards, McClellan Mountain",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.6314,
+        -105.9382
+      ]
+    },
+    {
+      "id": "ae0b303f-f7cc-4c23-9b91-89b2a7292052",
+      "location_name": "Torreys Peak, Grays Peak, Mt. Edwards, McClellan Mountain",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.6314,
+        -105.9382
+      ]
+    },
+    {
+      "id": "ff203744-4306-4ae5-ba19-14d4ee0f15ec",
+      "location_name": "Snowmass Mountain",
+      "species": "bear",
+      "coordinates": [
+        39.2044,
+        -106.475
+      ]
+    },
+    {
+      "id": "56b0448e-48bc-405a-91b8-535bc905be1b",
+      "location_name": "Snowmass Mountain",
+      "species": "bear",
+      "coordinates": [
+        39.2044,
+        -106.475
+      ]
+    },
+    {
+      "id": "9fe00114-b8d6-46d3-9b8f-7cf610cc67ea",
+      "location_name": "Mt. Sherman, Mt. Sheridan, Horseshoe Mountain, Peerless Mountain, White Ridge",
+      "species": "mountain_goat",
+      "coordinates": [
+        38.5833,
+        -105.5744
+      ]
+    },
+    {
+      "id": "ca6c2b5b-93f6-4f84-b56a-61933c694e4b",
+      "location_name": "Mt. Sherman, Mt. Sheridan, Horseshoe Mountain, Peerless Mountain, White Ridge",
+      "species": "mountain_goat",
+      "coordinates": [
+        38.5833,
+        -105.5744
+      ]
+    },
+    {
+      "id": "2057a9ea-7216-4ade-8e0c-3961ff9687e3",
+      "location_name": "Rio Grande Pyramid",
+      "species": "deer",
+      "coordinates": [
+        37.7478,
+        -106.985
+      ]
+    },
+    {
+      "id": "112d4eea-13c8-4963-8e34-e6b4ef20de7f",
+      "location_name": "Rio Grande Pyramid",
+      "species": "elk",
+      "coordinates": [
+        37.7478,
+        -106.985
+      ]
+    },
+    {
+      "id": "5ffaea9a-d6f8-46ee-91e3-2533312465ae",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        40.709,
+        -106.174
+      ]
+    },
+    {
+      "id": "7417826c-e5f7-4fca-8b89-754c6d4f8bc3",
+      "location_name": "Humboldt Peak",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        40.709,
+        -106.174
+      ]
+    },
+    {
+      "id": "276e6491-b04c-40b3-b60b-2a7cd013c4a0",
+      "location_name": "Wilson Peak",
+      "species": "elk",
+      "coordinates": [
+        38.747,
+        -106.987
+      ]
+    },
+    {
+      "id": "aad99842-63fb-4b1f-8cc4-94fdf4bb494c",
+      "location_name": "Bighorn Trailhead",
+      "species": "deer",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "d67f95f6-cf96-4ef5-a00c-548b1b288313",
+      "location_name": "Chicago Lakes",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "id": "1227ca99-3f5d-4514-9f26-dab098446bec",
+      "location_name": "West Greenwich, RI, USA (coordinates available)",
+      "species": "black_bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "8f61e59f-5eb1-4f2c-88f5-6600d4ddf28e",
+      "location_name": "r/ColoradoSprings",
+      "species": "mountain_lion",
+      "coordinates": [
+        38.8339,
+        -104.8214
+      ]
+    },
+    {
+      "id": "3757beaa-f0c8-424d-b6a3-6517992dfb7a",
+      "location_name": "r/ColoradoSprings",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        38.8339,
+        -104.8214
+      ]
+    },
+    {
+      "id": "43595cec-83b2-445f-a6fa-e75f2d87d37c",
+      "location_name": "r/ColoradoSprings",
+      "species": "deer",
+      "coordinates": [
+        38.8339,
+        -104.8214
+      ]
+    },
+    {
+      "id": "c1058e18-f0ad-4785-94ce-a61dee8a8539",
+      "location_name": "r/Denver",
+      "species": "mountain_lion",
+      "coordinates": [
+        39.7392,
+        -104.9903
+      ]
+    },
+    {
+      "id": "8c9b4ffe-52cc-4818-a38a-1f6b8cee0862",
+      "location_name": "r/Denver",
+      "species": "bighorn_sheep",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "8727774f-bfa7-4039-96ad-ea6f2209e09c",
+      "location_name": "r/Denver",
+      "species": "bear",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "b01d0761-847e-498c-b7cb-d849e1669364",
+      "location_name": "r/Denver",
+      "species": "deer",
+      "coordinates": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "id": "ec991a6d-5455-4177-a40c-8d8cd0083361",
+      "location_name": "r/coloradohikers",
+      "species": "mountain_goat",
+      "coordinates": [
+        39.1911,
+        -106.8175
+      ]
+    },
+    {
+      "id": "712f76f7-5071-4802-9401-357d6817926d",
+      "location_name": "r/coloradohikers",
+      "species": "bear",
+      "coordinates": [
+        40.3845,
+        -105.6824
+      ]
+    }
+  ]
+}

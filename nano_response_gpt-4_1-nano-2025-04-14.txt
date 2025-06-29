@@ -1,0 +1,22 @@
+[
+  {"index": 1, "coordinates": [40.3845, -105.6824]},
+  {"index": 2, "coordinates": [40.3775, -105.5253]},
+  {"index": 3, "coordinates": [39.5883, -105.6438]},
+  {"index": 4, "coordinates": [39.0708, -106.9890]},
+  {"index": 5, "coordinates": [39.3995, -106.1005]},
+  {"index": 6, "coordinates": [40.3925, -105.6836]},
+  {"index": 7, "coordinates": [40.252, -105.8233]},
+  {"index": 8, "coordinates": [37.2753, -107.8801]},
+  {"index": 9, "coordinates": [39.1911, -106.8175]},
+  {"index": 10, "coordinates": [39.6403, -106.3742]},
+  {"index": 11, "coordinates": [40.3428, -105.6836]},  // Rocky Mountain NP general area
+  {"index": 12, "coordinates": [39.5300, -105.0889]},  // Staunton State Park approximate
+  {"index": 13, "coordinates": [38.0550, -107.6680]},  // Bear Creek Falls, Ouray
+  {"index": 14, "coordinates": [37.9500, -105.5200]},  // Crestone, Sangre de Cristo Wilderness
+  {"index": 15, "coordinates": [40.3100, -105.6400]},  // Glacier Gorge Trailhead, RMNP
+  {"index": 16, "coordinates": [40.3700, -105.5300]},  // Deer Mountain Trailhead near Estes Park
+  {"index": 17, "coordinates": [39.7470, -106.9850]},  // Yellow Jacket Mine, Bear Creek
+  {"index": 18, "coordinates": [37.9500, -107.6680]},  // Unnamed peak, Bear Creek, Ouray
+  {"index": 19, "coordinates": null},  // Impossible to determine
+  {"index": 20, "coordinates": null}   // Too vague
+]
