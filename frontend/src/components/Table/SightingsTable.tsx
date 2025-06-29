@@ -1,16 +1,20 @@
 import React, { useState, useMemo } from 'react';
 import { useStore } from '@/store/store';
 import { format } from 'date-fns';
-import { ExternalLink, Info, ChevronDown, ChevronUp, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { ExternalLink, Info, ChevronDown, ChevronUp, ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { deduplicateSightings, getDuplicateStats } from '@/utils/deduplicateSightings';
 
 type SortField = 'date' | 'gmu' | 'species' | 'source';
 type SortDirection = 'asc' | 'desc';
 
 export const SightingsTable: React.FC = () => {
-  const { sightings } = useStore();
+  const { sightings, totalSightings, currentPage, setCurrentPage, isLoading } = useStore();
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
   const [sortField, setSortField] = useState<SortField>('date');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+  
+  const pageSize = 100;
+  const totalPages = Math.ceil(totalSightings / pageSize);
   
   // Valid species list (lowercase for comparison)
   const validSpecies = [
@@ -49,12 +53,6 @@ export const SightingsTable: React.FC = () => {
     return validSpecies.includes(cleaned);
   };
   
-  // Debug: Log first sighting to check URL field
-  if (sightings.length > 0) {
-    console.log('First sighting:', sightings[0]);
-    console.log('Has source_url:', sightings[0].source_url);
-    console.log('Has url:', sightings[0].url);
-  }
 
   const toggleRowExpansion = (id: string) => {
     const newExpanded = new Set(expandedRows);
@@ -75,15 +73,22 @@ export const SightingsTable: React.FC = () => {
     }
   };
 
+  // Track deduplication stats
+  const duplicateStats = useMemo(() => {
+    return sightings.length > 0 ? getDuplicateStats(sightings) : null;
+  }, [sightings]);
+
   const sortedSightings = useMemo(() => {
-    // First filter out invalid species
-    const validSightings = sightings.filter(sighting => isValidSpecies(sighting.species));
+    // First deduplicate the sightings
+    const deduplicatedSightings = deduplicateSightings(sightings);
     
-    // Log to see what's being filtered
-    console.log('Total sightings:', sightings.length, 'Valid sightings:', validSightings.length);
-    if (sightings.length > 0) {
-      console.log('Sample species:', sightings.slice(0, 5).map(s => s.species));
+    // Log duplicate stats in development
+    if (process.env.NODE_ENV === 'development' && sightings.length > 0 && duplicateStats?.duplicateCount) {
+      console.log('Duplicate stats:', duplicateStats);
     }
+    
+    // Then filter out invalid species
+    const validSightings = deduplicatedSightings.filter(sighting => isValidSpecies(sighting.species));
     
     const sorted = [...validSightings].sort((a, b) => {
       let aVal, bVal;
@@ -123,6 +128,17 @@ export const SightingsTable: React.FC = () => {
       ? <ArrowUp className="w-3 h-3 ml-1" />
       : <ArrowDown className="w-3 h-3 ml-1" />;
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-full bg-gray-50 dark:bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading sightings...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full overflow-auto bg-white dark:bg-gray-900">
@@ -277,6 +293,90 @@ export const SightingsTable: React.FC = () => {
       {sightings.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 dark:text-gray-400">No sightings found</p>
+        </div>
+      )}
+      
+      {/* Deduplication indicator */}
+      {duplicateStats && duplicateStats.duplicateCount > 0 && (
+        <div className="bg-blue-50 dark:bg-blue-900/20 border-t border-blue-200 dark:border-blue-800 px-4 py-2">
+          <p className="text-sm text-blue-700 dark:text-blue-300">
+            ℹ️ Removed {duplicateStats.duplicateCount} duplicate entries from {duplicateStats.duplicateGroups} groups
+          </p>
+        </div>
+      )}
+      
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="bg-white dark:bg-gray-900 px-4 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 sm:px-6">
+          <div className="flex-1 flex justify-between sm:hidden">
+            <button
+              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+              className="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage === totalPages}
+              className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
+          </div>
+          <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm text-gray-700 dark:text-gray-300">
+                Showing <span className="font-medium">{(currentPage - 1) * pageSize + 1}</span> to{' '}
+                <span className="font-medium">{Math.min(currentPage * pageSize, totalSightings)}</span> of{' '}
+                <span className="font-medium">{totalSightings}</span> results
+              </p>
+            </div>
+            <div>
+              <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <button
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                {[...Array(Math.min(5, totalPages))].map((_, i) => {
+                  let pageNum;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+                  
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                        currentPage === pageNum
+                          ? 'z-10 bg-green-50 dark:bg-green-900 border-green-500 text-green-600 dark:text-green-400'
+                          : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+                <button
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </nav>
+            </div>
+          </div>
         </div>
       )}
     </div>

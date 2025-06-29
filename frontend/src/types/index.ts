@@ -75,6 +75,7 @@ export interface Filters {
   lat?: number;
   lon?: number;
   radiusMiles?: number;
+  excludeNoGmu?: boolean;  // Filter out entries without GMU
 }
 
 // API Response types

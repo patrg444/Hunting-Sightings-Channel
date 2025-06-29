@@ -7,6 +7,9 @@ export const FilterSidebar: React.FC = () => {
   const { filters, updateFilters, clearFilters, isSidebarOpen, setSidebarOpen } = useStore();
   const [speciesDropdownOpen, setSpeciesDropdownOpen] = useState(false);
   const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
+  const [gmuInput, setGmuInput] = useState(
+    filters.gmuList?.join(', ') || (filters.gmu ? filters.gmu.toString() : '') || ''
+  );
   
   const speciesDropdownRef = useRef<HTMLDivElement>(null);
   const sourceDropdownRef = useRef<HTMLDivElement>(null);
@@ -20,6 +23,13 @@ export const FilterSidebar: React.FC = () => {
     'Reddit', 'iNaturalist', '14ers.com', 'Google Places'
   ];
   
+  // Sync GMU input with filters when they change externally
+  useEffect(() => {
+    setGmuInput(
+      filters.gmuList?.join(', ') || (filters.gmu ? filters.gmu.toString() : '') || ''
+    );
+  }, [filters.gmu, filters.gmuList]);
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,6 +55,45 @@ export const FilterSidebar: React.FC = () => {
     clearFilters();
   };
   
+  const handleGmuSubmit = () => {
+    const value = gmuInput.trim();
+    
+    // Allow empty input
+    if (value === '') {
+      const newFilters = { ...filters, gmu: undefined, gmuList: undefined };
+      updateFilters(newFilters);
+      return;
+    }
+    
+    // Check if input contains comma
+    if (value.includes(',')) {
+      // Parse comma-separated values
+      const gmuNumbers = value
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s && /^\d+$/.test(s))
+        .map(s => parseInt(s));
+      
+      const newFilters = { 
+        ...filters, 
+        gmuList: gmuNumbers.length > 0 ? gmuNumbers : undefined,
+        gmu: undefined 
+      };
+      updateFilters(newFilters);
+    } else {
+      // Single value
+      if (/^\d+$/.test(value)) {
+        const num = parseInt(value);
+        const newFilters = { 
+          ...filters, 
+          gmu: num,
+          gmuList: undefined 
+        };
+        updateFilters(newFilters);
+      }
+    }
+  };
+  
   const handleSpeciesToggle = (species: string) => {
     const currentList = filters.speciesList || [];
     const lowerSpecies = species.toLowerCase();
@@ -52,8 +101,12 @@ export const FilterSidebar: React.FC = () => {
       ? currentList.filter(s => s !== lowerSpecies)
       : [...currentList, lowerSpecies];
     
-    handleFilterChange('speciesList', newList.length > 0 ? newList : undefined);
-    handleFilterChange('species', undefined);
+    const newFilters = { 
+      ...filters, 
+      speciesList: newList.length > 0 ? newList : undefined,
+      species: undefined 
+    };
+    updateFilters(newFilters);
   };
   
   const handleSourceToggle = (source: string) => {
@@ -63,8 +116,12 @@ export const FilterSidebar: React.FC = () => {
       ? currentList.filter(s => s !== lowerSource)
       : [...currentList, lowerSource];
     
-    handleFilterChange('sourceList', newList.length > 0 ? newList : undefined);
-    handleFilterChange('source', undefined);
+    const newFilters = { 
+      ...filters, 
+      sourceList: newList.length > 0 ? newList : undefined,
+      source: undefined 
+    };
+    updateFilters(newFilters);
   };
 
   const toggleSidebar = () => {
@@ -103,34 +160,20 @@ export const FilterSidebar: React.FC = () => {
               <input
                 type="text"
                 placeholder="Enter GMU numbers (e.g., 12, 24, 36)"
-                value={filters.gmuList?.join(', ') || (filters.gmu ? filters.gmu.toString() : '') || ''}
+                value={gmuInput}
                 onChange={(e) => {
                   const value = e.target.value;
-                  
-                  // Allow empty input
-                  if (value === '') {
-                    handleFilterChange('gmu', undefined);
-                    handleFilterChange('gmuList', undefined);
-                    return;
+                  // Allow typing any input, including partial numbers
+                  if (value === '' || /^[\d\s,]*$/.test(value)) {
+                    setGmuInput(value);
                   }
-                  
-                  // Check if input contains comma
-                  if (value.includes(',')) {
-                    // Parse comma-separated values
-                    const gmuNumbers = value
-                      .split(',')
-                      .map(s => s.trim())
-                      .filter(s => s && /^\d+$/.test(s))
-                      .map(s => parseInt(s));
-                    handleFilterChange('gmuList', gmuNumbers.length > 0 ? gmuNumbers : undefined);
-                    handleFilterChange('gmu', undefined);
-                  } else {
-                    // Single value - allow partial input
-                    if (/^\d*$/.test(value)) {
-                      const num = value ? parseInt(value) : undefined;
-                      handleFilterChange('gmu', num);
-                      handleFilterChange('gmuList', undefined);
-                    }
+                }}
+                onBlur={handleGmuSubmit}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleGmuSubmit();
+                    e.currentTarget.blur();
                   }
                 }}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -163,8 +206,12 @@ export const FilterSidebar: React.FC = () => {
                     <div className="p-2 border-b border-gray-200 dark:border-gray-700">
                       <button
                         onClick={() => {
-                          handleFilterChange('speciesList', undefined);
-                          handleFilterChange('species', undefined);
+                          const newFilters = { 
+                            ...filters, 
+                            speciesList: undefined,
+                            species: undefined 
+                          };
+                          updateFilters(newFilters);
                         }}
                         className="w-full text-left text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1"
                       >
@@ -218,8 +265,12 @@ export const FilterSidebar: React.FC = () => {
                     <div className="p-2 border-b border-gray-200 dark:border-gray-700">
                       <button
                         onClick={() => {
-                          handleFilterChange('sourceList', undefined);
-                          handleFilterChange('source', undefined);
+                          const newFilters = { 
+                            ...filters, 
+                            sourceList: undefined,
+                            source: undefined 
+                          };
+                          updateFilters(newFilters);
                         }}
                         className="w-full text-left text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1"
                       >
@@ -248,6 +299,28 @@ export const FilterSidebar: React.FC = () => {
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* GMU Options */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 select-none">
+                GMU Options
+              </label>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="exclude-no-gmu"
+                  checked={filters.excludeNoGmu || false}
+                  onChange={(e) => handleFilterChange('excludeNoGmu', e.target.checked)}
+                  className="rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer"
+                />
+                <label 
+                  htmlFor="exclude-no-gmu"
+                  className="text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer"
+                >
+                  Only show entries with GMU assigned
+                </label>
+              </div>
             </div>
 
             {/* Date Range */}
