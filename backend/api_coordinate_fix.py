@@ -68,7 +68,8 @@ def get_sightings(
     source_list: Optional[str] = None,  # Comma-separated list of sources
     lat: Optional[float] = None,
     lon: Optional[float] = None,
-    radius_miles: Optional[float] = None
+    radius_miles: Optional[float] = None,
+    exclude_no_gmu: bool = False
 ):
     """Get sightings with proper coordinate transformation."""
     
@@ -148,6 +149,10 @@ def get_sightings(
                 )
             """
             params.extend([lon, lat, radius_meters])
+        
+        # Exclude entries without GMU if requested
+        if exclude_no_gmu:
+            query += " AND gmu_unit IS NOT NULL"
         
         # Count total
         count_query = f"SELECT COUNT(*) FROM ({query}) as counted"

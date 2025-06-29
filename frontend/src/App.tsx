@@ -11,9 +11,13 @@ import { AccountPage } from './pages/AccountPage';
 import { SubscriptionPage } from './pages/SubscriptionPage';
 import { useStore } from './store/store';
 import { authService } from './services/auth';
+import { useSightings } from './hooks/useSightings';
 
 function AppContent() {
   const { isLoading, setUser, isSidebarOpen, viewMode } = useStore();
+  
+  // Fetch sightings when in table view
+  useSightings();
 
   useEffect(() => {
     // Check for authenticated user on mount

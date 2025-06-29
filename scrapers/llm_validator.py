@@ -10,6 +10,9 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Optional, Any
 from pathlib import Path
 from loguru import logger
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from validators.location_validator import LocationValidator
 
 # OpenAI will be optional - fallback to keyword validation if not available
 try:
@@ -212,6 +215,8 @@ class LLMValidator:
             - "Maroon Bells" → "coordinates": [39.0708, -106.9890]
             - "Quandary Peak" → "coordinates": [39.3995, -106.1005]
             Always include coordinates for known Colorado locations. Use null only if location is completely unknown.
+            
+            {LocationValidator.get_validation_prompt_addition()}
             """
             
             self.last_api_call = time.time()
@@ -349,6 +354,8 @@ class LLMValidator:
             - "Maroon Bells" → "coordinates": [39.0708, -106.9890]
             - "Durango" → "coordinates": [37.2753, -107.8801]
             Always include coordinates for known Colorado locations. Use null only if location is completely unknown.
+            
+            {LocationValidator.get_validation_prompt_addition()}
             """
             
             self.last_api_call = time.time()
@@ -401,6 +408,31 @@ class LLMValidator:
                         sighting_data[field] = data[field]
                         if field == 'coordinates':
                             logger.info(f"✓ Added coordinates to sighting: {data[field]}")
+                
+                # Validate location assignment
+                lat = data.get('coordinates', [None, None])[0] if data.get('coordinates') else None
+                lon = data.get('coordinates', [None, None])[1] if data.get('coordinates') else None
+                validation = LocationValidator.validate_location_assignment(
+                    text=full_text,
+                    lat=lat,
+                    lon=lon,
+                    gmu=str(data.get('gmu_number')) if data.get('gmu_number') else None
+                )
+                
+                if not validation['is_valid']:
+                    logger.warning(f"Location validation failed: {validation['issues']}")
+                    # If validation fails badly, remove coordinates and GMU
+                    if validation['confidence'] < 0.2:
+                        sighting_data.pop('coordinates', None)
+                        sighting_data.pop('gmu_number', None)
+                        logger.info("Removed invalid location data from sighting")
+                
+                # Add validation metadata
+                sighting_data['location_validation'] = {
+                    'confidence': validation['confidence'],
+                    'issues': validation['issues'],
+                    'mentioned_states': validation['mentioned_states']
+                }
                 
                 logger.debug(f"Returning sighting data: {sighting_data}")
                 return sighting_data

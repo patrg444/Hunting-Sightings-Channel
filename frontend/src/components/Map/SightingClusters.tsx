@@ -7,6 +7,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import { useStore } from '../../store/store';
 import { Sighting } from '../../types';
 import { featureFlags } from '../../services/featureFlags';
+import { deduplicateSightings } from '../../utils/deduplicateSightings';
 
 // Custom icon for wildlife sightings
 const createSightingIcon = (species: string) => {
@@ -39,6 +40,9 @@ export const SightingClusters: React.FC = () => {
   const hasFullAccess = featureFlags.hasFeature('fullSightingDetails');
 
   useEffect(() => {
+    // Deduplicate sightings before displaying
+    const deduplicatedSightings = deduplicateSightings(sightings);
+    
     // Create marker cluster group
     const markers = L.markerClusterGroup({
       chunkedLoading: true,
@@ -68,9 +72,12 @@ export const SightingClusters: React.FC = () => {
     });
 
     // Add individual markers for each sighting
-    sightings.forEach((sighting: Sighting) => {
-      if (sighting.location && sighting.location.lat && sighting.location.lon) {
-        const marker = L.marker([sighting.location.lat, sighting.location.lon], {
+    deduplicatedSightings.forEach((sighting: Sighting) => {
+      const lat = sighting.location?.lat || sighting.lat;
+      const lon = sighting.location?.lon || sighting.lon;
+      
+      if (lat && lon) {
+        const marker = L.marker([lat, lon], {
           icon: createSightingIcon(sighting.species || 'Wildlife')
         });
 

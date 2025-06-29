@@ -24,6 +24,7 @@ export const sightingsService = {
     if (filters.lat) params.append('lat', filters.lat.toString());
     if (filters.lon) params.append('lon', filters.lon.toString());
     if (filters.radiusMiles) params.append('radius_miles', filters.radiusMiles.toString());
+    if (filters.excludeNoGmu) params.append('exclude_no_gmu', 'true');
     
     params.append('page', page.toString());
     params.append('page_size', pageSize.toString());

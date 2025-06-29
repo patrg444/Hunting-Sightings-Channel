@@ -8,7 +8,9 @@
     "build": "tsc && vite build",
     "build:prod": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@stripe/stripe-js": "^7.4.0",
@@ -29,6 +31,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.53.1",
     "@types/leaflet": "^1.9.8",
     "@types/leaflet.markercluster": "^1.5.5",
     "@types/react": "^18.2.55",
