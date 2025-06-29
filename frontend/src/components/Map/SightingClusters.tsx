@@ -8,7 +8,6 @@ import { useStore } from '../../store/store';
 import { Sighting } from '../../types';
 import { featureFlags } from '../../services/featureFlags';
 import { deduplicateSightings } from '../../utils/deduplicateSightings';
-import { shouldShowOnMap } from '../../config/mapFilters';
 
 // Custom icon for wildlife sightings
 const createSightingIcon = (species: string) => {
@@ -38,7 +37,6 @@ const createSightingIcon = (species: string) => {
 export const SightingClusters: React.FC = () => {
   const map = useMap();
   const sightings = useStore((state) => state.sightings);
-  const filters = useStore((state) => state.filters);
   const hasFullAccess = featureFlags.hasFeature('fullSightingDetails');
 
   useEffect(() => {
@@ -78,14 +76,8 @@ export const SightingClusters: React.FC = () => {
       const lat = sighting.location?.lat || sighting.lat;
       const lon = sighting.location?.lon || sighting.lon;
       
-      // Filter out generalized locations
-      if (lat && lon && shouldShowOnMap({
-        latitude: lat,
-        longitude: lon,
-        location_name: sighting.location_name,
-        location_accuracy_miles: sighting.location_accuracy_miles,
-        location_confidence_radius: sighting.location_confidence_radius
-      }, filters.maxLocationAccuracy, filters.enableAccuracyFilter !== false)) {
+      // Sightings are already filtered by MapContainer
+      if (lat && lon) {
         const marker = L.marker([lat, lon], {
           icon: createSightingIcon(sighting.species || 'Wildlife')
         });
@@ -156,7 +148,7 @@ export const SightingClusters: React.FC = () => {
     return () => {
       map.removeLayer(markers);
     };
-  }, [map, sightings, hasFullAccess, filters.maxLocationAccuracy, filters.enableAccuracyFilter]);
+  }, [map, sightings, hasFullAccess]);
 
   return null; // This component doesn't render anything directly
 };

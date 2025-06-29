@@ -6,6 +6,7 @@ import { SightingClusters } from './SightingClusters';
 import { SightingHeatmap } from './SightingHeatmap';
 import { useStore } from '@/store/store';
 import { sightingsService } from '@/services/sightings';
+import { shouldShowOnMap } from '@/config/mapFilters';
 import 'leaflet/dist/leaflet.css';
 
 export const MapContainer: React.FC = () => {
@@ -32,10 +33,22 @@ export const MapContainer: React.FC = () => {
         const response = await sightingsService.getSightings(filters, 1, 500);
         console.log('Map sightings API response:', response);
         
-        // Filter to only show sightings with coordinates
-        const sightingsWithCoords = response.items.filter(s => 
-          (s.location?.lat && s.location?.lon) || (s.lat && s.lon)
-        );
+        // Filter to only show sightings with coordinates and apply radius filter
+        const sightingsWithCoords = response.items.filter(s => {
+          const lat = s.location?.lat || s.lat;
+          const lon = s.location?.lon || s.lon;
+          
+          if (!lat || !lon) return false;
+          
+          // Apply radius filter if enabled
+          return shouldShowOnMap({
+            latitude: lat,
+            longitude: lon,
+            location_name: s.location_name,
+            location_accuracy_miles: s.location_accuracy_miles,
+            location_confidence_radius: s.location_confidence_radius
+          }, filters.maxLocationAccuracy, filters.enableAccuracyFilter !== false);
+        });
         
         console.log(`Loaded ${sightingsWithCoords.length} sightings with coordinates (out of ${response.items.length} total)`);
         setSightings(sightingsWithCoords, sightingsWithCoords.length);
