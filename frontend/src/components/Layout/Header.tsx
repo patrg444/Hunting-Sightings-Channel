@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { useStore } from '@/store/store';
 import { authService } from '@/services/auth';
 import { AuthModal } from '../Auth/AuthModal';
-import { User, Bell, CreditCard, LogOut, Menu, ChevronDown, Sun, Moon, Map, Table } from 'lucide-react';
+import { User, Bell, CreditCard, LogOut, Menu, ChevronDown, Sun, Moon, Map, Table, Flame, MapPin } from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const { user, setSidebarOpen, isSidebarOpen, viewMode, setViewMode } = useStore();
+  const { user, setSidebarOpen, isSidebarOpen, viewMode, setViewMode, mapVisualization, setMapVisualization } = useStore();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -80,32 +80,64 @@ export const Header: React.FC = () => {
           <div className="flex items-center space-x-4">
             {/* Map/Table Toggle - Only show on main page */}
             {location.pathname === '/' && (
-              <div className="bg-green-600 dark:bg-gray-700 rounded-lg p-1 flex">
-                <button
-                  onClick={() => setViewMode('map')}
-                  className={`px-3 py-1.5 rounded-md flex items-center gap-2 transition-colors text-sm ${
-                    viewMode === 'map'
-                      ? 'bg-white text-green-700 dark:bg-gray-200 dark:text-gray-800'
-                      : 'text-white hover:bg-green-500 dark:hover:bg-gray-600'
-                  }`}
-                  aria-label="Map view"
-                >
-                  <Map className="w-4 h-4" />
-                  <span className="font-medium">Map</span>
-                </button>
-                <button
-                  onClick={() => setViewMode('table')}
-                  className={`px-3 py-1.5 rounded-md flex items-center gap-2 transition-colors text-sm ${
-                    viewMode === 'table'
-                      ? 'bg-white text-green-700 dark:bg-gray-200 dark:text-gray-800'
-                      : 'text-white hover:bg-green-500 dark:hover:bg-gray-600'
-                  }`}
-                  aria-label="Table view"
-                >
-                  <Table className="w-4 h-4" />
-                  <span className="font-medium">Table</span>
-                </button>
-              </div>
+              <>
+                <div className="bg-green-600 dark:bg-gray-700 rounded-lg p-1 flex">
+                  <button
+                    onClick={() => setViewMode('map')}
+                    className={`px-3 py-1.5 rounded-md flex items-center gap-2 transition-colors text-sm ${
+                      viewMode === 'map'
+                        ? 'bg-white text-green-700 dark:bg-gray-200 dark:text-gray-800'
+                        : 'text-white hover:bg-green-500 dark:hover:bg-gray-600'
+                    }`}
+                    aria-label="Map view"
+                  >
+                    <Map className="w-4 h-4" />
+                    <span className="font-medium">Map</span>
+                  </button>
+                  <button
+                    onClick={() => setViewMode('table')}
+                    className={`px-3 py-1.5 rounded-md flex items-center gap-2 transition-colors text-sm ${
+                      viewMode === 'table'
+                        ? 'bg-white text-green-700 dark:bg-gray-200 dark:text-gray-800'
+                        : 'text-white hover:bg-green-500 dark:hover:bg-gray-600'
+                    }`}
+                    aria-label="Table view"
+                  >
+                    <Table className="w-4 h-4" />
+                    <span className="font-medium">Table</span>
+                  </button>
+                </div>
+                
+                {/* Heat Map Toggle - Only show when in map view */}
+                {viewMode === 'map' && (
+                  <div className="bg-green-600 dark:bg-gray-700 rounded-lg p-1 flex">
+                    <button
+                      onClick={() => setMapVisualization('markers')}
+                      className={`px-3 py-1.5 rounded-md flex items-center gap-2 transition-colors text-sm ${
+                        mapVisualization === 'markers'
+                          ? 'bg-white text-green-700 dark:bg-gray-200 dark:text-gray-800'
+                          : 'text-white hover:bg-green-500 dark:hover:bg-gray-600'
+                      }`}
+                      aria-label="Markers view"
+                    >
+                      <MapPin className="w-4 h-4" />
+                      <span className="font-medium">Markers</span>
+                    </button>
+                    <button
+                      onClick={() => setMapVisualization('heatmap')}
+                      className={`px-3 py-1.5 rounded-md flex items-center gap-2 transition-colors text-sm ${
+                        mapVisualization === 'heatmap'
+                          ? 'bg-white text-green-700 dark:bg-gray-200 dark:text-gray-800'
+                          : 'text-white hover:bg-green-500 dark:hover:bg-gray-600'
+                      }`}
+                      aria-label="Heat map view"
+                    >
+                      <Flame className="w-4 h-4" />
+                      <span className="font-medium">Heat Map</span>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
 
             {/* Dark mode toggle */}

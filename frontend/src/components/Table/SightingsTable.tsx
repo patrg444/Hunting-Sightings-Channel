@@ -296,14 +296,6 @@ export const SightingsTable: React.FC = () => {
         </div>
       )}
       
-      {/* Deduplication indicator */}
-      {duplicateStats && duplicateStats.duplicateCount > 0 && (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border-t border-blue-200 dark:border-blue-800 px-4 py-2">
-          <p className="text-sm text-blue-700 dark:text-blue-300">
-            ℹ️ Removed {duplicateStats.duplicateCount} duplicate entries from {duplicateStats.duplicateGroups} groups
-          </p>
-        </div>
-      )}
       
       {/* Pagination */}
       {totalPages > 1 && (
