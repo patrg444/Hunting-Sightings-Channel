@@ -334,6 +334,14 @@ class LLMValidator:
             - "Finally got my bull elk in unit 12 near Durango" → {{"is_sighting": true, "species": "elk", "confidence": 95, "gmu_number": 12, "location_name": "Durango", "location_confidence_radius": 8}}
             - "Saw 6 deer at the bridge on Maroon Creek trail" → {{"is_sighting": true, "species": "deer", "confidence": 100, "location_name": "Maroon Creek trail", "location_confidence_radius": 1}}
             - "Bear tracks somewhere in GMU 39" → {{"is_sighting": true, "species": "bear", "confidence": 90, "gmu_number": 39, "location_confidence_radius": 40}}
+            
+            IMPORTANT: If a location name is mentioned, you MUST provide estimated coordinates:
+            - "Bear Lake" → "coordinates": [40.3845, -105.6824]
+            - "Estes Park" → "coordinates": [40.3775, -105.5253]
+            - "Mount Evans" → "coordinates": [39.5883, -105.6438]
+            - "Maroon Bells" → "coordinates": [39.0708, -106.9890]
+            - "Durango" → "coordinates": [37.2753, -107.8801]
+            Always include coordinates for known Colorado locations. Use null only if location is completely unknown.
             """
             
             self.last_api_call = time.time()
@@ -364,6 +372,7 @@ class LLMValidator:
             
             # Parse JSON response
             data = json.loads(result)
+            logger.info(f"LLM response data: {data}")
             
             if data.get('is_sighting', False):
                 # Build response with location data
