@@ -1,75 +1,52 @@
-#!/usr/bin/env python3
-"""Test coordinate extraction for various location descriptions."""
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#\!/usr/bin/env python3
+"""
+Test that scrapers are extracting coordinates correctly.
+"""
 
-from scrapers.llm_validator import LLMValidator
+from scrapers.reddit_scraper import RedditScraper
+from scrapers.database_saver import save_sightings_to_db
+from loguru import logger
+import json
 
-def test_coordinate_extraction():
-    """Test various location descriptions."""
+def main():
+    logger.info("Testing Reddit scraper with coordinate extraction...")
     
-    validator = LLMValidator()
+    # Initialize scraper
+    scraper = RedditScraper()
     
-    test_cases = [
-        {
-            'text': "Saw elk near the Maroon Bells this morning",
-            'species': ['elk'],
-            'expected_location': 'Maroon Bells'
-        },
-        {
-            'text': "Bear sighting in downtown Estes Park by the river",
-            'species': ['bear'],
-            'expected_location': 'Estes Park'
-        },
-        {
-            'text': "Mountain goats on Mount Evans summit at 14,000 feet",
-            'species': ['mountain_goat'],
-            'expected_location': 'Mount Evans'
-        },
-        {
-            'text': "Got my bull in unit 12 near Durango",
-            'species': ['elk'],
-            'expected_location': 'Durango'
-        },
-        {
-            'text': "Deer everywhere on Trail Ridge Road in RMNP",
-            'species': ['deer'],
-            'expected_location': 'Trail Ridge Road'
-        }
-    ]
+    # Scrape recent posts
+    sightings = scraper.scrape(lookback_days=1)
+    logger.info(f"Found {len(sightings)} sightings")
     
-    print("Testing coordinate extraction from wildlife sightings:\n")
+    # Check for coordinates
+    with_coords = 0
+    with_radius = 0
     
-    success_count = 0
-    for i, test in enumerate(test_cases):
-        print(f"Test {i+1}: {test['expected_location']}")
-        print(f"Text: \"{test['text']}\"")
-        
-        result = validator.analyze_full_text_for_sighting(
-            test['text'],
-            test['species'],
-            'test_subreddit'
-        )
-        
-        if result:
-            location = result.get('location_name', 'Unknown')
-            coords = result.get('coordinates')
-            radius = result.get('location_confidence_radius', 'Unknown')
+    for s in sightings:
+        if s.get('coordinates'):
+            with_coords += 1
+        if s.get('location_confidence_radius'):
+            with_radius += 1
             
-            print(f"  Location: {location}")
-            if coords:
-                print(f"  ✓ Coordinates: {coords}")
-                success_count += 1
-            else:
-                print(f"  ✗ No coordinates")
-            print(f"  Radius: {radius} miles")
-        else:
-            print("  ✗ No result")
-        
-        print("-" * 60)
+        # Show details for first few
+        if with_coords <= 3 and s.get('coordinates'):
+            logger.info(f"\nSighting with coordinates:")
+            logger.info(f"  Species: {s.get('species')}")
+            logger.info(f"  Location: {s.get('location_name', 'Unknown')}")
+            logger.info(f"  Coordinates: {s.get('coordinates')}")
+            logger.info(f"  Radius: {s.get('location_confidence_radius')} miles")
+            logger.info(f"  Description: {s.get('raw_text', '')[:100]}...")
     
-    print(f"\nSummary: {success_count}/{len(test_cases)} successfully extracted coordinates")
+    logger.info(f"\nSummary:")
+    logger.info(f"  Total sightings: {len(sightings)}")
+    logger.info(f"  With coordinates: {with_coords} ({with_coords/len(sightings)*100:.1f}%)")
+    logger.info(f"  With radius: {with_radius} ({with_radius/len(sightings)*100:.1f}%)")
+    
+    # Save to database
+    if sightings:
+        logger.info("\nSaving to database...")
+        saved = save_sightings_to_db(sightings, "reddit_test")
+        logger.info(f"Saved {saved} sightings")
 
 if __name__ == "__main__":
-    test_coordinate_extraction()
+    main()
