@@ -8,6 +8,7 @@ import { useStore } from '../../store/store';
 import { Sighting } from '../../types';
 import { featureFlags } from '../../services/featureFlags';
 import { deduplicateSightings } from '../../utils/deduplicateSightings';
+import { shouldShowOnMap } from '../../config/mapFilters';
 
 // Custom icon for wildlife sightings
 const createSightingIcon = (species: string) => {
@@ -76,7 +77,12 @@ export const SightingClusters: React.FC = () => {
       const lat = sighting.location?.lat || sighting.lat;
       const lon = sighting.location?.lon || sighting.lon;
       
-      if (lat && lon) {
+      // Filter out generalized locations
+      if (lat && lon && shouldShowOnMap({
+        latitude: lat,
+        longitude: lon,
+        location_name: sighting.location_name
+      })) {
         const marker = L.marker([lat, lon], {
           icon: createSightingIcon(sighting.species || 'Wildlife')
         });

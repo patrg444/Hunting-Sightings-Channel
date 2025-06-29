@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useStore } from '@/store/store';
 import { authService } from '@/services/auth';
 import { AuthModal } from '../Auth/AuthModal';
-import { User, Bell, CreditCard, LogOut, Menu, ChevronDown, Sun, Moon, Map, Table, Flame, MapPin } from 'lucide-react';
+import { featureFlags } from '@/services/featureFlags';
+import { User, Bell, CreditCard, LogOut, Menu, ChevronDown, Sun, Moon, Map, Table, Flame, MapPin, Lock } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { user, setSidebarOpen, isSidebarOpen, viewMode, setViewMode, mapVisualization, setMapVisualization } = useStore();
@@ -12,6 +13,7 @@ export const Header: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const hasTableAccess = featureFlags.hasFeature('tableView');
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -95,16 +97,23 @@ export const Header: React.FC = () => {
                     <span className="font-medium">Map</span>
                   </button>
                   <button
-                    onClick={() => setViewMode('table')}
+                    onClick={() => {
+                      if (hasTableAccess) {
+                        setViewMode('table');
+                      } else {
+                        window.location.href = '/subscription';
+                      }
+                    }}
                     className={`px-3 py-1.5 rounded-md flex items-center gap-2 transition-colors text-sm ${
                       viewMode === 'table'
                         ? 'bg-white text-green-700 dark:bg-gray-200 dark:text-gray-800'
                         : 'text-white hover:bg-green-500 dark:hover:bg-gray-600'
-                    }`}
+                    } ${!hasTableAccess ? 'opacity-90' : ''}`}
                     aria-label="Table view"
                   >
                     <Table className="w-4 h-4" />
                     <span className="font-medium">Table</span>
+                    {!hasTableAccess && <Lock className="w-3.5 h-3.5" />}
                   </button>
                 </div>
                 

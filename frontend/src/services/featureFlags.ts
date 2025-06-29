@@ -11,6 +11,7 @@ interface FeatureFlags {
   enableLocationClustering: boolean;
   enableAdvancedFilters: boolean;
   fullSightingDetails: boolean;
+  tableView: boolean;
 }
 
 class FeatureFlagsService {
@@ -32,6 +33,7 @@ class FeatureFlagsService {
       enableLocationClustering: true,
       enableAdvancedFilters: true,
       fullSightingDetails: isPro,
+      tableView: isPro,
     };
   }
 

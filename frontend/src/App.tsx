@@ -12,12 +12,21 @@ import { SubscriptionPage } from './pages/SubscriptionPage';
 import { useStore } from './store/store';
 import { authService } from './services/auth';
 import { useSightings } from './hooks/useSightings';
+import { featureFlags } from './services/featureFlags';
 
 function AppContent() {
-  const { isLoading, setUser, isSidebarOpen, viewMode } = useStore();
+  const { isLoading, setUser, isSidebarOpen, viewMode, setViewMode } = useStore();
+  const hasTableAccess = featureFlags.hasFeature('tableView');
   
   // Fetch sightings when in table view
   useSightings();
+
+  useEffect(() => {
+    // If user is on table view without access, redirect to map
+    if (viewMode === 'table' && !hasTableAccess) {
+      setViewMode('map');
+    }
+  }, [viewMode, hasTableAccess, setViewMode]);
 
   useEffect(() => {
     // Check for authenticated user on mount
