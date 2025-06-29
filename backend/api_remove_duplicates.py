@@ -12,7 +12,11 @@ from datetime import datetime
 
 app = FastAPI()
 
-DB_URL = "postgresql://patrickgloria:wildlifetracker2024@localhost:5432/wildlife_sightings_db"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+DB_URL = os.getenv('DATABASE_URL', 'postgresql://localhost:5432/wildlife_sightings_db')
 
 def get_db_connection():
     """Get database connection."""
