@@ -51,15 +51,13 @@ export const supabaseSightingsService = {
         // Decode PostGIS location if present
         const coords = s.location ? decodePostGISPoint(s.location) : null;
         
-        // Only include location if accuracy is reasonable (less than 10 miles)
-        // This filters out generic GMU center points
+        // Include all locations regardless of accuracy
         const locationAccuracy = s.location_accuracy_miles;
-        const hasAccurateLocation = coords && (!locationAccuracy || locationAccuracy <= 10);
         
         return {
           id: s.id,
           species: s.species,
-          location: hasAccurateLocation ? {
+          location: coords ? {
             lat: coords.lat,
             lon: coords.lon,
             name: s.location_name || 'Unknown location'

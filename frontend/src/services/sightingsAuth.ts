@@ -1,6 +1,5 @@
 import api from './api';
 import type { Sighting, Filters } from '@/types';
-import { shouldShowOnMap } from '@/config/mapFilters';
 
 // Sightings API service with authentication and proper filtering
 export const sightingsAuthService = {
@@ -64,17 +63,6 @@ export const sightingsAuthService = {
 
 // Transform backend sighting to frontend format
 function transformSighting(sighting: any): Sighting | null {
-  // Filter out generic GMU coordinates
-  if (!shouldShowOnMap({
-    latitude: sighting.latitude || sighting.location_lat,
-    longitude: sighting.longitude || sighting.location_lon,
-    location_name: sighting.location_name,
-    location_accuracy_miles: sighting.location_accuracy_miles,
-    location_confidence_radius: sighting.location_confidence_radius
-  })) {
-    return null;
-  }
-  
   const lat = sighting.latitude || sighting.location_lat;
   const lon = sighting.longitude || sighting.location_lon;
   
