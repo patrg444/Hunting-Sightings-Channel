@@ -29,5 +29,11 @@ class Sighting(Base):
     subreddit = Column(String(100))
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     
+    # New field for location confidence
+    location_confidence_radius = Column(Float)
+    
+    # For deduplication
+    content_hash = Column(String(32), unique=True, index=True)
+    
     def __repr__(self):
         return f"<Sighting {self.species} at {self.trail_name or 'Unknown'}>"
