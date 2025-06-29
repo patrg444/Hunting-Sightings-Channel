@@ -1,0 +1,586 @@
+{
+  "timestamp": "20250629_065359",
+  "test_locations": [
+    {
+      "name": "Bear Lake, RMNP",
+      "expected": [
+        40.3845,
+        -105.6824
+      ]
+    },
+    {
+      "name": "Estes Park",
+      "expected": [
+        40.3775,
+        -105.5253
+      ]
+    },
+    {
+      "name": "Mount Evans",
+      "expected": [
+        39.5883,
+        -105.6438
+      ]
+    },
+    {
+      "name": "Maroon Bells",
+      "expected": [
+        39.0708,
+        -106.989
+      ]
+    },
+    {
+      "name": "Quandary Peak",
+      "expected": [
+        39.3995,
+        -106.1005
+      ]
+    },
+    {
+      "name": "Trail Ridge Road",
+      "expected": [
+        40.3925,
+        -105.6836
+      ]
+    },
+    {
+      "name": "Grand Lake",
+      "expected": [
+        40.252,
+        -105.8233
+      ]
+    },
+    {
+      "name": "Durango",
+      "expected": [
+        37.2753,
+        -107.8801
+      ]
+    },
+    {
+      "name": "Aspen",
+      "expected": [
+        39.1911,
+        -106.8175
+      ]
+    },
+    {
+      "name": "Vail",
+      "expected": [
+        39.6403,
+        -106.3742
+      ]
+    },
+    {
+      "name": "Rocky Mountain National Park",
+      "expected": [
+        40.3428,
+        -105.6836
+      ]
+    },
+    {
+      "name": "Staunton State Park",
+      "expected": [
+        39.406,
+        -105.2875
+      ]
+    },
+    {
+      "name": "Bear Creek Falls, Ouray",
+      "expected": [
+        38.0225,
+        -107.67
+      ]
+    },
+    {
+      "name": "Crestone, Sangre de Cristo Wilderness Area",
+      "expected": [
+        37.9989,
+        -105.6989
+      ]
+    },
+    {
+      "name": "Glacier Gorge Trailhead, RMNP",
+      "expected": [
+        40.3725,
+        -105.634
+      ]
+    },
+    {
+      "name": "Deer Mountain Trailhead near Estes Park",
+      "expected": [
+        40.3665,
+        -105.525
+      ]
+    },
+    {
+      "name": "Yellow Jacket Mine, Bear Creek",
+      "expected": null
+    },
+    {
+      "name": "Unnamed peak, Bear Creek, Ouray",
+      "expected": null
+    },
+    {
+      "name": "somewhere in the mountains",
+      "expected": null
+    },
+    {
+      "name": "near a lake",
+      "expected": null
+    }
+  ],
+  "results": [
+    {
+      "model": "gpt-4o-mini",
+      "total_tests": 20,
+      "successful_extractions": 11,
+      "failed_extractions": 9,
+      "correct_coordinates": 10,
+      "incorrect_coordinates": 1,
+      "null_when_expected": 4,
+      "coordinates_when_null_expected": 0,
+      "details": [
+        {
+          "location": "Bear Lake, RMNP",
+          "extracted": [
+            40.3845,
+            -105.6824
+          ],
+          "expected": [
+            40.3845,
+            -105.6824
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Estes Park",
+          "extracted": [
+            40.3775,
+            -105.5253
+          ],
+          "expected": [
+            40.3775,
+            -105.5253
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Mount Evans",
+          "extracted": [
+            39.5883,
+            -105.6438
+          ],
+          "expected": [
+            39.5883,
+            -105.6438
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Maroon Bells",
+          "extracted": [
+            39.0708,
+            -106.989
+          ],
+          "expected": [
+            39.0708,
+            -106.989
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Quandary Peak",
+          "extracted": [
+            39.3995,
+            -106.1005
+          ],
+          "expected": [
+            39.3995,
+            -106.1005
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Trail Ridge Road",
+          "extracted": [
+            40.3925,
+            -105.6836
+          ],
+          "expected": [
+            40.3925,
+            -105.6836
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Grand Lake",
+          "extracted": [
+            40.252,
+            -105.8233
+          ],
+          "expected": [
+            40.252,
+            -105.8233
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Durango",
+          "extracted": [
+            37.2753,
+            -107.8801
+          ],
+          "expected": [
+            37.2753,
+            -107.8801
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Aspen",
+          "extracted": [
+            39.1911,
+            -106.8175
+          ],
+          "expected": [
+            39.1911,
+            -106.8175
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Vail",
+          "extracted": [
+            39.6403,
+            -106.3742
+          ],
+          "expected": [
+            39.6403,
+            -106.3742
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Rocky Mountain National Park",
+          "extracted": null,
+          "expected": [
+            40.3428,
+            -105.6836
+          ],
+          "status": "\u2717 Failed to extract"
+        },
+        {
+          "location": "Staunton State Park",
+          "extracted": null,
+          "expected": [
+            39.406,
+            -105.2875
+          ],
+          "status": "\u2717 Failed to extract"
+        },
+        {
+          "location": "Bear Creek Falls, Ouray",
+          "extracted": null,
+          "expected": [
+            38.0225,
+            -107.67
+          ],
+          "status": "\u2717 Failed to extract"
+        },
+        {
+          "location": "Crestone, Sangre de Cristo Wilderness Area",
+          "extracted": null,
+          "expected": [
+            37.9989,
+            -105.6989
+          ],
+          "status": "\u2717 Failed to extract"
+        },
+        {
+          "location": "Glacier Gorge Trailhead, RMNP",
+          "extracted": [
+            40.2765,
+            -105.6836
+          ],
+          "expected": [
+            40.3725,
+            -105.634
+          ],
+          "status": "\u2717 Incorrect (off by 0.0960, 0.0496)"
+        },
+        {
+          "location": "Deer Mountain Trailhead near Estes Park",
+          "extracted": null,
+          "expected": [
+            40.3665,
+            -105.525
+          ],
+          "status": "\u2717 Failed to extract"
+        },
+        {
+          "location": "Yellow Jacket Mine, Bear Creek",
+          "extracted": null,
+          "expected": null,
+          "status": "\u2713 Correctly null"
+        },
+        {
+          "location": "Unnamed peak, Bear Creek, Ouray",
+          "extracted": null,
+          "expected": null,
+          "status": "\u2713 Correctly null"
+        },
+        {
+          "location": "somewhere in the mountains",
+          "extracted": null,
+          "expected": null,
+          "status": "\u2713 Correctly null"
+        },
+        {
+          "location": "near a lake",
+          "extracted": null,
+          "expected": null,
+          "status": "\u2713 Correctly null"
+        }
+      ],
+      "response_time": 5.511677980422974,
+      "success_rate": 70.0
+    },
+    {
+      "model": "gpt-4-0613",
+      "total_tests": 20,
+      "successful_extractions": 18,
+      "failed_extractions": 2,
+      "correct_coordinates": 12,
+      "incorrect_coordinates": 4,
+      "null_when_expected": 2,
+      "coordinates_when_null_expected": 2,
+      "details": [
+        {
+          "location": "Bear Lake, RMNP",
+          "extracted": [
+            40.3845,
+            -105.6824
+          ],
+          "expected": [
+            40.3845,
+            -105.6824
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Estes Park",
+          "extracted": [
+            40.3775,
+            -105.5253
+          ],
+          "expected": [
+            40.3775,
+            -105.5253
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Mount Evans",
+          "extracted": [
+            39.5883,
+            -105.6438
+          ],
+          "expected": [
+            39.5883,
+            -105.6438
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Maroon Bells",
+          "extracted": [
+            39.0708,
+            -106.989
+          ],
+          "expected": [
+            39.0708,
+            -106.989
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Quandary Peak",
+          "extracted": [
+            39.3995,
+            -106.1005
+          ],
+          "expected": [
+            39.3995,
+            -106.1005
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Trail Ridge Road",
+          "extracted": [
+            40.3925,
+            -105.6836
+          ],
+          "expected": [
+            40.3925,
+            -105.6836
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Grand Lake",
+          "extracted": [
+            40.252,
+            -105.8233
+          ],
+          "expected": [
+            40.252,
+            -105.8233
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Durango",
+          "extracted": [
+            37.2753,
+            -107.8801
+          ],
+          "expected": [
+            37.2753,
+            -107.8801
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Aspen",
+          "extracted": [
+            39.1911,
+            -106.8175
+          ],
+          "expected": [
+            39.1911,
+            -106.8175
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Vail",
+          "extracted": [
+            39.6403,
+            -106.3742
+          ],
+          "expected": [
+            39.6403,
+            -106.3742
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Rocky Mountain National Park",
+          "extracted": [
+            40.3428,
+            -105.6836
+          ],
+          "expected": [
+            40.3428,
+            -105.6836
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Staunton State Park",
+          "extracted": [
+            39.5505,
+            -105.3672
+          ],
+          "expected": [
+            39.406,
+            -105.2875
+          ],
+          "status": "\u2717 Incorrect (off by 0.1445, 0.0797)"
+        },
+        {
+          "location": "Bear Creek Falls, Ouray",
+          "extracted": [
+            38.0228,
+            -107.6714
+          ],
+          "expected": [
+            38.0225,
+            -107.67
+          ],
+          "status": "\u2713 Correct"
+        },
+        {
+          "location": "Crestone, Sangre de Cristo Wilderness Area",
+          "extracted": [
+            37.9947,
+            -105.6068
+          ],
+          "expected": [
+            37.9989,
+            -105.6989
+          ],
+          "status": "\u2717 Incorrect (off by 0.0042, 0.0921)"
+        },
+        {
+          "location": "Glacier Gorge Trailhead, RMNP",
+          "extracted": [
+            40.3104,
+            -105.6403
+          ],
+          "expected": [
+            40.3725,
+            -105.634
+          ],
+          "status": "\u2717 Incorrect (off by 0.0621, 0.0063)"
+        },
+        {
+          "location": "Deer Mountain Trailhead near Estes Park",
+          "extracted": [
+            40.3776,
+            -105.5217
+          ],
+          "expected": [
+            40.3665,
+            -105.525
+          ],
+          "status": "\u2717 Incorrect (off by 0.0111, 0.0033)"
+        },
+        {
+          "location": "Yellow Jacket Mine, Bear Creek",
+          "extracted": [
+            37.8597,
+            -107.7595
+          ],
+          "expected": null,
+          "status": "\u26a0 Coords when null expected"
+        },
+        {
+          "location": "Unnamed peak, Bear Creek, Ouray",
+          "extracted": [
+            37.8597,
+            -107.7595
+          ],
+          "expected": null,
+          "status": "\u26a0 Coords when null expected"
+        },
+        {
+          "location": "somewhere in the mountains",
+          "extracted": null,
+          "expected": null,
+          "status": "\u2713 Correctly null"
+        },
+        {
+          "location": "near a lake",
+          "extracted": null,
+          "expected": null,
+          "status": "\u2713 Correctly null"
+        }
+      ],
+      "response_time": 13.753675937652588,
+      "success_rate": 77.77777777777779
+    }
+  ]
+}
