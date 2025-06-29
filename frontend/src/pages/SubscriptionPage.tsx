@@ -81,8 +81,8 @@ export const SubscriptionPage: React.FC = () => {
     }
   };
 
-  const monthlyPrice = 9.99;
-  const yearlyPrice = 99.99;
+  const monthlyPrice = 15;
+  const yearlyPrice = 149.99;
   const yearlySavings = (monthlyPrice * 12) - yearlyPrice;
 
   return (

@@ -8,10 +8,13 @@ export const sightingsService = {
     const params = new URLSearchParams();
     
     if (filters.gmu) params.append('gmu', filters.gmu.toString());
+    if (filters.gmuList && filters.gmuList.length > 0) {
+      params.append('gmu_list', filters.gmuList.join(','));
+    }
     if (filters.species) params.append('species', filters.species);
     if (filters.source) params.append('source', filters.source);
-    if (filters.startDate) params.append('start_date', filters.startDate.toISOString());
-    if (filters.endDate) params.append('end_date', filters.endDate.toISOString());
+    if (filters.startDate) params.append('start_date', filters.startDate.toISOString().split('T')[0]);
+    if (filters.endDate) params.append('end_date', filters.endDate.toISOString().split('T')[0]);
     if (filters.lat) params.append('lat', filters.lat.toString());
     if (filters.lon) params.append('lon', filters.lon.toString());
     if (filters.radiusMiles) params.append('radius_miles', filters.radiusMiles.toString());

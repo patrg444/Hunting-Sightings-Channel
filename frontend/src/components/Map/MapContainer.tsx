@@ -25,33 +25,27 @@ export const MapContainer: React.FC = () => {
       setError(null);
       
       try {
-        // Apply date filter for free users (5 days)
-        let effectiveFilters = { ...filters };
-        const fiveDaysAgo = new Date();
-        fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+        // Apply date filter for free users (5 days) if no date filters set
+        const filtersCopy = { ...filters };
+        if (!filtersCopy.startDate && !filtersCopy.endDate) {
+          const fiveDaysAgo = new Date();
+          fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+          filtersCopy.startDate = fiveDaysAgo;
+        }
         
-        effectiveFilters = {
-          ...filters,
-          startDate: fiveDaysAgo.toISOString().split('T')[0],
-        };
+        // Fetch sightings using the service with filters
+        const response = await sightingsService.getSightings(filtersCopy, 1, 500);
+        console.log('Map sightings API response:', response);
         
-        // Use sightings service
-        const response = await sightingsService.getSightings(effectiveFilters);
-        console.log('Sightings API response:', response);
+        // Filter to only show sightings with coordinates
+        const sightingsWithCoords = response.items.filter(s => 
+          (s.location?.lat && s.location?.lon) || (s.lat && s.lon)
+        );
         
-        // Transform sightings - filter to last 5 days on frontend too
-        const transformedSightings = response.sightings
-          .filter(s => {
-            if (!s.date && !s.sighting_date && !s.created_at) return false;
-            const sightingDate = new Date(s.date || s.sighting_date || s.created_at);
-            return sightingDate >= new Date(fiveDaysAgo);
-          })
-          .filter(s => s !== null);
-        
-        console.log(`Loaded ${transformedSightings.length} sightings (filtered to last 5 days)`);
-        setSightings(transformedSightings, transformedSightings.length);
+        console.log(`Loaded ${sightingsWithCoords.length} sightings with coordinates (out of ${response.items.length} total)`);
+        setSightings(sightingsWithCoords, sightingsWithCoords.length);
       } catch (error) {
-        console.error('Failed to fetch sightings:', error);
+        console.error('Failed to fetch map sightings:', error);
         setError('Failed to load sightings. Please refresh the page.');
         setSightings([], 0);
       }
