@@ -30,53 +30,63 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     // Convert sightings to heat map data points
     // Format: [lat, lng, intensity]
     const heatData: Array<[number, number, number]> = [];
-
+    
+    // First pass: collect all data and find density hotspots
+    const locationCounts = new Map<string, number>();
+    
     sightings.forEach(sighting => {
       const lat = sighting.location?.lat || sighting.lat;
       const lon = sighting.location?.lon || sighting.lon;
       
       if (lat && lon) {
+        // Create a key for nearby locations (round to ~1km precision)
+        const key = `${lat.toFixed(2)},${lon.toFixed(2)}`;
+        locationCounts.set(key, (locationCounts.get(key) || 0) + 1);
+        
         const radius = getRadiusFromSighting(sighting);
         
-        // Intensity calculation:
-        // - Very precise (< 0.5 mile): intensity 1.0
-        // - Precise (0.5-2 miles): intensity 0.8-1.0
-        // - Good (2-5 miles): intensity 0.6-0.8
-        // - Moderate (5-15 miles): intensity 0.4-0.6
-        // - Low confidence (15-30 miles): intensity 0.2-0.4
-        // - Very low (> 30 miles): intensity 0.1-0.2
-        let intensity = 1.0;
+        // Base intensity on confidence radius
+        let baseIntensity = 1.0;
         if (radius < 0.5) {
-          intensity = 1.0;
+          baseIntensity = 1.0;
         } else if (radius < 2) {
-          intensity = 0.8 + (2 - radius) * 0.133; // 0.8 to 1.0
+          baseIntensity = 0.8 + (2 - radius) * 0.133;
         } else if (radius < 5) {
-          intensity = 0.6 + (5 - radius) * 0.067; // 0.6 to 0.8
+          baseIntensity = 0.6 + (5 - radius) * 0.067;
         } else if (radius < 15) {
-          intensity = 0.4 + (15 - radius) * 0.02; // 0.4 to 0.6
+          baseIntensity = 0.4 + (15 - radius) * 0.02;
         } else if (radius < 30) {
-          intensity = 0.2 + (30 - radius) * 0.013; // 0.2 to 0.4
+          baseIntensity = 0.2 + (30 - radius) * 0.013;
         } else {
-          intensity = Math.max(0.1, 0.2 - (radius - 30) * 0.002); // 0.1 to 0.2
+          baseIntensity = Math.max(0.1, 0.2 - (radius - 30) * 0.002);
         }
 
-        heatData.push([lat, lon, intensity]);
+        heatData.push([lat, lon, baseIntensity]);
       }
     });
+    
+    // Find the maximum density for normalization
+    const maxDensity = Math.max(...locationCounts.values());
+    
+    // Normalize intensities based on local density
+    if (maxDensity > 1) {
+      heatData.forEach((point, index) => {
+        const key = `${point[0].toFixed(2)},${point[1].toFixed(2)}`;
+        const density = locationCounts.get(key) || 1;
+        // Boost intensity for high-density areas
+        const densityBoost = 0.5 + (0.5 * (density / maxDensity));
+        heatData[index][2] = Math.min(1.0, point[2] * densityBoost);
+      });
+    }
 
-    // Calculate initial radius based on zoom
-    const getRadiusForZoom = (zoom: number) => {
-      if (zoom < 8) return 20;
-      if (zoom < 10) return 25;
-      if (zoom < 12) return 30;
-      return 35;
-    };
+    // Fixed radius that doesn't change with zoom
+    const FIXED_RADIUS = 25;
 
     // Create heat layer with custom options
     const heatLayer = L.heatLayer(heatData, {
-      radius: getRadiusForZoom(map.getZoom()),
-      blur: 20,   // Amount of blur
-      maxZoom: 10, // Zoom level where points reach maximum intensity
+      radius: FIXED_RADIUS,
+      blur: 15,   // Amount of blur
+      maxZoom: 14, // Higher value to maintain consistency across zoom levels
       max: 1.0,   // Maximum intensity
       gradient: {
         0.0: 'transparent',
@@ -92,17 +102,10 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     // Add to map
     heatLayer.addTo(map);
 
-    // Update radius on zoom
-    const updateRadius = () => {
-      const newRadius = getRadiusForZoom(map.getZoom());
-      heatLayer.setOptions({ radius: newRadius });
-    };
-
-    map.on('zoomend', updateRadius);
+    // No zoom updates needed - keeping consistent radius
 
     // Cleanup
     return () => {
-      map.off('zoomend', updateRadius);
       map.removeLayer(heatLayer);
     };
   }, [map, sightings, visible]);
