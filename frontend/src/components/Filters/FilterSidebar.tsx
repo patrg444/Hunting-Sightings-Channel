@@ -356,7 +356,7 @@ export const FilterSidebar: React.FC = () => {
                   <input
                     type="range"
                     min="1"
-                    max="50"
+                    max="150"
                     step="1"
                     value={filters.maxLocationAccuracy || 10}
                     onChange={(e) => updateFilters({ maxLocationAccuracy: parseInt(e.target.value) })}
