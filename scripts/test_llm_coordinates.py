@@ -1,63 +1,48 @@
-#!/usr/bin/env python3
-"""Test if the LLM validator now extracts coordinates."""
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#\!/usr/bin/env python3
+"""
+Test LLM validator coordinate extraction.
+"""
 
 from scrapers.llm_validator import LLMValidator
+from loguru import logger
 import json
 
-def test_llm_coordinates():
-    """Test coordinate extraction from location names."""
-    
+def test_location_extraction():
     validator = LLMValidator()
     
-    # Test cases with known Colorado locations
     test_cases = [
         {
-            'text': "Saw a huge bull elk this morning at Bear Lake in Rocky Mountain National Park. Beautiful sunrise!",
-            'species': 'elk'
+            "text": "Saw a huge black bear near Bear Lake in RMNP today\! It was crossing the trail.",
+            "keyword": "bear"
         },
         {
-            'text': "Black bear sighting near the Maroon Bells yesterday. Keep your distance!",
-            'species': 'bear'
+            "text": "6 elk spotted at the Maroon Bells trailhead parking lot this morning",
+            "keyword": "elk"
         },
         {
-            'text': "Mountain goats spotted on Mount Evans summit. Amazing to see them up close.",
-            'species': 'mountain goat'
+            "text": "Deer sighting near Estes Park visitor center",
+            "keyword": "deer"
         },
         {
-            'text': "Deer everywhere in downtown Estes Park this evening. Must have seen 20+.",
-            'species': 'deer'
+            "text": "Mountain lion tracks found on Mount Evans summit trail at 14,000 feet",
+            "keyword": "mountain lion"
         }
     ]
     
-    print("Testing LLM coordinate extraction...\n")
-    
-    for i, test in enumerate(test_cases):
-        print(f"Test {i+1}: {test['species']}")
-        print(f"Text: {test['text'][:100]}...")
+    for i, test in enumerate(test_cases, 1):
+        logger.info(f"\n=== Test Case {i} ===")
+        logger.info(f"Text: {test['text']}")
         
-        # Analyze with LLM
-        result = validator.analyze_full_text_for_sighting(
-            test['text'],
-            test['species'],
-            'test_subreddit'
-        )
+        is_valid, confidence, location_data = validator.validate_sighting_with_llm(test['text'], test['keyword'], test['keyword'])
         
-        if result:
-            print(f"✓ Location: {result.get('location_name')}")
-            if result.get('coordinates'):
-                print(f"✓ Coordinates: {result['coordinates']}")
-            else:
-                print("✗ No coordinates extracted")
-            print(f"✓ Radius: {result.get('location_confidence_radius')} miles")
+        logger.info(f"Valid: {is_valid}")
+        logger.info(f"Confidence: {confidence}")
+        logger.info(f"Location data: {json.dumps(location_data, indent=2)}")
+        
+        if location_data.get('coordinates'):
+            logger.success(f"✓ Coordinates extracted: {location_data['coordinates']}")
         else:
-            print("✗ No result from LLM")
-        
-        print("-" * 50)
-    
-    print("\nTest complete!")
+            logger.warning("✗ No coordinates extracted")
 
 if __name__ == "__main__":
-    test_llm_coordinates()
+    test_location_extraction()
