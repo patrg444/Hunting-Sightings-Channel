@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Frontend API</title>
+</head>
+<body>
+    <h1>Testing API Connection</h1>
+    <div id="results"></div>
+    
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        async function testAPI() {
+            try {
+                // Test the API directly
+                const response = await fetch('http://localhost:8001/api/v1/sightings?page=1&page_size=5');
+                const data = await response.json();
+                
+                resultsDiv.innerHTML += `<p>Direct API call: ${data.total} total sightings, got ${data.sightings.length} items</p>`;
+                
+                // Test what the frontend would call
+                const frontendUrl = 'http://localhost:8001/api/v1/sightings?page=1&page_size=20&start_date=2025-06-24';
+                const response2 = await fetch(frontendUrl);
+                const data2 = await response2.json();
+                
+                resultsDiv.innerHTML += `<p>Frontend-style call: ${data2.total} total sightings</p>`;
+                resultsDiv.innerHTML += `<pre>${JSON.stringify(data2.sightings[0], null, 2)}</pre>`;
+                
+            } catch (error) {
+                resultsDiv.innerHTML += `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+        
+        testAPI();
+    </script>
+</body>
+</html>

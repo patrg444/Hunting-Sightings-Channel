@@ -70,6 +70,14 @@ def save_sightings_to_db(sightings: List[Dict[str, Any]], source_name: str) -> i
                             'updated_at': sighting.get('updated_at')
                         }
                         
+                        # Add coordinates if available
+                        if sighting.get('coordinates'):
+                            coords = sighting['coordinates']
+                            if isinstance(coords, list) and len(coords) == 2:
+                                lat, lng = coords[0], coords[1]
+                                # PostGIS format for Supabase
+                                supabase_sighting['location'] = f'POINT({lng} {lat})'
+                        
                         # Insert to Supabase
                         response = supabase.table('sightings').insert(supabase_sighting).execute()
                         if response.data:
