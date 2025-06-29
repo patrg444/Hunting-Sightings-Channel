@@ -48,7 +48,7 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
         location_name: sighting.location_name,
         location_accuracy_miles: sighting.location_accuracy_miles,
         location_confidence_radius: sighting.location_confidence_radius
-      }, filters.maxLocationAccuracy)) {
+      }, filters.maxLocationAccuracy, filters.enableAccuracyFilter !== false)) {
         // Round to ~100m precision to group nearby sightings
         const locationKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;
         
@@ -96,14 +96,15 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     const heatLayer = L.heatLayer(heatData, {
       radius: FIXED_RADIUS,
       blur: 25,   // More blur for smoother appearance
-      maxZoom: 18, // Higher value to maintain consistency across zoom levels
+      maxZoom: 0,  // Set to 0 to prevent intensity scaling with zoom
+      max: 1.0,    // Maximum intensity value (our normalized max)
       gradient: {
         0.0: 'transparent',
-        0.2: 'rgba(0, 0, 255, 0.5)',     // Blue (low confidence)
+        0.2: 'rgba(0, 0, 255, 0.5)',     // Blue (low density)
         0.4: 'rgba(0, 255, 255, 0.6)',   // Cyan
-        0.6: 'rgba(0, 255, 0, 0.7)',     // Green (moderate confidence)
+        0.6: 'rgba(0, 255, 0, 0.7)',     // Green (moderate density)
         0.8: 'rgba(255, 255, 0, 0.8)',   // Yellow
-        1.0: 'rgba(255, 0, 0, 0.9)'      // Red (high confidence)
+        1.0: 'rgba(255, 0, 0, 0.9)'      // Red (high density)
       },
     });
 
@@ -116,7 +117,7 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     return () => {
       map.removeLayer(heatLayer);
     };
-  }, [map, sightings, visible, filters.maxLocationAccuracy]);
+  }, [map, sightings, visible, filters.maxLocationAccuracy, filters.enableAccuracyFilter]);
 
   return null;
 };
