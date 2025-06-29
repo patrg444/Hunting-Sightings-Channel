@@ -1,0 +1,25 @@
+SIGHTINGS LOCATION DATA SUMMARY
+==============================
+
+Total sightings in database: 794
+
+Sightings WITH location coordinates: 377
+- These are older sightings from 2025-06-27
+- They have PostGIS geometry data (e.g., "0101000020E6100000...")
+- Examples include: Estes Park, Rocky Mountain National Park, Bear Lake, etc.
+
+Sightings WITHOUT location coordinates: 417
+- These are the newly scraped sightings from 2025-06-28/29
+- They only have location_name text (e.g., "Bear Creek Falls, Ouray")
+- They DO have location_confidence_radius values (estimated accuracy in miles)
+
+WHY THE MAP ISN'T SHOWING SIGHTINGS:
+1. The frontend filters to show only the last 5 days of sightings
+2. All recent sightings (last 5 days) are the new ones WITHOUT coordinates
+3. The map needs lat/lng coordinates to display markers
+
+SOLUTION:
+To see sightings on the map at localhost:5173, you need to either:
+1. Geocode the new sightings' location_name values to get coordinates
+2. Or temporarily modify the frontend to show older sightings (from June 27) that have coordinates
+3. Or use a geocoding service to convert location names to coordinates on the fly

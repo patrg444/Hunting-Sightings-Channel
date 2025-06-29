@@ -54,7 +54,7 @@ class LLMValidator:
                 # Simple initialization with just API key
                 self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
                 self.llm_available = True
-                self.model = "gpt-4.1-nano-2025-04-14"  # GPT-4.1 nano
+                self.model = "gpt-4o-mini"  # Better model for geocoding
                 logger.info(f"LLM validation enabled with OpenAI using model: {self.model}")
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {e}")
@@ -201,20 +201,53 @@ class LLMValidator:
             - "saw 6 elk at the trailhead parking lot" → {{"is_sighting": true, "confidence": 100, "location_name": "trailhead parking lot", "location_confidence_radius": 0.5}}
             - "bear tracks near Aspen" → {{"is_sighting": true, "confidence": 90, "location_name": "Aspen", "location_confidence_radius": 10}}
             - "elk somewhere in GMU 12" → {{"is_sighting": true, "confidence": 85, "gmu_number": 12, "location_confidence_radius": 35}}
+            
+            IMPORTANT: If a location name is mentioned, you MUST provide estimated coordinates:
+            - "Bear Lake in RMNP" → "coordinates": [40.3845, -105.6824]
+            - "Estes Park" → "coordinates": [40.3775, -105.5253]
+            - "Mount Evans" → "coordinates": [39.5883, -105.6438]
+            - "Maroon Bells" → "coordinates": [39.0708, -106.9890]
+            - "Quandary Peak" → "coordinates": [39.3995, -106.1005]
+            Always include coordinates for known Colorado locations. Use null only if location is completely unknown.
             """
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-4.1-nano-2025-04-14",  # GPT-4.1 nano
+                model="gpt-4o-mini",  # Use mini model for better geocoding
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=150,
+                max_tokens=200,  # Increased for coordinate data
                 temperature=0.1
             )
             
-            result = response.choices[0].message.content.strip()
+            if not response or not response.choices:
+                logger.error("Empty response from OpenAI")
+                return False, 0.0, {}
+                
+            result = response.choices[0].message.content
+            if not result:
+                logger.error("Empty content in OpenAI response")
+                return False, 0.0, {}
+                
+            result = result.strip()
+            
+            # Debug: log the raw response
+            logger.debug(f"LLM raw response: {result[:500]}")
+            
+            # Extract JSON from markdown code blocks if present
+            if "```json" in result:
+                start = result.find("```json") + 7
+                end = result.find("```", start)
+                if end > start:
+                    result = result[start:end].strip()
+            elif "```" in result:
+                # Generic code block
+                start = result.find("```") + 3
+                end = result.find("```", start)
+                if end > start:
+                    result = result[start:end].strip()
             
             # Parse JSON response
             data = json.loads(result)
@@ -230,6 +263,10 @@ class LLMValidator:
                 'location_confidence_radius': data.get('location_confidence_radius'),
                 'location_description': data.get('location_description')
             }
+            
+            # Debug coordinates
+            if 'coordinates' in data:
+                logger.debug(f"Found coordinates in LLM response: {data['coordinates']}")
             
             # Remove None values
             location_data = {k: v for k, v in location_data.items() if v is not None}
@@ -301,7 +338,7 @@ class LLMValidator:
             
             self.last_api_call = time.time()
             response = self.client.chat.completions.create(
-                model="gpt-4.1-nano-2025-04-14",  # GPT-4.1 nano
+                model="gpt-4o-mini",  # Use mini model for better geocoding
                 messages=[
                     {"role": "system", "content": "You are a wildlife sighting and location extractor for Colorado hunting/outdoor forums. Always respond with valid JSON."},
                     {"role": "user", "content": prompt}
@@ -311,6 +348,19 @@ class LLMValidator:
             )
             
             result = response.choices[0].message.content.strip()
+            
+            # Extract JSON from markdown code blocks if present
+            if "```json" in result:
+                start = result.find("```json") + 7
+                end = result.find("```", start)
+                if end > start:
+                    result = result[start:end].strip()
+            elif "```" in result:
+                # Generic code block
+                start = result.find("```") + 3
+                end = result.find("```", start)
+                if end > start:
+                    result = result[start:end].strip()
             
             # Parse JSON response
             data = json.loads(result)
@@ -329,7 +379,10 @@ class LLMValidator:
                 for field in location_fields:
                     if data.get(field) is not None:
                         sighting_data[field] = data[field]
+                        if field == 'coordinates':
+                            logger.info(f"✓ Added coordinates to sighting: {data[field]}")
                 
+                logger.debug(f"Returning sighting data: {sighting_data}")
                 return sighting_data
             
             return None

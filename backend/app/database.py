@@ -9,14 +9,30 @@ from app.config import get_settings
 settings = get_settings()
 
 # Create async engine
-engine = create_async_engine(
-    settings.database_url.replace("postgresql://", "postgresql+asyncpg://"),
-    echo=settings.debug,
-    future=True,
-    pool_size=settings.database_pool_size,
-    max_overflow=settings.database_max_overflow,
-    poolclass=NullPool if settings.debug else None,
-)
+# Disable prepared statements for pgbouncer compatibility by appending to URL
+database_url = settings.database_url.replace("postgresql://", "postgresql+asyncpg://")
+if "?" in database_url:
+    database_url += "&prepared_statement_cache_size=0"
+else:
+    database_url += "?prepared_statement_cache_size=0"
+
+if settings.debug:
+    # Use NullPool for debugging (no pooling)
+    engine = create_async_engine(
+        database_url,
+        echo=settings.debug,
+        future=True,
+        poolclass=NullPool,
+    )
+else:
+    # Use connection pooling in production
+    engine = create_async_engine(
+        database_url,
+        echo=settings.debug,
+        future=True,
+        pool_size=settings.database_pool_size,
+        max_overflow=settings.database_max_overflow,
+    )
 
 # Create async session factory
 AsyncSessionLocal = sessionmaker(
