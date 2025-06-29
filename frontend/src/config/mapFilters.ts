@@ -17,20 +17,22 @@ const GENERIC_COORDINATES = [
   { lat: 39.75, lon: -104.99 },   // Another common generic point
 ];
 
-// Maximum radius (in miles) for locations to be shown on map
+// Default maximum radius (in miles) for locations to be shown on map
 // Locations with accuracy worse than this are considered too generalized
-const MAX_LOCATION_RADIUS_MILES = 10;
+const DEFAULT_MAX_LOCATION_RADIUS_MILES = 10;
 
 // Check if coordinates match any generic GMU centers
-export function shouldShowOnMap(location: LocationData): boolean {
+export function shouldShowOnMap(location: LocationData, maxAccuracy?: number): boolean {
   if (!location.latitude || !location.longitude) {
     return false;
   }
   
   // Primary filter: Use location accuracy/radius if available
   const accuracyMiles = location.location_accuracy_miles || location.location_confidence_radius;
-  if (accuracyMiles && accuracyMiles > MAX_LOCATION_RADIUS_MILES) {
-    console.log(`Filtering out location with accuracy ${accuracyMiles} miles (> ${MAX_LOCATION_RADIUS_MILES})`);
+  const maxRadius = maxAccuracy || DEFAULT_MAX_LOCATION_RADIUS_MILES;
+  
+  if (accuracyMiles && accuracyMiles > maxRadius) {
+    console.log(`Filtering out location with accuracy ${accuracyMiles} miles (> ${maxRadius})`);
     return false;
   }
   

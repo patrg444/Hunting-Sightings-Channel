@@ -76,6 +76,7 @@ export interface Filters {
   lon?: number;
   radiusMiles?: number;
   excludeNoGmu?: boolean;  // Filter out entries without GMU
+  maxLocationAccuracy?: number;  // Maximum location accuracy in miles
 }
 
 // API Response types

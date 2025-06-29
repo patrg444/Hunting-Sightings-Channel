@@ -4,6 +4,7 @@ import L from 'leaflet';
 import 'leaflet.heat/dist/leaflet-heat.js';
 import { Sighting } from '../../types';
 import { shouldShowOnMap } from '../../config/mapFilters';
+import { useStore } from '../../store/store';
 
 // Extend Leaflet types for the heat layer
 declare module 'leaflet' {
@@ -24,6 +25,7 @@ function getRadiusFromSighting(sighting: Sighting): number {
 
 export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, visible }) => {
   const map = useMap();
+  const filters = useStore((state) => state.filters);
 
   useEffect(() => {
     if (!visible || sightings.length === 0) return;
@@ -46,7 +48,7 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
         location_name: sighting.location_name,
         location_accuracy_miles: sighting.location_accuracy_miles,
         location_confidence_radius: sighting.location_confidence_radius
-      })) {
+      }, filters.maxLocationAccuracy)) {
         // Round to ~100m precision to group nearby sightings
         const locationKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;
         
@@ -114,7 +116,7 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     return () => {
       map.removeLayer(heatLayer);
     };
-  }, [map, sightings, visible]);
+  }, [map, sightings, visible, filters.maxLocationAccuracy]);
 
   return null;
 };
