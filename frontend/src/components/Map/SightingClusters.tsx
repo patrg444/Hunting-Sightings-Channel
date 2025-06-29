@@ -132,7 +132,8 @@ export const SightingClusters: React.FC = () => {
 
         marker.bindPopup(popupContent, {
           maxWidth: 300,
-          className: 'custom-popup'
+          className: 'custom-popup',
+          offset: [0, -10] // Offset popup up by 10px to avoid overlap with marker
         });
 
         markers.addLayer(marker);
