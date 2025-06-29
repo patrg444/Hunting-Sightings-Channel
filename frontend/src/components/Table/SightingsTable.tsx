@@ -12,6 +12,43 @@ export const SightingsTable: React.FC = () => {
   const [sortField, setSortField] = useState<SortField>('date');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   
+  // Valid species list (lowercase for comparison)
+  const validSpecies = [
+    'bear', 'black bear', 'grizzly bear', 'brown bear',
+    'elk', 
+    'deer', 'white tail', 'whitetail', 'white-tailed deer', 'mule deer', 
+    'moose', 
+    'pronghorn', 'antelope', 'pronghorn antelope',
+    'bighorn', 'bighorn sheep', 
+    'mountain lion', 'cougar', 'puma',
+    'mountain goat',
+    'hog', 'wild hog', 'feral hog', 'wild boar',
+    'marmot', 'yellow-bellied marmot'
+  ];
+  
+  // Helper function to clean species names
+  const cleanSpeciesName = (species: string | undefined): string => {
+    if (!species) return 'Unknown';
+    return species
+      .replace(/_/g, ' ')  // Replace underscores with spaces
+      .replace(/\([^)]*\)/g, '')  // Remove parentheses and content
+      .trim()  // Remove extra whitespace
+      .split(' ')  // Split into words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())  // Capitalize each word
+      .join(' ');
+  };
+  
+  // Helper function to check if species is valid
+  const isValidSpecies = (species: string | undefined): boolean => {
+    if (!species) return false;
+    const cleaned = species
+      .replace(/_/g, ' ')
+      .replace(/\([^)]*\)/g, '')
+      .trim()
+      .toLowerCase();
+    return validSpecies.includes(cleaned);
+  };
+  
   // Debug: Log first sighting to check URL field
   if (sightings.length > 0) {
     console.log('First sighting:', sightings[0]);
@@ -39,7 +76,16 @@ export const SightingsTable: React.FC = () => {
   };
 
   const sortedSightings = useMemo(() => {
-    const sorted = [...sightings].sort((a, b) => {
+    // First filter out invalid species
+    const validSightings = sightings.filter(sighting => isValidSpecies(sighting.species));
+    
+    // Log to see what's being filtered
+    console.log('Total sightings:', sightings.length, 'Valid sightings:', validSightings.length);
+    if (sightings.length > 0) {
+      console.log('Sample species:', sightings.slice(0, 5).map(s => s.species));
+    }
+    
+    const sorted = [...validSightings].sort((a, b) => {
       let aVal, bVal;
       
       switch (sortField) {
@@ -81,7 +127,7 @@ export const SightingsTable: React.FC = () => {
   return (
     <div className="h-full overflow-auto bg-white dark:bg-gray-900">
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <thead className="bg-gray-50 dark:bg-gray-800 sticky top-0 z-10">
+        <thead className="bg-gray-50 dark:bg-gray-800 sticky top-0 z-10 select-none">
           <tr>
             <th className="pl-8 pr-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               <button
@@ -130,7 +176,10 @@ export const SightingsTable: React.FC = () => {
         <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
           {sortedSightings.map((sighting) => (
             <React.Fragment key={sighting.id}>
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800">
+              <tr 
+                className="hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer select-none"
+                onClick={() => toggleRowExpansion(sighting.id)}
+              >
                 <td className="pl-8 pr-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                   {sighting.sighting_date || sighting.date
                     ? format(new Date((sighting.sighting_date || sighting.date) + 'T12:00:00'), 'MMM dd, yyyy')
@@ -140,7 +189,7 @@ export const SightingsTable: React.FC = () => {
                   {sighting.gmu_unit || sighting.gmu || '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                  {sighting.species || 'Unknown'}
+                  {cleanSpeciesName(sighting.species)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
@@ -153,6 +202,7 @@ export const SightingsTable: React.FC = () => {
                       href={sighting.source_url || sighting.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800 transition-colors"
                     >
                       <ExternalLink className="w-3 h-3 mr-1" />
@@ -185,7 +235,7 @@ export const SightingsTable: React.FC = () => {
                 </td>
               </tr>
               {expandedRows.has(sighting.id) && (
-                <tr className="bg-gray-50 dark:bg-gray-800">
+                <tr className="bg-gray-50 dark:bg-gray-800 select-none">
                   <td colSpan={6} className="px-6 py-4">
                     <div className="space-y-2">
                       <div className="text-sm">

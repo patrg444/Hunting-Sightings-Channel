@@ -12,7 +12,13 @@ export const sightingsService = {
       params.append('gmu_list', filters.gmuList.join(','));
     }
     if (filters.species) params.append('species', filters.species);
+    if (filters.speciesList && filters.speciesList.length > 0) {
+      params.append('species_list', filters.speciesList.join(','));
+    }
     if (filters.source) params.append('source', filters.source);
+    if (filters.sourceList && filters.sourceList.length > 0) {
+      params.append('source_list', filters.sourceList.join(','));
+    }
     if (filters.startDate) params.append('start_date', filters.startDate.toISOString().split('T')[0]);
     if (filters.endDate) params.append('end_date', filters.endDate.toISOString().split('T')[0]);
     if (filters.lat) params.append('lat', filters.lat.toString());

@@ -67,7 +67,9 @@ export interface Filters {
   gmu?: number;
   gmuList?: number[];  // For multiple GMUs
   species?: string;
+  speciesList?: string[];  // For multiple species
   source?: string;
+  sourceList?: string[];  // For multiple sources
   startDate?: Date;
   endDate?: Date;
   lat?: number;
