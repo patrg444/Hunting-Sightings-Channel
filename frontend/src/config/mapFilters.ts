@@ -13,9 +13,14 @@ interface LocationData {
 const DEFAULT_MAX_LOCATION_RADIUS_MILES = 10;
 
 // Check if location should be shown on map based on user-controlled accuracy filter
-export function shouldShowOnMap(location: LocationData, maxAccuracy?: number): boolean {
+export function shouldShowOnMap(location: LocationData, maxAccuracy?: number, enableFilter: boolean = true): boolean {
   if (!location.latitude || !location.longitude) {
     return false;
+  }
+  
+  // If filter is disabled, show all locations
+  if (!enableFilter) {
+    return true;
   }
   
   // Use location accuracy/radius if available
