@@ -17,7 +17,7 @@ cp -r ../scrapers $TEMP_DIR/
 # Copy data files needed by scrapers
 mkdir -p $TEMP_DIR/data
 cp ../data/google_places_config.json $TEMP_DIR/data/
-cp ../data/colorado_gmus.geojson $TEMP_DIR/data/
+# cp ../data/colorado_gmus.geojson $TEMP_DIR/data/ # File doesn't exist yet
 
 # Install dependencies
 cd $TEMP_DIR

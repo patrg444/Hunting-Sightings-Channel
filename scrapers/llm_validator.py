@@ -25,7 +25,10 @@ class LLMValidator:
     Validates wildlife sightings using LLM with caching to reduce API costs.
     """
     
-    def __init__(self, cache_dir: str = "data/cache"):
+    def __init__(self, cache_dir: str = None):
+        # Use /tmp for Lambda, local data/cache otherwise
+        if cache_dir is None:
+            cache_dir = "/tmp/cache" if os.environ.get('AWS_LAMBDA_FUNCTION_NAME') else "data/cache"
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.cache_file = self.cache_dir / "parsed_posts.json"
