@@ -155,3 +155,40 @@ select {
   overscroll-behavior: none;
   -webkit-overflow-scrolling: auto;
 }
+
+/* Custom popup styles */
+.leaflet-popup {
+  margin-bottom: 20px; /* Add space for the triangle pointer */
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.leaflet-popup-content {
+  margin: 16px !important;
+  min-width: 250px;
+}
+
+.leaflet-popup-tip-container {
+  margin-top: -1px; /* Ensure tip connects properly */
+}
+
+/* Custom popup content styles */
+.sighting-popup {
+  padding: 8px;
+}
+
+.sighting-popup h3 {
+  margin-top: 0;
+}
+
+.sighting-popup h4 {
+  margin-top: 0;
+}
+
+/* Ensure popup is above other elements */
+.leaflet-popup {
+  z-index: 1000;
+}
