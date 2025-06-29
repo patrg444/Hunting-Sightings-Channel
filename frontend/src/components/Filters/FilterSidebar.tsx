@@ -346,37 +346,6 @@ export const FilterSidebar: React.FC = () => {
               </div>
             </div>
 
-            {/* Location-based Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 select-none">
-                Search Radius
-              </label>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 select-none">
-                Click on the map to set a center point
-              </p>
-              {(filters.lat && filters.lon) ? (
-                <div className="space-y-2">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 select-none">
-                    Center: {filters.lat.toFixed(4)}, {filters.lon.toFixed(4)}
-                  </p>
-                  <input
-                    type="range"
-                    min="1"
-                    max="50"
-                    value={filters.radiusMiles || 10}
-                    onChange={(e) => handleFilterChange('radiusMiles', parseInt(e.target.value))}
-                    className="w-full"
-                  />
-                  <p className="text-sm text-gray-600 dark:text-gray-400 select-none">
-                    Radius: {filters.radiusMiles || 10} miles
-                  </p>
-                </div>
-              ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400 italic select-none">
-                  No location selected
-                </p>
-              )}
-            </div>
           </div>
 
         </div>

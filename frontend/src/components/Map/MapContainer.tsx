@@ -3,6 +3,7 @@ import { MapContainer as LeafletMap, TileLayer, ZoomControl } from 'react-leafle
 import { LatLng } from 'leaflet';
 // import { GMULayer } from './GMULayer';
 import { SightingClusters } from './SightingClusters';
+import { SightingHeatmap } from './SightingHeatmap';
 import { useStore } from '@/store/store';
 import { sightingsService } from '@/services/sightings';
 import 'leaflet/dist/leaflet.css';
@@ -13,7 +14,9 @@ export const MapContainer: React.FC = () => {
     currentPage, 
     setSightings, 
     setLoading, 
-    setError 
+    setError,
+    mapVisualization,
+    sightings 
   } = useStore();
   
   const [center] = useState<LatLng>(new LatLng(39.5501, -105.7821)); // Colorado center
@@ -61,7 +64,11 @@ export const MapContainer: React.FC = () => {
       <ZoomControl position="topright" />
       
       {/* <GMULayer /> */}
-      <SightingClusters />
+      {mapVisualization === 'markers' ? (
+        <SightingClusters />
+      ) : (
+        <SightingHeatmap sightings={sightings} visible={true} />
+      )}
     </LeafletMap>
   );
 };
