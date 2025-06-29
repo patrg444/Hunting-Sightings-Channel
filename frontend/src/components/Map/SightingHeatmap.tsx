@@ -3,6 +3,7 @@ import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet.heat/dist/leaflet-heat.js';
 import { Sighting } from '../../types';
+import { shouldShowOnMap } from '../../config/mapFilters';
 
 // Extend Leaflet types for the heat layer
 declare module 'leaflet' {
@@ -38,7 +39,12 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
       const lat = sighting.location?.lat || sighting.lat;
       const lon = sighting.location?.lon || sighting.lon;
       
-      if (lat && lon) {
+      // Filter out generalized locations
+      if (lat && lon && shouldShowOnMap({
+        latitude: lat,
+        longitude: lon,
+        location_name: sighting.location_name
+      })) {
         // Round to ~100m precision to group nearby sightings
         const locationKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;
         
