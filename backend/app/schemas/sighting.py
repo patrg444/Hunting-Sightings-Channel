@@ -18,6 +18,7 @@ class SightingBase(BaseModel):
     confidence_score: float = 1.0
     reddit_post_title: Optional[str] = None
     subreddit: Optional[str] = None
+    location_confidence_radius: Optional[float] = None
 
 
 class SightingCreate(SightingBase):

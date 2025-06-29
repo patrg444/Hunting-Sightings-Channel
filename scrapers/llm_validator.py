@@ -87,17 +87,22 @@ class LLMValidator:
             logger.error(f"Failed to save cache: {e}")
     
     def _get_content_hash(self, content: str) -> str:
-        """Generate hash of content for change detection."""
+        """Generate hash of content for change detection.
+        DEPRECATED: Kept for backward compatibility only.
+        """
         return hashlib.sha256(content.encode()).hexdigest()
     
-    def should_process_post(self, post_id: str, content: str, max_age_days: int = 30) -> bool:
+    def should_process_post(self, post_id: str, content: str, max_age_days: int = 30, 
+                          post_datetime: Optional[datetime] = None, post_title: Optional[str] = None) -> bool:
         """
         Check if a post needs processing.
         
         Args:
             post_id: Unique identifier for the post
-            content: Current content of the post
+            content: Current content of the post (kept for backward compatibility)
             max_age_days: Maximum age before reprocessing
+            post_datetime: The post's creation datetime
+            post_title: The post's title
             
         Returns:
             True if post should be processed
@@ -107,11 +112,27 @@ class LLMValidator:
         
         cached_data = self.cache[post_id]
         
-        # Check if content changed
-        current_hash = self._get_content_hash(content)
-        if current_hash != cached_data.get('content_hash'):
-            logger.info(f"Post {post_id} content changed, needs reprocessing")
-            return True
+        # New approach: Check datetime + title if provided
+        if post_datetime and post_title:
+            # Compare datetime (convert to ISO string for consistency)
+            cached_datetime = cached_data.get('post_datetime')
+            current_datetime = post_datetime.isoformat() if isinstance(post_datetime, datetime) else post_datetime
+            
+            if cached_datetime != current_datetime:
+                logger.info(f"Post {post_id} datetime changed from {cached_datetime} to {current_datetime}, needs reprocessing")
+                return True
+            
+            # Compare title
+            cached_title = cached_data.get('post_title')
+            if cached_title != post_title:
+                logger.info(f"Post {post_id} title changed, needs reprocessing")
+                return True
+        else:
+            # Fallback to old hash-based approach for backward compatibility
+            current_hash = self._get_content_hash(content)
+            if current_hash != cached_data.get('content_hash'):
+                logger.info(f"Post {post_id} content changed (hash mismatch), needs reprocessing")
+                return True
         
         # Check age
         parsed_date = datetime.fromisoformat(cached_data['parsed_date'])
@@ -399,7 +420,8 @@ class LLMValidator:
         return validated
     
     def update_cache(self, post_id: str, content: str, sightings: List[Dict[str, Any]], 
-                     source: str = "reddit"):
+                     source: str = "reddit", post_datetime: Optional[datetime] = None, 
+                     post_title: Optional[str] = None):
         """
         Update cache with processed post data.
         
@@ -408,16 +430,28 @@ class LLMValidator:
             content: Content that was processed
             sightings: Validated sightings found
             source: Source platform
+            post_datetime: The post's creation datetime
+            post_title: The post's title
         """
-        self.cache[post_id] = {
+        cache_entry = {
             'parsed_date': datetime.now().isoformat(),
-            'content_hash': self._get_content_hash(content),
             'source': source,
             'has_sightings': len(sightings) > 0,
             'sighting_count': len(sightings),
             'sightings': sightings
         }
         
+        # Add new fields if provided
+        if post_datetime:
+            cache_entry['post_datetime'] = post_datetime.isoformat() if isinstance(post_datetime, datetime) else post_datetime
+        
+        if post_title:
+            cache_entry['post_title'] = post_title
+        
+        # Keep content_hash for backward compatibility with existing cache
+        cache_entry['content_hash'] = self._get_content_hash(content)
+        
+        self.cache[post_id] = cache_entry
         self._save_cache()
     
     def get_cache_stats(self) -> Dict[str, Any]:

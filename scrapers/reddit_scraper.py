@@ -109,6 +109,17 @@ class RedditScraper(BaseScraper):
         for subreddit_name in subreddits:
             sightings = self._scrape_subreddit(subreddit_name, lookback_days)
             all_sightings.extend(sightings)
+            
+            # Save after each subreddit to avoid losing data
+            if sightings:
+                logger.info(f"Saving {len(sightings)} sightings from r/{subreddit_name} to database")
+                try:
+                    from .database_saver import save_sightings_to_db
+                    saved = save_sightings_to_db(sightings, f"reddit_{subreddit_name}")
+                    logger.success(f"Saved {saved} sightings from r/{subreddit_name}")
+                except Exception as e:
+                    logger.warning(f"Could not save to database immediately: {e}")
+                    # Continue anyway, will be saved at the end
         
         logger.info(f"Found {len(all_sightings)} total sightings from Reddit")
         return all_sightings
@@ -146,8 +157,10 @@ class RedditScraper(BaseScraper):
                     post_id = f"reddit_{submission.id}"
                     content = f"{submission.title} {submission.selftext}"
                     
-                    # Check cache first
-                    if not self.validator.should_process_post(post_id, content):
+                    # Check cache first - pass datetime and title for new caching approach
+                    if not self.validator.should_process_post(post_id, content, 
+                                                            post_datetime=post_date, 
+                                                            post_title=submission.title):
                         # Use cached results
                         cached_sightings = self.validator.get_cached_sightings(post_id)
                         sightings.extend(cached_sightings)
@@ -159,6 +172,9 @@ class RedditScraper(BaseScraper):
                     
                     # Use simplified extraction - find any wildlife mentions
                     potential_mentions = self._extract_potential_wildlife_mentions(content, submission.url)
+                    
+                    # Track sightings for this specific post
+                    post_sightings = []
                     
                     if potential_mentions:
                         logger.debug(f"Found wildlife mentions in post: {submission.title[:50]}...")
@@ -192,13 +208,27 @@ class RedditScraper(BaseScraper):
                                     if field in analysis:
                                         sighting[field] = analysis[field]
                                 
+                                post_sightings.append(sighting)
                                 sightings.append(sighting)
+                                
+                                # Save immediately
+                                try:
+                                    from .database_saver import save_sightings_to_db
+                                    saved = save_sightings_to_db([sighting], f"reddit_{subreddit_name}")
+                                    if saved > 0:
+                                        logger.success(f"Saved sighting: {sighting['species']} at {sighting.get('location_name', 'unknown')}")
+                                except Exception as e:
+                                    logger.error(f"Failed to save sighting immediately: {e}")
                         
-                        # Update cache with results
-                        self.validator.update_cache(post_id, content, sightings)
+                        # Update cache with results FOR THIS POST ONLY - include datetime and title
+                        self.validator.update_cache(post_id, content, post_sightings,
+                                                   post_datetime=post_date,
+                                                   post_title=submission.title)
                     else:
                         # No wildlife mentions at all
-                        self.validator.update_cache(post_id, content, [])
+                        self.validator.update_cache(post_id, content, [],
+                                                   post_datetime=post_date,
+                                                   post_title=submission.title)
                     
                     # Also check top comments (with caching)
                     submission.comments.replace_more(limit=0)
@@ -206,8 +236,11 @@ class RedditScraper(BaseScraper):
                         comment_id = f"reddit_comment_{comment.id}"
                         comment_content = comment.body
                         
-                        # Check cache for comment
-                        if not self.validator.should_process_post(comment_id, comment_content):
+                        # Check cache for comment - use comment datetime for caching
+                        comment_date = datetime.fromtimestamp(comment.created_utc)
+                        if not self.validator.should_process_post(comment_id, comment_content,
+                                                                post_datetime=comment_date,
+                                                                post_title=f"Comment on: {submission.title}"):
                             cached_comment_sightings = self.validator.get_cached_sightings(comment_id)
                             sightings.extend(cached_comment_sightings)
                             continue
@@ -229,9 +262,13 @@ class RedditScraper(BaseScraper):
                                 sighting['comment_id'] = comment.id
                             
                             sightings.extend(validated_comment_sightings)
-                            self.validator.update_cache(comment_id, comment_content, validated_comment_sightings)
+                            self.validator.update_cache(comment_id, comment_content, validated_comment_sightings,
+                                                      post_datetime=comment_date,
+                                                      post_title=f"Comment on: {submission.title}")
                         else:
-                            self.validator.update_cache(comment_id, comment_content, [])
+                            self.validator.update_cache(comment_id, comment_content, [],
+                                                      post_datetime=comment_date,
+                                                      post_title=f"Comment on: {submission.title}")
                 
                 logger.info(f"r/{subreddit_name}: Checked {posts_checked} posts, processed {new_posts} new, {cache_hits} from cache, found {len(sightings)} sightings")
                         
