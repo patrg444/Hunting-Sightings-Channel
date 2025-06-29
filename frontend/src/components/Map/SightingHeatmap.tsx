@@ -31,60 +31,46 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     // Format: [lat, lng, intensity]
     const heatData: Array<[number, number, number]> = [];
     
-    // First pass: collect all data points with their raw scores
-    interface HeatPoint {
-      lat: number;
-      lon: number;
-      radius: number;
-      score: number; // Combined score from radius and density
-    }
+    // Count sightings at each location
+    const locationCounts = new Map<string, { lat: number; lon: number; count: number }>();
     
-    const points: HeatPoint[] = [];
-    const locationGroups = new Map<string, HeatPoint[]>();
-    
-    // Collect all points and group by location
     sightings.forEach(sighting => {
       const lat = sighting.location?.lat || sighting.lat;
       const lon = sighting.location?.lon || sighting.lon;
       
       if (lat && lon) {
-        const radius = getRadiusFromSighting(sighting);
+        // Round to ~100m precision to group nearby sightings
         const locationKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;
         
-        // Base score inversely related to radius (smaller radius = higher confidence = higher score)
-        const radiusScore = Math.max(0, 1 - (radius / 50)); // Normalize radius to 0-1 scale
-        
-        const point: HeatPoint = { lat, lon, radius, score: radiusScore };
-        points.push(point);
-        
-        if (!locationGroups.has(locationKey)) {
-          locationGroups.set(locationKey, []);
+        if (!locationCounts.has(locationKey)) {
+          locationCounts.set(locationKey, { lat, lon, count: 0 });
         }
-        locationGroups.get(locationKey)!.push(point);
+        locationCounts.get(locationKey)!.count++;
       }
     });
     
-    // Calculate density scores
-    points.forEach(point => {
-      const locationKey = `${point.lat.toFixed(3)},${point.lon.toFixed(3)}`;
-      const groupSize = locationGroups.get(locationKey)?.length || 1;
-      // Add density bonus to score
-      point.score = point.score + (groupSize - 1) * 0.1; // Each additional sighting adds 0.1 to score
-    });
+    // Find the maximum count for normalization
+    const counts = Array.from(locationCounts.values()).map(loc => loc.count);
+    const maxCount = Math.max(...counts);
+    const minCount = Math.min(...counts);
     
-    // Find min and max scores for normalization
-    const scores = points.map(p => p.score);
-    const minScore = Math.min(...scores);
-    const maxScore = Math.max(...scores);
-    const scoreRange = maxScore - minScore || 1; // Avoid division by zero
-    
-    // Normalize all scores to 0-1 range and create heat data
-    points.forEach(point => {
-      // Normalize to ensure we use the full color gradient
-      const normalizedIntensity = (point.score - minScore) / scoreRange;
-      // Ensure minimum visibility even for lowest scores
-      const intensity = 0.1 + (normalizedIntensity * 0.9);
-      heatData.push([point.lat, point.lon, intensity]);
+    // Create heat data with normalized intensities
+    locationCounts.forEach(location => {
+      // Normalize count to 0-1 range
+      let intensity;
+      if (maxCount === minCount) {
+        // All locations have same count
+        intensity = 0.8;
+      } else {
+        // Scale from 0.2 to 1.0 based on count
+        intensity = 0.2 + (0.8 * ((location.count - minCount) / (maxCount - minCount)));
+      }
+      
+      // Add point for each sighting at this location to create proper density
+      // This makes the heat map additive at each location but normalized across locations
+      for (let i = 0; i < location.count; i++) {
+        heatData.push([location.lat, location.lon, intensity]);
+      }
     });
 
     // Fixed radius that doesn't change with zoom
