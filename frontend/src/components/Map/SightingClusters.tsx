@@ -38,6 +38,7 @@ const createSightingIcon = (species: string) => {
 export const SightingClusters: React.FC = () => {
   const map = useMap();
   const sightings = useStore((state) => state.sightings);
+  const filters = useStore((state) => state.filters);
   const hasFullAccess = featureFlags.hasFeature('fullSightingDetails');
 
   useEffect(() => {
@@ -84,7 +85,7 @@ export const SightingClusters: React.FC = () => {
         location_name: sighting.location_name,
         location_accuracy_miles: sighting.location_accuracy_miles,
         location_confidence_radius: sighting.location_confidence_radius
-      })) {
+      }, filters.maxLocationAccuracy)) {
         const marker = L.marker([lat, lon], {
           icon: createSightingIcon(sighting.species || 'Wildlife')
         });
@@ -155,7 +156,7 @@ export const SightingClusters: React.FC = () => {
     return () => {
       map.removeLayer(markers);
     };
-  }, [map, sightings, hasFullAccess]);
+  }, [map, sightings, hasFullAccess, filters.maxLocationAccuracy]);
 
   return null; // This component doesn't render anything directly
 };

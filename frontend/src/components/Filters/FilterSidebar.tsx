@@ -4,7 +4,7 @@ import { Filters } from '../../types';
 import { ChevronLeft, ChevronRight, Filter, X, ChevronDown } from 'lucide-react';
 
 export const FilterSidebar: React.FC = () => {
-  const { filters, updateFilters, clearFilters, isSidebarOpen, setSidebarOpen } = useStore();
+  const { filters, updateFilters, clearFilters, isSidebarOpen, setSidebarOpen, viewMode } = useStore();
   const [speciesDropdownOpen, setSpeciesDropdownOpen] = useState(false);
   const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
   const [gmuInput, setGmuInput] = useState(
@@ -345,6 +345,32 @@ export const FilterSidebar: React.FC = () => {
                 />
               </div>
             </div>
+
+            {/* Location Accuracy Filter - Only show in map view */}
+            {viewMode === 'map' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Location Accuracy (miles)
+                </label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="range"
+                    min="1"
+                    max="50"
+                    step="1"
+                    value={filters.maxLocationAccuracy || 10}
+                    onChange={(e) => updateFilters({ maxLocationAccuracy: parseInt(e.target.value) })}
+                    className="flex-1"
+                  />
+                  <span className="text-sm text-gray-600 dark:text-gray-400 w-16 text-right">
+                    ≤ {filters.maxLocationAccuracy || 10} mi
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Only show locations with accuracy better than {filters.maxLocationAccuracy || 10} miles
+                </p>
+              </div>
+            )}
 
           </div>
 
