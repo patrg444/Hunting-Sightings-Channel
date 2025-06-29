@@ -67,7 +67,11 @@ export const MapContainer: React.FC = () => {
       {mapVisualization === 'markers' ? (
         <SightingClusters />
       ) : (
-        <SightingHeatmap sightings={sightings} visible={true} />
+        <SightingHeatmap 
+          key={`heatmap-${sightings.length}-${JSON.stringify(filters)}`}
+          sightings={sightings} 
+          visible={true} 
+        />
       )}
     </LeafletMap>
   );

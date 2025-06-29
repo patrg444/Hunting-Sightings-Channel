@@ -26,8 +26,15 @@ function getRadiusFromSighting(sighting: Sighting): number {
 export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, visible }) => {
   const map = useMap();
   const filters = useStore((state) => state.filters);
+  const [currentHeatLayer, setCurrentHeatLayer] = React.useState<any>(null);
 
   useEffect(() => {
+    // Clean up previous heat layer
+    if (currentHeatLayer) {
+      map.removeLayer(currentHeatLayer);
+      setCurrentHeatLayer(null);
+    }
+
     if (!visible || sightings.length === 0) return;
 
     // Convert sightings to heat map data points
@@ -110,12 +117,15 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
 
     // Add to map
     heatLayer.addTo(map);
+    setCurrentHeatLayer(heatLayer);
 
     // No zoom updates needed - keeping consistent radius
 
     // Cleanup
     return () => {
-      map.removeLayer(heatLayer);
+      if (heatLayer && map.hasLayer(heatLayer)) {
+        map.removeLayer(heatLayer);
+      }
     };
   }, [map, sightings, visible, filters.maxLocationAccuracy, filters.enableAccuracyFilter]);
 
