@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
-import 'leaflet.heat';
+import 'leaflet.heat/dist/leaflet-heat.js';
 import { Sighting } from '../../types';
 
 // Extend Leaflet types for the heat layer
@@ -31,71 +31,83 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     // Format: [lat, lng, intensity]
     const heatData: Array<[number, number, number]> = [];
     
-    // First pass: collect all data and find density hotspots
-    const locationCounts = new Map<string, number>();
+    // First pass: collect all data points with their raw scores
+    interface HeatPoint {
+      lat: number;
+      lon: number;
+      radius: number;
+      score: number; // Combined score from radius and density
+    }
     
+    const points: HeatPoint[] = [];
+    const locationGroups = new Map<string, HeatPoint[]>();
+    
+    // Collect all points and group by location
     sightings.forEach(sighting => {
       const lat = sighting.location?.lat || sighting.lat;
       const lon = sighting.location?.lon || sighting.lon;
       
       if (lat && lon) {
-        // Create a key for nearby locations (round to ~1km precision)
-        const key = `${lat.toFixed(2)},${lon.toFixed(2)}`;
-        locationCounts.set(key, (locationCounts.get(key) || 0) + 1);
-        
         const radius = getRadiusFromSighting(sighting);
+        const locationKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;
         
-        // Base intensity on confidence radius
-        let baseIntensity = 1.0;
-        if (radius < 0.5) {
-          baseIntensity = 1.0;
-        } else if (radius < 2) {
-          baseIntensity = 0.8 + (2 - radius) * 0.133;
-        } else if (radius < 5) {
-          baseIntensity = 0.6 + (5 - radius) * 0.067;
-        } else if (radius < 15) {
-          baseIntensity = 0.4 + (15 - radius) * 0.02;
-        } else if (radius < 30) {
-          baseIntensity = 0.2 + (30 - radius) * 0.013;
-        } else {
-          baseIntensity = Math.max(0.1, 0.2 - (radius - 30) * 0.002);
+        // Base score inversely related to radius (smaller radius = higher confidence = higher score)
+        const radiusScore = Math.max(0, 1 - (radius / 50)); // Normalize radius to 0-1 scale
+        
+        const point: HeatPoint = { lat, lon, radius, score: radiusScore };
+        points.push(point);
+        
+        if (!locationGroups.has(locationKey)) {
+          locationGroups.set(locationKey, []);
         }
-
-        heatData.push([lat, lon, baseIntensity]);
+        locationGroups.get(locationKey)!.push(point);
       }
     });
     
-    // Find the maximum density for normalization
-    const maxDensity = Math.max(...locationCounts.values());
+    // Calculate density scores
+    points.forEach(point => {
+      const locationKey = `${point.lat.toFixed(3)},${point.lon.toFixed(3)}`;
+      const groupSize = locationGroups.get(locationKey)?.length || 1;
+      // Add density bonus to score
+      point.score = point.score + (groupSize - 1) * 0.1; // Each additional sighting adds 0.1 to score
+    });
     
-    // Normalize intensities based on local density
-    if (maxDensity > 1) {
-      heatData.forEach((point, index) => {
-        const key = `${point[0].toFixed(2)},${point[1].toFixed(2)}`;
-        const density = locationCounts.get(key) || 1;
-        // Boost intensity for high-density areas
-        const densityBoost = 0.5 + (0.5 * (density / maxDensity));
-        heatData[index][2] = Math.min(1.0, point[2] * densityBoost);
-      });
-    }
+    // Find min and max scores for normalization
+    const scores = points.map(p => p.score);
+    const minScore = Math.min(...scores);
+    const maxScore = Math.max(...scores);
+    const scoreRange = maxScore - minScore || 1; // Avoid division by zero
+    
+    // Normalize all scores to 0-1 range and create heat data
+    points.forEach(point => {
+      // Normalize to ensure we use the full color gradient
+      const normalizedIntensity = (point.score - minScore) / scoreRange;
+      // Ensure minimum visibility even for lowest scores
+      const intensity = 0.1 + (normalizedIntensity * 0.9);
+      heatData.push([point.lat, point.lon, intensity]);
+    });
 
     // Fixed radius that doesn't change with zoom
-    const FIXED_RADIUS = 25;
+    const FIXED_RADIUS = 35;
 
+    // Check if heatLayer function exists
+    if (!L.heatLayer) {
+      console.error('Leaflet.heat plugin not loaded!');
+      return;
+    }
+    
     // Create heat layer with custom options
     const heatLayer = L.heatLayer(heatData, {
       radius: FIXED_RADIUS,
-      blur: 15,   // Amount of blur
-      maxZoom: 14, // Higher value to maintain consistency across zoom levels
-      max: 1.0,   // Maximum intensity
+      blur: 25,   // More blur for smoother appearance
+      maxZoom: 18, // Higher value to maintain consistency across zoom levels
       gradient: {
         0.0: 'transparent',
-        0.1: 'rgba(150, 200, 255, 0.3)',   // Very light blue (low confidence)
-        0.3: 'rgba(100, 150, 255, 0.5)',   // Light blue
-        0.5: 'rgba(50, 200, 100, 0.6)',    // Green (moderate confidence)
-        0.7: 'rgba(255, 200, 50, 0.7)',    // Yellow-orange
-        0.9: 'rgba(255, 100, 50, 0.8)',    // Orange (high confidence)
-        1.0: 'rgba(255, 50, 50, 0.9)'      // Red (very high confidence)
+        0.2: 'rgba(0, 0, 255, 0.5)',     // Blue (low confidence)
+        0.4: 'rgba(0, 255, 255, 0.6)',   // Cyan
+        0.6: 'rgba(0, 255, 0, 0.7)',     // Green (moderate confidence)
+        0.8: 'rgba(255, 255, 0, 0.8)',   // Yellow
+        1.0: 'rgba(255, 0, 0, 0.9)'      // Red (high confidence)
       },
     });
 
