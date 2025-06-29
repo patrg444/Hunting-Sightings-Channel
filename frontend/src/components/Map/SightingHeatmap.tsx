@@ -43,7 +43,9 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
       if (lat && lon && shouldShowOnMap({
         latitude: lat,
         longitude: lon,
-        location_name: sighting.location_name
+        location_name: sighting.location_name,
+        location_accuracy_miles: sighting.location_accuracy_miles,
+        location_confidence_radius: sighting.location_confidence_radius
       })) {
         // Round to ~100m precision to group nearby sightings
         const locationKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;

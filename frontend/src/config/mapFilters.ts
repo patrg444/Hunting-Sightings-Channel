@@ -4,6 +4,8 @@ interface LocationData {
   latitude: number;
   longitude: number;
   location_name?: string;
+  location_accuracy_miles?: number;
+  location_confidence_radius?: number;
 }
 
 // Generic GMU center coordinates that should be filtered out
@@ -15,40 +17,30 @@ const GENERIC_COORDINATES = [
   { lat: 39.75, lon: -104.99 },   // Another common generic point
 ];
 
+// Maximum radius (in miles) for locations to be shown on map
+// Locations with accuracy worse than this are considered too generalized
+const MAX_LOCATION_RADIUS_MILES = 10;
+
 // Check if coordinates match any generic GMU centers
 export function shouldShowOnMap(location: LocationData): boolean {
   if (!location.latitude || !location.longitude) {
     return false;
   }
   
-  // Check if coordinates match any generic GMU centers
+  // Primary filter: Use location accuracy/radius if available
+  const accuracyMiles = location.location_accuracy_miles || location.location_confidence_radius;
+  if (accuracyMiles && accuracyMiles > MAX_LOCATION_RADIUS_MILES) {
+    console.log(`Filtering out location with accuracy ${accuracyMiles} miles (> ${MAX_LOCATION_RADIUS_MILES})`);
+    return false;
+  }
+  
+  // Secondary filter: Check if coordinates match any known generic centers
   for (const generic of GENERIC_COORDINATES) {
     if (
       Math.abs(location.latitude - generic.lat) < 0.001 &&
       Math.abs(location.longitude - generic.lon) < 0.001
     ) {
       console.log(`Filtering out generic coordinate: ${location.latitude}, ${location.longitude}`);
-      return false;
-    }
-  }
-  
-  // Additional check for vague location names
-  if (location.location_name) {
-    const vagueName = location.location_name.toLowerCase().trim();
-    if (
-      vagueName === 'colorado' ||
-      vagueName === 'co' ||
-      vagueName === 'general' ||
-      vagueName === 'unknown' ||
-      vagueName === 'gmu' ||
-      vagueName.includes('unit ') ||
-      vagueName === 'state of colorado' ||
-      vagueName === 'colorado state' ||
-      vagueName === 'statewide' ||
-      vagueName.match(/^gmu\s*\d+$/i) || // Matches "GMU 39", "gmu39", etc.
-      vagueName.match(/^unit\s*\d+$/i)   // Matches "Unit 39", "unit39", etc.
-    ) {
-      console.log(`Filtering out vague location: ${location.location_name}`);
       return false;
     }
   }
