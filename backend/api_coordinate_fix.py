@@ -25,7 +25,11 @@ app.add_middleware(
 )
 
 # Database connection
-DB_URL = "postgresql://postgres.rvrdbtrxwndeerqmziuo:huntingsightingschannel@aws-0-us-east-2.pooler.supabase.com:6543/postgres"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+DB_URL = os.getenv('DATABASE_URL')
 
 def transform_sighting(row: tuple, columns: List[str]) -> Dict[str, Any]:
     """Transform database row to frontend-compatible format."""
