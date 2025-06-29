@@ -1,0 +1,13 @@
+REMAINING DUPLICATES ANALYSIS
+Generated: 2025-06-29T08:13:17.090412
+================================================================================
+
+SAME-SOURCE DUPLICATES REQUIRING REVIEW:
+--------------------------------------------------------------------------------
+
+bear at (40.3428, -105.6836) on 2025-06-22
+Source: reddit (2 records)
+IDs: {87f1bd0f-4536-4a3d-b83f-7857c0d5ba01,260ecd49-3508-4c10-8182-9ed827d59e00}
+Hashes: [None, None]
+Status: DIFFERENT SIGHTINGS (different texts)
+
