@@ -3,8 +3,6 @@ import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet.heat/dist/leaflet-heat.js';
 import { Sighting } from '../../types';
-import { shouldShowOnMap } from '../../config/mapFilters';
-import { useStore } from '../../store/store';
 
 // Extend Leaflet types for the heat layer
 declare module 'leaflet' {
@@ -25,7 +23,6 @@ function getRadiusFromSighting(sighting: Sighting): number {
 
 export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, visible }) => {
   const map = useMap();
-  const filters = useStore((state) => state.filters);
   const [currentHeatLayer, setCurrentHeatLayer] = React.useState<any>(null);
 
   useEffect(() => {
@@ -44,18 +41,12 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
     // Count sightings at each location
     const locationCounts = new Map<string, { lat: number; lon: number; count: number }>();
     
+    // Sightings are already filtered by MapContainer, just use them directly
     sightings.forEach(sighting => {
       const lat = sighting.location?.lat || sighting.lat;
       const lon = sighting.location?.lon || sighting.lon;
       
-      // Filter out generalized locations
-      if (lat && lon && shouldShowOnMap({
-        latitude: lat,
-        longitude: lon,
-        location_name: sighting.location_name,
-        location_accuracy_miles: sighting.location_accuracy_miles,
-        location_confidence_radius: sighting.location_confidence_radius
-      }, filters.maxLocationAccuracy, filters.enableAccuracyFilter !== false)) {
+      if (lat && lon) {
         // Round to ~100m precision to group nearby sightings
         const locationKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;
         
@@ -127,7 +118,7 @@ export const SightingHeatmap: React.FC<SightingHeatmapProps> = ({ sightings, vis
         map.removeLayer(heatLayer);
       }
     };
-  }, [map, sightings, visible, filters.maxLocationAccuracy, filters.enableAccuracyFilter]);
+  }, [map, sightings, visible]);
 
   return null;
 };
