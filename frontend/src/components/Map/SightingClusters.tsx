@@ -81,7 +81,9 @@ export const SightingClusters: React.FC = () => {
       if (lat && lon && shouldShowOnMap({
         latitude: lat,
         longitude: lon,
-        location_name: sighting.location_name
+        location_name: sighting.location_name,
+        location_accuracy_miles: sighting.location_accuracy_miles,
+        location_confidence_radius: sighting.location_confidence_radius
       })) {
         const marker = L.marker([lat, lon], {
           icon: createSightingIcon(sighting.species || 'Wildlife')

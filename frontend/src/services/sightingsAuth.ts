@@ -68,7 +68,9 @@ function transformSighting(sighting: any): Sighting | null {
   if (!shouldShowOnMap({
     latitude: sighting.latitude || sighting.location_lat,
     longitude: sighting.longitude || sighting.location_lon,
-    location_name: sighting.location_name
+    location_name: sighting.location_name,
+    location_accuracy_miles: sighting.location_accuracy_miles,
+    location_confidence_radius: sighting.location_confidence_radius
   })) {
     return null;
   }
