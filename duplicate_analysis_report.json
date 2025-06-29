@@ -1,0 +1,942 @@
+{
+  "analysis_date": "2025-06-29T07:58:16.139977",
+  "summary": {
+    "total_sightings": 794,
+    "records_with_content_hash": 338,
+    "unique_content_hashes": 338,
+    "exact_duplicate_groups": 20,
+    "total_exact_duplicates": 60
+  },
+  "sample_duplicates": [
+    {
+      "id": "c8616c01-cfad-4e6d-aabd-5c1cd6cfadf9",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "Ypsilon Lake Trail on Thursday I have a non-Bear Lake timed entry to enter at 11 am on Thursday. I\u2019m"
+    },
+    {
+      "id": "f837c019-e026-40d8-8f8f-31dcbb7a3031",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "3-day Hiking recs? My girlfriend and I are heading out to Colorado for a week in July; we\u2019re spendin"
+    },
+    {
+      "id": "7621b34d-42ad-4e67-ba45-b059b550dfce",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "RMNP 6/11 & 6/12 - Bear Lake & Trail Ridge Road Hello and thanks again to all of the contributors fo"
+    },
+    {
+      "id": "39973366-c6ce-4865-bc48-9a74cde6bbc8",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-04",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "Hiking This Weekend Questions Hello guys,\n\nMy partner and I are taking an impromptu trip to the Rock"
+    },
+    {
+      "id": "db9c8e4d-93b4-46ba-8d29-c640a4598c04",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-04",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "I have a bear problem. "
+    },
+    {
+      "id": "5f3f2660-2720-447b-abe8-df8bbc69e4bd",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-04",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "My first bear I live in Mass. and the camera is in Virginia "
+    },
+    {
+      "id": "dcc722f9-44a9-44f9-9056-1bf803b40e1c",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-04",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "Hike and Short Day Plan Recs I will have a short day in the park on a Sunday in July with my wife an"
+    },
+    {
+      "id": "db2c645d-3b35-4520-90fd-d971640c516a",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-04",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "2 day trip itinerary Hi! I'm planning a last min trip!\n\nitinerary suggestions for a 2 day trip in Ju"
+    },
+    {
+      "id": "32a01370-0ebb-49c7-8c5a-40d765fcb1e5",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-08",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Bear legit maxx sight problem Idk if this is a screw loose (I can\u2019t see one and everything that\u2019s vi"
+    },
+    {
+      "id": "9cd9a08f-ab6e-413c-af1c-0a078fbcd358",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-08",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Bear hunting Just out here laying in a feild waiting for yogi.. "
+    },
+    {
+      "id": "258ace64-7bab-4b78-9f42-d5b1c1713c1c",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-09",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "Where to buy ammo Hello, I'm going to be hiking/camping in bear country and wanted some hard cast P+"
+    },
+    {
+      "id": "b690d07b-00e9-4b42-ab47-6dc6e4d11845",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-09",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "Advice Looking for some advice here. I\u2019m looking to get back into it after about a 10 year hiatus. I"
+    },
+    {
+      "id": "bb147c56-eefb-4cdd-97eb-f87b3b228baf",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-10",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "How is this schedule for a day trip to RMNP? I have Bear Lake Corridor timed entry on two days this "
+    },
+    {
+      "id": "0da00dc3-18a8-43e4-b4dc-fb9778ae0a28",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-10",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "First-Time Visit to RMNP \u2013 One Day Only (June 20th Weekend) \u2013 What Should We Prioritize? \nHey r/Rock"
+    },
+    {
+      "id": "43c5fa78-b955-4d98-b896-6b0bda92ff78",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-15",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "4-Day Estes Park Trip (July 4\u20137) \u2013 Itinerary Help & Suggestions Needed! Hey Everyone!   \nMy friends "
+    },
+    {
+      "id": "dad56729-525a-41af-9fa8-f59dd3c137a2",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-15",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "34\u201d draw length options Heyo, need some input and help on finding a new bow with 34\u201d draw length. I\u2019"
+    },
+    {
+      "id": "402a2b71-f887-40ba-8804-c03f6b52e235",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-20",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "What\u2019s the guesses on the weight of this spring bear? First time baiting on our own, bear #2, so far"
+    },
+    {
+      "id": "6c5e3489-ca95-4de9-b5cd-fa92d02e3009",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-20",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "2025 spring bear "
+    },
+    {
+      "id": "260ecd49-3508-4c10-8182-9ed827d59e00",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-22",
+      "latitude": 40.3428,
+      "longitude": -105.6836,
+      "has_content_hash": false,
+      "text_preview": "Birding 1 day trip I\u2019m planning a one day trip to the park in July and need to know the best way to "
+    },
+    {
+      "id": "87f1bd0f-4536-4a3d-b83f-7857c0d5ba01",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-22",
+      "latitude": 40.3428,
+      "longitude": -105.6836,
+      "has_content_hash": false,
+      "text_preview": "Colorado\uff5cRocky Mountain National Park \ud83c\udfd4\ufe0f Hike to see the lakes Bear Lake \u27a1\ufe0fNymph Lake \u27a1\ufe0fDream Lake \u27a1"
+    },
+    {
+      "id": "164da483-531a-4844-b76e-6e0c51c422ab",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-25",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Idk how to feel I\u2019m 16 and I grew up my whole life doing some kind of hunting or fishing, I\u2019ve kille"
+    },
+    {
+      "id": "4ecec92f-bae7-44e7-8e00-439c06569049",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-25",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Better video of my bear Can't figure out how to attach two videos so I am putting up the second came"
+    },
+    {
+      "id": "81c549f1-f44d-4efc-a5af-30d3670c7495",
+      "species": "bear",
+      "source": "reddit",
+      "date": "2025-06-25",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Finally caught the bear I knew he was there from his tracks in the snow last winter, but hadn't seen"
+    },
+    {
+      "id": "37e69368-4155-44e2-bcc5-ef4621bff9a7",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-28",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Seen every animal I\u2019d expect in central PA before. What am I looking at? Title says it. Extreme deer"
+    },
+    {
+      "id": "990cd3bd-9ef9-4425-ac33-69e65adb4f3d",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-28",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "What the heck is this? Coyote? Bobcat? White-tailed deer?  Is can\u2019t figure it out. \n"
+    },
+    {
+      "id": "c821a8bb-b28d-4489-9ce6-f6dcb3d6269f",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-28",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "What is going on with this buck? My parents have a buck that had regular looking antlers last year, "
+    },
+    {
+      "id": "d4144fc5-a0f7-47fa-95c0-3e7fbd623981",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-28",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Big Doe! Any day now!"
+    },
+    {
+      "id": "550278da-14ac-43e3-8154-22461d998d2c",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-30",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "What is stalking the deer? Reposted for clarification. There are a set of eyes that appear when the "
+    },
+    {
+      "id": "f90e4204-042f-447c-85e0-ec16334b1561",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-30",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Outside my solar shed I\u2019m building a solar shed and have cameras all over the property. This was a f"
+    },
+    {
+      "id": "4debe588-e637-4117-b097-0400cd73ed48",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-31",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "First Euro Mount for My First Roe So, decided I wanted to try and do a euro mount myself, it wasn't "
+    },
+    {
+      "id": "062d2d43-a3f2-45c0-a139-ac8b7052df0c",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-31",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "First-timer woes I just started big game hunting this past fall, so this is my first time experienci"
+    },
+    {
+      "id": "68993c2c-5537-4f3f-b9f9-19200f876ea0",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-31",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "380? Will 380 destroy animals if you dispatch them with it? Mainly the odd varmint on a trail or dee"
+    },
+    {
+      "id": "46032a43-0eea-48fc-909a-8b3af29e9d28",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-31",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Not every day you get out of the truck and there\u2019s a deer standing there. I had to forcefully keep i"
+    },
+    {
+      "id": "cc118de4-e2cf-45be-9e02-f21f25bab300",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-05-31",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Last seasons buck Christmas morning i finally had the opportunity to us my tarp I purchased for deer"
+    },
+    {
+      "id": "ef0fc22c-8da9-443f-befa-d86ccdf9b6b4",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-01",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Young Buck "
+    },
+    {
+      "id": "f10a70a3-1290-4ad3-add0-d0c1e84c7e76",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-01",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "My first and second roebuck I have the pleasure of hunting these two beautiful roebuck in the same d"
+    },
+    {
+      "id": "86541fdb-4313-470c-93ff-ffd73b2597df",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-01",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Are you my father? Just thought this was a cool picture to share, fawn meeting a buck for the first "
+    },
+    {
+      "id": "fcbe2bb8-6b51-41ca-838e-1c666ce08d38",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-02",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Age this deer How old is this deer? It was on an enormous buck from last year."
+    },
+    {
+      "id": "8064f9f4-56df-4aaa-b642-7a6cf985af59",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-02",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "The Deer have been hitting the mineral sites hard, time for a new Trophy Rock! "
+    },
+    {
+      "id": "bb2ab4a4-44bf-4648-82a5-9880db3956e2",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-02",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Last year's buck deer Not an awesome shot, but he's just as dead. "
+    },
+    {
+      "id": "b40848cb-89eb-450e-9890-b8f701fd5957",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-02",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Color difference? Why do you think one deer a grayish color and the other is a lighter brown color? "
+    },
+    {
+      "id": "cfcd3684-2b4f-4d3f-a121-cf64ac08169b",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-02",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "My first upload Hoping this works..,a local deer likes to visit my porch and \"trim my hedges\" for me"
+    },
+    {
+      "id": "ebfe4c33-ed10-4ba9-b594-4b2a8ea212d2",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-02",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Beretta Brx1 accuracy Hey everyone. I've tried 5 different loads of 30-06 and I can not get a group "
+    },
+    {
+      "id": "deb5daeb-034d-440a-ba68-68d298d81c95",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Hunting jacket Looking to make a purchase for a good quality do it all hunting jacket. Hunting Midwe"
+    },
+    {
+      "id": "b355e30f-a6bd-4be9-9a62-db423c74eaa8",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Blacktail doe with twin fawns First fawns I\u2019ve caught on camera this year."
+    },
+    {
+      "id": "4f123963-6a7e-4ca6-9178-49076ce19246",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Folding bone saw Can you please recommend me one. \nPelvis,  ribs,  etc.\nMoose,  black bear, deer\nI h"
+    },
+    {
+      "id": "e2527a89-2d5a-4c08-9415-62717863b517",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "\u201cWhat\u2019s this?!\u201d Pretty cool video of a Buck on my land. Anyone know if this guy should have a pretty"
+    },
+    {
+      "id": "fe2d6a72-d4c8-4f99-b595-f58c8f366864",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Beginner- CVA or XPR? 350 legend Hi, I am new in hunting and trying to make a decision between which"
+    },
+    {
+      "id": "ef0450c3-88d1-4619-8e34-b2d480870181",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-03",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "First Hog Down - Ethical Concerns and a Lot of Emotions Edit: thanks y\u2019all! This was super helpful i"
+    },
+    {
+      "id": "d71cfa11-13ac-436f-9ef5-d1a80574c5c3",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-04",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "BEAUTIFUL Morning on Trail Cam From this morning. An especially eclectic morning of critters. Opossu"
+    },
+    {
+      "id": "66e69324-8ed3-4b90-915a-839eee8d166f",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-04",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "What's going on here? Shorter than the broccoli. Can barely walk. Next to our greenhouse. Mom's nowh"
+    },
+    {
+      "id": "f16e2cc6-aeb4-4b4b-b662-202bf3bbcaca",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-06",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Piebald Doe "
+    },
+    {
+      "id": "73d670e0-3bdf-4738-a6f3-4b946687b6f9",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-06",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Age him? Smallest one I have ever found. Was out thermal hunting and caught just the tip of his ears"
+    },
+    {
+      "id": "43d336ef-428d-41b1-8814-c78dec7cda13",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-06",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Scottish Roe Buck "
+    },
+    {
+      "id": "362dc26c-7a6f-4ca2-9d7f-528f7f522c9d",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-06",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "You guys get deer on your cameras, I get buzzards. "
+    },
+    {
+      "id": "8fc515a3-1d08-4404-ae87-d700f7d90953",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-08",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Scope and bullets for my Bergara .308 I bought a Bergara .308. I haven\u2019t started loading my own roun"
+    },
+    {
+      "id": "dca01fb7-feca-4aa4-95ad-1bb3fdf82d54",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-08",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "My first buck, got him in the last week of the season last december "
+    },
+    {
+      "id": "728ab1bc-4cef-4a67-9a31-640d4faeb061",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-08",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "How many people have taken a deer with no tail? So how many of yall ever take a deer with no tail? K"
+    },
+    {
+      "id": "7504b44a-38e3-4fe7-8c25-8d1fcecb3cff",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-09",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Polish roe buck "
+    },
+    {
+      "id": "b309f646-d9a4-4501-bbac-99b0eeadeac3",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-09",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "A little weekend dedicated to roe bucks I got an \u201cuneven six pointer\u201d Saturday morning \n.243win at 3"
+    },
+    {
+      "id": "98078bcf-287f-44ce-8c46-fb8dd5a74f31",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-10",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Anyone else hunt from a bike? Long time mountain biker.    Got an Ebike a couple years ago and then "
+    },
+    {
+      "id": "ae73a18f-02a7-4821-98d4-a38d2047a313",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-10",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Couple of English roe bucks, and a small muntjac buck. "
+    },
+    {
+      "id": "6b672560-11fe-487b-9441-c8bb2737eace",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-10",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Why are they two different colors? Not sure this is allowed.  But I figured this place would have th"
+    },
+    {
+      "id": "ca7f8f06-99b0-4401-ae02-4c67c42c3807",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-10",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "4th deer ive mounted on my own \ud83d\ude01 "
+    },
+    {
+      "id": "41920c42-3712-4d08-8528-d0a700881c5d",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-11",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Testing a jam-consistency attractant \u2013 looks promising Hey all \u2013 I\u2019ve been experimenting with my own"
+    },
+    {
+      "id": "3c878e2e-ac4a-49fb-9fc0-c654f53dc79c",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-11",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Surprise call from the game warden today, they found our mount In 2019 my wife shot a deer that we w"
+    },
+    {
+      "id": "29a5f0be-c633-4d33-9229-d8b7a478e74a",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-11",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "How Would You? (Fiction writing help) Hi all, vegetarian writer here looking for some expertise if a"
+    },
+    {
+      "id": "be90b899-badf-4936-9156-55a7ff9c7ce7",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-13",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Good luck or bad luck? Would you take this buck if it were in bow range? "
+    },
+    {
+      "id": "f7609b5b-2d20-453b-ab3f-cd36d73a24f8",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-13",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "2024 bucks are home The left and right are last years deer. "
+    },
+    {
+      "id": "7ad6d2b3-fd4c-4aa7-988d-5f5f8e24f9b6",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-13",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Any idea how to get this clean I got this deer last year and put it in my pond for the fur and such "
+    },
+    {
+      "id": "3a3e2eee-929a-47e1-a447-6be20c2f301f",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-16",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Got Mr. October back Really happy with it, he's the most silver/grey whitetail I've ever shot. 13pts"
+    },
+    {
+      "id": "3e5b133b-1f0a-4a59-a013-cebc6d6d4780",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-16",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Textbook Roe Buck (UK) Roe buck 152m with Remington 700/ 100 grain .243\n\nWhen gralloching the shot p"
+    },
+    {
+      "id": "dcdeaee8-ec65-43fa-80ae-23568460da37",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-17",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "How thick (chest cavity, kill zone, bullet travel in one side and out the other) **How thick is a ty"
+    },
+    {
+      "id": "6b7979e9-97ee-4985-83d5-0fb08f41f5ac",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-17",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Doe & Fawn "
+    },
+    {
+      "id": "366f3e26-12b6-421c-9a4a-b483feaa1be8",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-19",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Looking for advice on a cold weather shell/jacket for bow hunting Last year was my first year bow hu"
+    },
+    {
+      "id": "104545f4-3580-42b9-9783-efdd66def67b",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-19",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Injured buck from last year (a little graphic but not bad) Still not sure what happened to him. I\u2019m "
+    },
+    {
+      "id": "5382a379-b645-4824-87f7-70cdd67dd11a",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-20",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "It' beautiful out here My spot tonight for Roe Deer."
+    },
+    {
+      "id": "3e0f9994-42b6-4278-bede-0819a3a8f98b",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-20",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Mom and the new twins coming down the driveway followed by Dad ? Caught this buck following this mom"
+    },
+    {
+      "id": "67625cf1-4591-49bf-850f-5fab01163971",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-20",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Ultra Reliable Cam I know this community is for sharing pics- and I would if my cams wouldn\u2019t keep g"
+    },
+    {
+      "id": "7c658e58-3a88-43fb-9664-5f29a8f71ec4",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-21",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "View of the Rocky Mountains National Park and a bonzai tree from the Deer Mountain Trailhead just we"
+    },
+    {
+      "id": "4f5cc77e-a164-45df-a963-36103db73a5c",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-21",
+      "latitude": 40.3773,
+      "longitude": -105.5217,
+      "has_content_hash": false,
+      "text_preview": "View of the Rocky Mountains National Park and a bonzai tree from the Deer Mountain Trailhead just we"
+    },
+    {
+      "id": "06b94bde-604a-40dc-ba9e-bf0ede1eb112",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-22",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "From harvest to table - sons first deer. This is what I love about hunting. Not only do you get to h"
+    },
+    {
+      "id": "d9b35596-5c78-43c4-90a5-80091f433334",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-22",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Hunting public land advice Hello! \nThis will be my 3rd year hunting, 2nd year hunting public land. I"
+    },
+    {
+      "id": "d94d9368-eb33-4105-ace6-5e51718b8d85",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-22",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Is this a worm in my deer shank and can it hurt me? https://preview.redd.it/111y634dyj8f1.jpg?width="
+    },
+    {
+      "id": "10fc5bf9-4568-45e1-a177-db133c450eb2",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-23",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Quiver Bracket Mount I\u2019m curious if any of you lovely people can help me identify the brand/type of "
+    },
+    {
+      "id": "32f4f180-008d-499d-9edf-d3e8e25d9662",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-23",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Buck stop I put out some Lucky buck and look who showed up. Not a Booner, but for state land in Mich"
+    },
+    {
+      "id": "3d433ddc-ff4c-426d-9009-de32c9f5e777",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-25",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Sick deer I have some sick deer that come in my yard. Hit by cars, making weird noises. Who do I cal"
+    },
+    {
+      "id": "07999a38-b0a7-4f9c-966f-7d55251b75ba",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-25",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "New stock Browning x bolt 308\nZeiss ht 3-12x56\nHausken surpressor\nGRS Hunter light beech laminate mo"
+    },
+    {
+      "id": "1c721be4-694d-4242-aedd-31ea60ba8ced",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-25",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Broken Deer Skull Repair Hey everyone, let me know if there\u2019s a better place to post this- but I fou"
+    },
+    {
+      "id": "e5146c60-a472-4e8f-b9bd-426f56b9b0fd",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-26",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Roe deer buck taking a wee "
+    },
+    {
+      "id": "d5290131-0deb-4c81-a54b-84123d25e72b",
+      "species": "deer",
+      "source": "reddit",
+      "date": "2025-06-26",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Is my venison ruined? My buddy hit a deer on the road about a week ago, I helped him clean it and he"
+    },
+    {
+      "id": "cb358bbc-7a63-4de4-b2e5-0c8c72cd6a5b",
+      "species": "elk",
+      "source": "reddit",
+      "date": "2025-06-24",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Hunting pack recommendations Good evening everyone. \n\nNew to hunting and looking for a 3-4 day hunti"
+    },
+    {
+      "id": "abd5404b-b67a-43f3-9217-c2eeb59f7b20",
+      "species": "elk",
+      "source": "reddit",
+      "date": "2025-06-24",
+      "latitude": 39.5501,
+      "longitude": -105.7821,
+      "has_content_hash": false,
+      "text_preview": "Sam Houston National Forest My kid and I are thinking of hitting up the forest this weekend. We plan"
+    }
+  ]
+}
