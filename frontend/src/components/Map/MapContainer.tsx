@@ -25,16 +25,8 @@ export const MapContainer: React.FC = () => {
       setError(null);
       
       try {
-        // Apply date filter for free users (5 days) if no date filters set
-        const filtersCopy = { ...filters };
-        if (!filtersCopy.startDate && !filtersCopy.endDate) {
-          const fiveDaysAgo = new Date();
-          fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
-          filtersCopy.startDate = fiveDaysAgo;
-        }
-        
         // Fetch sightings using the service with filters
-        const response = await sightingsService.getSightings(filtersCopy, 1, 500);
+        const response = await sightingsService.getSightings(filters, 1, 500);
         console.log('Map sightings API response:', response);
         
         // Filter to only show sightings with coordinates

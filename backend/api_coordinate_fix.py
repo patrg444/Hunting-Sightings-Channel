@@ -61,9 +61,11 @@ def get_sightings(
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
     species: Optional[str] = None,
+    species_list: Optional[str] = None,  # Comma-separated list of species
     gmu: Optional[int] = None,
     gmu_list: Optional[str] = None,  # Comma-separated list of GMUs
     source: Optional[str] = None,
+    source_list: Optional[str] = None,  # Comma-separated list of sources
     lat: Optional[float] = None,
     lon: Optional[float] = None,
     radius_miles: Optional[float] = None
@@ -97,9 +99,20 @@ def get_sightings(
         if end_date:
             query += " AND sighting_date <= %s"
             params.append(end_date)
-        if species:
+            
+        # Species filter
+        if species_list:
+            # Handle comma-separated species list
+            species_items = [s.strip().lower() for s in species_list.split(',') if s.strip()]
+            if species_items:
+                placeholders = ','.join(['%s'] * len(species_items))
+                query += f" AND LOWER(species) IN ({placeholders})"
+                params.extend(species_items)
+        elif species:
             query += " AND LOWER(species) = LOWER(%s)"
             params.append(species)
+            
+        # GMU filter
         if gmu_list:
             # Handle comma-separated GMU list
             gmu_numbers = [int(g.strip()) for g in gmu_list.split(',') if g.strip().isdigit()]
@@ -110,7 +123,16 @@ def get_sightings(
         elif gmu:
             query += " AND gmu_unit = %s"
             params.append(gmu)
-        if source:
+            
+        # Source filter
+        if source_list:
+            # Handle comma-separated source list
+            source_items = [s.strip().lower() for s in source_list.split(',') if s.strip()]
+            if source_items:
+                placeholders = ','.join(['%s'] * len(source_items))
+                query += f" AND LOWER(source_type) IN ({placeholders})"
+                params.extend(source_items)
+        elif source:
             query += " AND LOWER(source_type) = LOWER(%s)"
             params.append(source)
         

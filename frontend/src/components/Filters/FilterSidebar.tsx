@@ -1,34 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useStore } from '../../store/store';
 import { Filters } from '../../types';
-import { ChevronLeft, ChevronRight, Filter, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Filter, X, ChevronDown } from 'lucide-react';
 
 export const FilterSidebar: React.FC = () => {
   const { filters, updateFilters, clearFilters, isSidebarOpen, setSidebarOpen } = useStore();
-  const [localFilters, setLocalFilters] = useState<Filters>(filters);
+  const [speciesDropdownOpen, setSpeciesDropdownOpen] = useState(false);
+  const [sourceDropdownOpen, setSourceDropdownOpen] = useState(false);
+  
+  const speciesDropdownRef = useRef<HTMLDivElement>(null);
+  const sourceDropdownRef = useRef<HTMLDivElement>(null);
 
   const speciesOptions = [
-    'Elk', 'Deer', 'Bear', 'Moose', 'Mountain Lion', 
-    'Turkey', 'Duck', 'Goose', 'Other'
+    'Bear', 'Elk', 'Deer', 'Moose', 'Pronghorn Antelope',
+    'Bighorn Sheep', 'Mountain Lion', 'Mountain Goat', 'Hog', 'Marmot'
   ];
 
   const sourceOptions = [
-    'Reddit', 'iNaturalist', 'eBird', 'Observation.org', 
-    '14ers.com', 'SummitPost', 'Google Places'
+    'Reddit', 'iNaturalist', '14ers.com', 'Google Places'
   ];
+  
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (speciesDropdownRef.current && !speciesDropdownRef.current.contains(event.target as Node)) {
+        setSpeciesDropdownOpen(false);
+      }
+      if (sourceDropdownRef.current && !sourceDropdownRef.current.contains(event.target as Node)) {
+        setSourceDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleFilterChange = (filterKey: keyof Filters, value: any) => {
-    const newFilters = { ...localFilters, [filterKey]: value };
-    setLocalFilters(newFilters);
-  };
-
-  const applyFilters = () => {
-    updateFilters(localFilters);
+    const newFilters = { ...filters, [filterKey]: value };
+    // Apply filters immediately
+    updateFilters(newFilters);
   };
 
   const handleClearFilters = () => {
-    setLocalFilters({});
     clearFilters();
+  };
+  
+  const handleSpeciesToggle = (species: string) => {
+    const currentList = filters.speciesList || [];
+    const lowerSpecies = species.toLowerCase();
+    const newList = currentList.includes(lowerSpecies)
+      ? currentList.filter(s => s !== lowerSpecies)
+      : [...currentList, lowerSpecies];
+    
+    handleFilterChange('speciesList', newList.length > 0 ? newList : undefined);
+    handleFilterChange('species', undefined);
+  };
+  
+  const handleSourceToggle = (source: string) => {
+    const currentList = filters.sourceList || [];
+    const lowerSource = source.toLowerCase().replace(/\s+/g, '_');
+    const newList = currentList.includes(lowerSource)
+      ? currentList.filter(s => s !== lowerSource)
+      : [...currentList, lowerSource];
+    
+    handleFilterChange('sourceList', newList.length > 0 ? newList : undefined);
+    handleFilterChange('source', undefined);
   };
 
   const toggleSidebar = () => {
@@ -43,7 +79,7 @@ export const FilterSidebar: React.FC = () => {
       } w-80`}>
         <div className="h-full flex flex-col">
           {/* Header */}
-          <div className="px-4 py-3 border-b dark:border-gray-700 flex items-center justify-between">
+          <div className="px-4 py-3 border-b dark:border-gray-700 flex items-center justify-between select-none">
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-gray-600 dark:text-gray-400" />
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Filters</h2>
@@ -58,96 +94,178 @@ export const FilterSidebar: React.FC = () => {
           </div>
 
           {/* Filter Content */}
-          <div className="flex-1 p-4 space-y-4">
+          <div className="flex-1 p-4 space-y-4 overflow-y-auto">
             {/* GMU Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 select-none">
                 Game Management Units
               </label>
               <input
                 type="text"
                 placeholder="Enter GMU numbers (e.g., 12, 24, 36)"
-                value={localFilters.gmuList?.join(', ') || localFilters.gmu || ''}
+                value={filters.gmuList?.join(', ') || (filters.gmu ? filters.gmu.toString() : '') || ''}
                 onChange={(e) => {
                   const value = e.target.value;
+                  
+                  // Allow empty input
+                  if (value === '') {
+                    handleFilterChange('gmu', undefined);
+                    handleFilterChange('gmuList', undefined);
+                    return;
+                  }
+                  
+                  // Check if input contains comma
                   if (value.includes(',')) {
                     // Parse comma-separated values
                     const gmuNumbers = value
                       .split(',')
                       .map(s => s.trim())
-                      .filter(s => s)
-                      .map(s => parseInt(s))
-                      .filter(n => !isNaN(n));
+                      .filter(s => s && /^\d+$/.test(s))
+                      .map(s => parseInt(s));
                     handleFilterChange('gmuList', gmuNumbers.length > 0 ? gmuNumbers : undefined);
                     handleFilterChange('gmu', undefined);
                   } else {
-                    // Single value
-                    const num = parseInt(value);
-                    handleFilterChange('gmu', !isNaN(num) ? num : undefined);
-                    handleFilterChange('gmuList', undefined);
+                    // Single value - allow partial input
+                    if (/^\d*$/.test(value)) {
+                      const num = value ? parseInt(value) : undefined;
+                      handleFilterChange('gmu', num);
+                      handleFilterChange('gmuList', undefined);
+                    }
                   }
                 }}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               />
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 select-none">
                 Separate multiple GMUs with commas
               </p>
             </div>
 
             {/* Species Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <div ref={speciesDropdownRef} className="relative">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 select-none">
                 Species
               </label>
-              <select
-                value={localFilters.species || ''}
-                onChange={(e) => handleFilterChange('species', e.target.value || undefined)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              <button
+                onClick={() => setSpeciesDropdownOpen(!speciesDropdownOpen)}
+                className="w-full px-3 py-2 text-left border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 flex items-center justify-between"
               >
-                <option value="">All Species</option>
-                {speciesOptions.map(species => (
-                  <option key={species} value={species.toLowerCase()}>
-                    {species}
-                  </option>
-                ))}
-              </select>
+                <span className="text-sm">
+                  {filters.speciesList && filters.speciesList.length > 0
+                    ? `${filters.speciesList.length} selected`
+                    : 'All Species'}
+                </span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${speciesDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {speciesDropdownOpen && (
+                <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg">
+                  <div className="max-h-48 overflow-y-auto">
+                    <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+                      <button
+                        onClick={() => {
+                          handleFilterChange('speciesList', undefined);
+                          handleFilterChange('species', undefined);
+                        }}
+                        className="w-full text-left text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1"
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                    <div className="p-2">
+                      {speciesOptions.map(species => (
+                        <div key={species} className="flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded">
+                          <input
+                            type="checkbox"
+                            id={`species-${species}`}
+                            checked={(filters.speciesList || []).includes(species.toLowerCase())}
+                            onChange={() => handleSpeciesToggle(species)}
+                            className="rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer"
+                          />
+                          <label 
+                            htmlFor={`species-${species}`}
+                            className="text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer flex-1"
+                          >
+                            {species}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Source Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <div ref={sourceDropdownRef} className="relative">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 select-none">
                 Data Source
               </label>
-              <select
-                value={localFilters.source || ''}
-                onChange={(e) => handleFilterChange('source', e.target.value || undefined)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              <button
+                onClick={() => setSourceDropdownOpen(!sourceDropdownOpen)}
+                className="w-full px-3 py-2 text-left border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 flex items-center justify-between"
               >
-                <option value="">All Sources</option>
-                {sourceOptions.map(source => (
-                  <option key={source} value={source.toLowerCase().replace(/\s+/g, '_')}>
-                    {source}
-                  </option>
-                ))}
-              </select>
+                <span className="text-sm">
+                  {filters.sourceList && filters.sourceList.length > 0
+                    ? `${filters.sourceList.length} selected`
+                    : 'All Sources'}
+                </span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${sourceDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {sourceDropdownOpen && (
+                <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg">
+                  <div>
+                    <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+                      <button
+                        onClick={() => {
+                          handleFilterChange('sourceList', undefined);
+                          handleFilterChange('source', undefined);
+                        }}
+                        className="w-full text-left text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1"
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                    <div className="p-2">
+                      {sourceOptions.map(source => (
+                        <div key={source} className="flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded">
+                          <input
+                            type="checkbox"
+                            id={`source-${source}`}
+                            checked={(filters.sourceList || []).includes(source.toLowerCase().replace(/\s+/g, '_'))}
+                            onChange={() => handleSourceToggle(source)}
+                            className="rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer"
+                          />
+                          <label 
+                            htmlFor={`source-${source}`}
+                            className="text-sm text-gray-700 dark:text-gray-300 select-none cursor-pointer flex-1"
+                          >
+                            {source}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Date Range */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 select-none">
                 Date Range
               </label>
               <div className="space-y-2">
                 <input
                   type="date"
-                  value={localFilters.startDate ? new Date(localFilters.startDate).toISOString().split('T')[0] : ''}
+                  value={filters.startDate ? new Date(filters.startDate).toISOString().split('T')[0] : ''}
                   onChange={(e) => handleFilterChange('startDate', e.target.value ? new Date(e.target.value) : undefined)}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Start date"
                 />
                 <input
                   type="date"
-                  value={localFilters.endDate ? new Date(localFilters.endDate).toISOString().split('T')[0] : ''}
+                  value={filters.endDate ? new Date(filters.endDate).toISOString().split('T')[0] : ''}
                   onChange={(e) => handleFilterChange('endDate', e.target.value ? new Date(e.target.value) : undefined)}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="End date"
@@ -157,46 +275,37 @@ export const FilterSidebar: React.FC = () => {
 
             {/* Location-based Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 select-none">
                 Search Radius
               </label>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 select-none">
                 Click on the map to set a center point
               </p>
-              {(localFilters.lat && localFilters.lon) ? (
+              {(filters.lat && filters.lon) ? (
                 <div className="space-y-2">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Center: {localFilters.lat.toFixed(4)}, {localFilters.lon.toFixed(4)}
+                  <p className="text-sm text-gray-600 dark:text-gray-400 select-none">
+                    Center: {filters.lat.toFixed(4)}, {filters.lon.toFixed(4)}
                   </p>
                   <input
                     type="range"
                     min="1"
                     max="50"
-                    value={localFilters.radiusMiles || 10}
+                    value={filters.radiusMiles || 10}
                     onChange={(e) => handleFilterChange('radiusMiles', parseInt(e.target.value))}
                     className="w-full"
                   />
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Radius: {localFilters.radiusMiles || 10} miles
+                  <p className="text-sm text-gray-600 dark:text-gray-400 select-none">
+                    Radius: {filters.radiusMiles || 10} miles
                   </p>
                 </div>
               ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                <p className="text-sm text-gray-500 dark:text-gray-400 italic select-none">
                   No location selected
                 </p>
               )}
             </div>
           </div>
 
-          {/* Apply Button */}
-          <div className="px-4 py-3 border-t dark:border-gray-700">
-            <button
-              onClick={applyFilters}
-              className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors"
-            >
-              Apply Filters
-            </button>
-          </div>
         </div>
       </div>
 
