@@ -65,6 +65,7 @@ export interface UserPreferences {
 // Filter types
 export interface Filters {
   gmu?: number;
+  gmuList?: number[];  // For multiple GMUs
   species?: string;
   source?: string;
   startDate?: Date;

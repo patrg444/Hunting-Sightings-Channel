@@ -40,6 +40,9 @@ def transform_sighting(row: tuple, columns: List[str]) -> Dict[str, Any]:
         # Remove the separate lat/lng fields
         del sighting['lat']
         del sighting['lng']
+    else:
+        # Set location to None if no coordinates
+        sighting['location'] = None
     
     # Convert datetime objects to ISO strings
     for key in ['sighting_date', 'created_at', 'updated_at', 'extracted_at']:
@@ -51,14 +54,19 @@ def transform_sighting(row: tuple, columns: List[str]) -> Dict[str, Any]:
 
 @app.get("/api/v1/sightings")
 def get_sightings(
-    limit: int = Query(20, ge=1, le=100),
+    limit: int = Query(20, ge=1, le=500),
     offset: int = 0,
     page: int = Query(1, ge=1),
-    page_size: int = Query(20, ge=1, le=100),
+    page_size: int = Query(20, ge=1, le=500),
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
     species: Optional[str] = None,
-    gmu: Optional[int] = None
+    gmu: Optional[int] = None,
+    gmu_list: Optional[str] = None,  # Comma-separated list of GMUs
+    source: Optional[str] = None,
+    lat: Optional[float] = None,
+    lon: Optional[float] = None,
+    radius_miles: Optional[float] = None
 ):
     """Get sightings with proper coordinate transformation."""
     
@@ -90,11 +98,34 @@ def get_sightings(
             query += " AND sighting_date <= %s"
             params.append(end_date)
         if species:
-            query += " AND species = %s"
+            query += " AND LOWER(species) = LOWER(%s)"
             params.append(species)
-        if gmu:
+        if gmu_list:
+            # Handle comma-separated GMU list
+            gmu_numbers = [int(g.strip()) for g in gmu_list.split(',') if g.strip().isdigit()]
+            if gmu_numbers:
+                placeholders = ','.join(['%s'] * len(gmu_numbers))
+                query += f" AND gmu_unit IN ({placeholders})"
+                params.extend(gmu_numbers)
+        elif gmu:
             query += " AND gmu_unit = %s"
             params.append(gmu)
+        if source:
+            query += " AND LOWER(source_type) = LOWER(%s)"
+            params.append(source)
+        
+        # Add location-based filtering
+        if lat and lon and radius_miles:
+            # Convert miles to meters (approximately)
+            radius_meters = radius_miles * 1609.34
+            query += """
+                AND ST_DWithin(
+                    location::geography,
+                    ST_SetSRID(ST_MakePoint(%s, %s), 4326)::geography,
+                    %s
+                )
+            """
+            params.extend([lon, lat, radius_meters])
         
         # Count total
         count_query = f"SELECT COUNT(*) FROM ({query}) as counted"
@@ -102,8 +133,10 @@ def get_sightings(
         total = cursor.fetchone()[0]
         
         # Add ordering and pagination
-        query += " ORDER BY created_at DESC LIMIT %s OFFSET %s"
-        params.extend([limit, offset])
+        # Calculate actual offset based on page
+        actual_offset = (page - 1) * page_size
+        query += " ORDER BY sighting_date DESC, created_at DESC LIMIT %s OFFSET %s"
+        params.extend([page_size, actual_offset])
         
         # Execute main query
         cursor.execute(query, params)
@@ -114,12 +147,15 @@ def get_sightings(
         # Transform results
         sightings = [transform_sighting(row, columns) for row in cursor.fetchall()]
         
+        # Calculate actual offset based on page
+        actual_offset = (page - 1) * page_size
+        
         return {
-            "sightings": sightings,
+            "items": sightings,
             "total": total,
             "page": page,
-            "pageSize": page_size,
-            "totalPages": (total // page_size) + (1 if total % page_size > 0 else 0)
+            "page_size": page_size,
+            "pages": (total + page_size - 1) // page_size
         }
         
     except Exception as e:
@@ -137,16 +173,21 @@ def get_sightings_with_coordinates():
     
     try:
         # Get sightings with coordinates from the last 30 days
+        # Exclude default Colorado center coordinates (39.5501, -105.7821)
         query = """
             SELECT 
                 id, species, sighting_date, location_name,
                 ST_Y(location::geometry) as lat,
                 ST_X(location::geometry) as lng,
                 location_confidence_radius,
-                source_type, description
+                source_type, source_url, description, gmu_unit
             FROM sightings
             WHERE location IS NOT NULL
             AND sighting_date >= CURRENT_DATE - INTERVAL '30 days'
+            AND NOT (
+                ABS(ST_Y(location::geometry) - 39.5501) < 0.0001 
+                AND ABS(ST_X(location::geometry) - (-105.7821)) < 0.0001
+            )
             ORDER BY sighting_date DESC
             LIMIT 500
         """
