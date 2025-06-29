@@ -106,12 +106,15 @@ def get_sightings(
             # Handle comma-separated species list
             species_items = [s.strip().lower() for s in species_list.split(',') if s.strip()]
             if species_items:
-                placeholders = ','.join(['%s'] * len(species_items))
-                query += f" AND LOWER(species) IN ({placeholders})"
-                params.extend(species_items)
+                # Use OR with LIKE for each species to allow partial matching
+                species_conditions = []
+                for species_item in species_items:
+                    species_conditions.append("LOWER(species) LIKE %s")
+                    params.append(f"%{species_item}%")
+                query += f" AND ({' OR '.join(species_conditions)})"
         elif species:
-            query += " AND LOWER(species) = LOWER(%s)"
-            params.append(species)
+            query += " AND LOWER(species) LIKE LOWER(%s)"
+            params.append(f"%{species}%")
             
         # GMU filter
         if gmu_list:

@@ -56,7 +56,7 @@ def get_sightings(
         if end_date:
             query = query.lte('sighting_date', end_date)
         if species:
-            query = query.eq('species', species)
+            query = query.ilike('species', f'%{species}%')
         if gmu:
             query = query.eq('gmu_unit', gmu)
             

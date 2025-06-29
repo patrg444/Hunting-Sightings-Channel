@@ -48,7 +48,7 @@ async def get_sightings(
     if gmu:
         filters.append(Sighting.gmu_unit == gmu)
     if species:
-        filters.append(Sighting.species == species.lower())
+        filters.append(Sighting.species.ilike(f"%{species.lower()}%"))
     if source:
         filters.append(Sighting.source_type == source)
     if start_date:
