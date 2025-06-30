@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test HTTPS API</title>
+</head>
+<body>
+    <h1>Testing HTTPS API Solution</h1>
+    <div id="status">Loading...</div>
+    <pre id="result"></pre>
+    
+    <script>
+        async function testAPI() {
+            const statusEl = document.getElementById('status');
+            const resultEl = document.getElementById('result');
+            
+            try {
+                // Test the new HTTPS endpoint
+                const response = await fetch('https://61tx8rsf0m.execute-api.us-west-2.amazonaws.com/api/v1/sightings/with-coords');
+                const data = await response.json();
+                
+                statusEl.textContent = '✅ HTTPS API Working!';
+                statusEl.style.color = 'green';
+                resultEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusEl.textContent = '❌ Error: ' + error.message;
+                statusEl.style.color = 'red';
+            }
+        }
+        
+        testAPI();
+    </script>
+</body>
+</html>
