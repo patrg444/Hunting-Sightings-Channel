@@ -1,11 +1,15 @@
 # Deployment Notes for huntsightings.com
 
 ## Current Status
-- AWS deployment at http://54.203.54.74/ is working correctly with 294 markers displayed
-- Production site at https://www.huntsightings.com/ needs updating
+- AWS deployment at https://54.203.54.74/ is working with SSL configured
+- Production site at https://www.huntsightings.com/ will work once port 443 is opened
+- 294 markers displayed correctly when accessible
 
-## Important Issue: HTTPS/HTTP Mixed Content
-The production site (huntsightings.com) uses HTTPS, but our backend API at 54.203.54.74:8000 only supports HTTP. This creates a "mixed content" security issue where browsers block HTTP requests from HTTPS sites.
+## ✅ HTTPS Issue RESOLVED
+- Backend now supports HTTPS with nginx reverse proxy
+- SSL certificate installed (self-signed)
+- Frontend configured to use https://54.203.54.74/api
+- **ACTION REQUIRED**: Open port 443 in AWS security group (see AWS_PORT_443_INSTRUCTIONS.md)
 
 ## Solutions:
 
