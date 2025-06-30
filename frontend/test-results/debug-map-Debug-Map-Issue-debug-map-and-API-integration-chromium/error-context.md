@@ -1,0 +1,56 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - link "Wildlife Sightings Channel":
+    - /url: /
+  - button "Map view": Map
+  - button "Table view": Table
+  - button "Markers view": Markers
+  - button "Heat map view": Heat Map
+  - button "Toggle dark mode"
+  - button "Sign In"
+- heading "Filters" [level=2]
+- button "Clear All"
+- text: Game Management Units
+- textbox "Enter GMU numbers (e.g., 12, 24, 36)"
+- paragraph: Separate multiple GMUs with commas
+- text: Species
+- button "All Species"
+- text: Data Source
+- button "All Sources"
+- text: GMU Options
+- checkbox "Only show entries with GMU assigned"
+- text: Only show entries with GMU assigned Date Range
+- textbox
+- textbox
+- text: Location Accuracy Filter
+- checkbox "Enable" [checked]
+- text: Enable
+- slider: "10"
+- text: ≤ 10 mi
+- paragraph: Only show locations with accuracy better than 10 miles
+- button "Toggle filters"
+- button "B"
+- button "B"
+- button "3"
+- button "6"
+- button "M"
+- button "B"
+- button "5"
+- button "3"
+- button "3"
+- button "13"
+- button "B"
+- button "2"
+- button "24"
+- button "61"
+- button "Zoom in"
+- button "Zoom out"
+- link "Leaflet":
+  - /url: https://leafletjs.com
+- text: ©
+- link "OpenStreetMap":
+  - /url: https://www.openstreetmap.org/copyright
+- text: contributors
+```

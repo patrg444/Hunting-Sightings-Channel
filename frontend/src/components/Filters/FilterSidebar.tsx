@@ -374,16 +374,16 @@ export const FilterSidebar: React.FC = () => {
                         min="1"
                         max="150"
                         step="1"
-                        value={filters.maxLocationAccuracy || 10}
+                        value={filters.maxLocationAccuracy || 50}
                         onChange={(e) => updateFilters({ maxLocationAccuracy: parseInt(e.target.value) })}
                         className="flex-1"
                       />
                       <span className="text-sm text-gray-600 dark:text-gray-400 w-16 text-right">
-                        ≤ {filters.maxLocationAccuracy || 10} mi
+                        ≤ {filters.maxLocationAccuracy || 50} mi
                       </span>
                     </div>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      Only show locations with accuracy better than {filters.maxLocationAccuracy || 10} miles
+                      Only show locations with accuracy better than {filters.maxLocationAccuracy || 50} miles
                     </p>
                   </>
                 )}

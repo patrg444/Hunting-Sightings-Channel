@@ -10,7 +10,7 @@ interface LocationData {
 
 // Default maximum radius (in miles) for locations to be shown on map
 // Locations with accuracy worse than this are considered too generalized
-const DEFAULT_MAX_LOCATION_RADIUS_MILES = 10;
+const DEFAULT_MAX_LOCATION_RADIUS_MILES = 50;
 
 // Check if location should be shown on map based on user-controlled accuracy filter
 export function shouldShowOnMap(location: LocationData, maxAccuracy?: number, enableFilter: boolean = true): boolean {
