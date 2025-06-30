@@ -217,10 +217,6 @@ def get_sightings_with_coordinates():
                 source_type, source_url, description, gmu_unit
             FROM sightings
             WHERE location IS NOT NULL
-            AND NOT (
-                ABS(ST_Y(location::geometry) - 39.5501) < 0.0001 
-                AND ABS(ST_X(location::geometry) - (-105.7821)) < 0.0001
-            )
             ORDER BY sighting_date DESC
             LIMIT 10000
         """
