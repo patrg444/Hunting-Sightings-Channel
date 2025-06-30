@@ -27,24 +27,24 @@
 - text: Location Accuracy Filter
 - checkbox "Enable" [checked]
 - text: Enable
-- slider: "10"
-- text: ≤ 10 mi
-- paragraph: Only show locations with accuracy better than 10 miles
+- slider: "50"
+- text: ≤ 50 mi
+- paragraph: Only show locations with accuracy better than 50 miles
 - button "Toggle filters"
+- button "B"
 - button "B"
 - button "B"
 - button "3"
 - button "6"
-- button "M"
-- button "B"
-- button "5"
-- button "3"
-- button "3"
-- button "13"
 - button "B"
 - button "2"
-- button "24"
+- button "5"
+- button "3"
+- button "5"
+- button "B"
+- button "2"
 - button "61"
+- button "73"
 - button "Zoom in"
 - button "Zoom out"
 - link "Leaflet":

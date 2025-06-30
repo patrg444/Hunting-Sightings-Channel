@@ -95,7 +95,7 @@ function transformSighting(sighting: any): Sighting | null {
     confidence_score: sighting.confidence_score || 0.8,
     // reported_by: sighting.reported_by || 'Anonymous',
     created_at: sighting.created_at,
-    validated: sighting.validated,
+    // validated: sighting.validated,
     raw_text: sighting.raw_text,
     latitude: lat,
     longitude: lon
