@@ -15,20 +15,22 @@ export const sightingsAuthService = {
     }
     
     // Handle species filters (convert array to individual params)
-    if (filters.species && filters.species.length > 0) {
-      filters.species.forEach(s => params.append('species', s));
+    if (filters.species && Array.isArray(filters.species)) {
+      filters.species.forEach((s: string) => params.append('species', s));
+    } else if (filters.species) {
+      params.append('species', filters.species);
     }
     
     // Handle source filters
     if (filters.sourceTypes && filters.sourceTypes.length > 0) {
-      filters.sourceTypes.forEach(s => params.append('source_type', s));
+      filters.sourceTypes.forEach((s: string) => params.append('source_type', s));
     } else if (filters.sourceType) {
       params.append('source_type', filters.sourceType);
     }
     
     // Handle date filters
-    if (filters.startDate) params.append('start_date', filters.startDate);
-    if (filters.endDate) params.append('end_date', filters.endDate);
+    if (filters.startDate) params.append('start_date', filters.startDate.toISOString().split('T')[0]);
+    if (filters.endDate) params.append('end_date', filters.endDate.toISOString().split('T')[0]);
     
     // Pagination
     params.append('skip', '0');
@@ -44,7 +46,7 @@ export const sightingsAuthService = {
       // Transform the response to match frontend format
       const transformedSightings = (data.items || [])
         .map((s: any) => transformSighting(s))
-        .filter(s => s !== null);
+        .filter((s): s is Sighting => s !== null);
       
       return {
         sightings: transformedSightings,
@@ -81,8 +83,7 @@ function transformSighting(sighting: any): Sighting | null {
     sighting_date: sighting.sighting_date,
     location: {
       lat: lat,
-      lon: lon,
-      name: sighting.location_name || 'Unknown'
+      lon: lon
     },
     location_name: sighting.location_name,
     gmu: sighting.gmu || sighting.gmu_unit,
