@@ -1,5 +1,10 @@
 {
   "buildCommand": "npm run build:prod",
   "outputDirectory": "dist",
-  "framework": "vite"
+  "framework": "vite",
+  "functions": {
+    "api/proxy.js": {
+      "runtime": "edge"
+    }
+  }
 }
