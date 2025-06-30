@@ -28,6 +28,11 @@ export interface Sighting {
   description?: string;
   elevation?: number;
   location_accuracy_miles?: number;
+  location_confidence_radius?: number;
+  lat?: number;
+  lon?: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface SightingStats {
@@ -78,6 +83,8 @@ export interface Filters {
   excludeNoGmu?: boolean;  // Filter out entries without GMU
   maxLocationAccuracy?: number;  // Maximum location accuracy in miles
   enableAccuracyFilter?: boolean;  // Enable/disable accuracy filtering
+  sourceType?: string;  // Alternative to source
+  sourceTypes?: string[];  // Alternative to sourceList
 }
 
 // API Response types
