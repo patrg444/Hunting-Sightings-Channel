@@ -241,9 +241,15 @@ def get_sightings_with_coordinates():
             
             sightings.append(sighting)
         
+        # Get actual total count
+        count_query = "SELECT COUNT(*) FROM sightings WHERE location IS NOT NULL"
+        cursor.execute(count_query)
+        actual_total = cursor.fetchone()[0]
+        
         return {
             "sightings": sightings,
-            "total": len(sightings)
+            "total": actual_total,
+            "returned": len(sightings)
         }
         
     except Exception as e:
