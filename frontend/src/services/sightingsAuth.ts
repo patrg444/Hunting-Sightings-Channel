@@ -63,8 +63,11 @@ export const sightingsAuthService = {
 
 // Transform backend sighting to frontend format
 function transformSighting(sighting: any): Sighting | null {
-  const lat = sighting.latitude || sighting.location_lat;
-  const lon = sighting.longitude || sighting.location_lon;
+  // Check for coordinates in various formats
+  const lat = sighting.lat || sighting.latitude || sighting.location_lat || 
+              (sighting.location && sighting.location.lat);
+  const lon = sighting.lng || sighting.lon || sighting.longitude || sighting.location_lon ||
+              (sighting.location && (sighting.location.lon || sighting.location.lng));
   
   // Must have valid coordinates
   if (!lat || !lon) {
