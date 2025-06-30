@@ -58,10 +58,10 @@ def transform_sighting(row: tuple, columns: List[str]) -> Dict[str, Any]:
 
 @app.get("/api/v1/sightings")
 def get_sightings(
-    limit: int = Query(20, ge=1, le=500),
+    limit: int = Query(20, ge=1, le=10000),
     offset: int = 0,
     page: int = Query(1, ge=1),
-    page_size: int = Query(20, ge=1, le=500),
+    page_size: int = Query(20, ge=1, le=10000),
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
     species: Optional[str] = None,
@@ -223,7 +223,7 @@ def get_sightings_with_coordinates():
                 AND ABS(ST_X(location::geometry) - (-105.7821)) < 0.0001
             )
             ORDER BY sighting_date DESC
-            LIMIT 500
+            LIMIT 10000
         """
         
         cursor.execute(query)

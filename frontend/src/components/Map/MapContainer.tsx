@@ -30,7 +30,7 @@ export const MapContainer: React.FC = () => {
       
       try {
         // Fetch sightings using the service with filters
-        const response = await sightingsService.getSightings(filters, 1, 500);
+        const response = await sightingsService.getSightings(filters, 1, 10000);
         console.log('Map sightings API response:', response);
         
         // Filter to only show sightings with coordinates and apply radius filter

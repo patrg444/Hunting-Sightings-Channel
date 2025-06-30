@@ -12,7 +12,7 @@ from pathlib import Path
 from loguru import logger
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from validators.location_validator import LocationValidator
+from backend.validators.location_validator import LocationValidator
 
 # OpenAI will be optional - fallback to keyword validation if not available
 try:

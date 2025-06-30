@@ -33,6 +33,8 @@ export interface Sighting {
   lon?: number;
   latitude?: number;
   longitude?: number;
+  url?: string;
+  confidence?: number;
 }
 
 export interface SightingStats {
