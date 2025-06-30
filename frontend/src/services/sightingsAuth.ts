@@ -93,7 +93,7 @@ function transformSighting(sighting: any): Sighting | null {
     source_url: sighting.source_url,
     description: sighting.raw_text || sighting.description || '',
     confidence_score: sighting.confidence_score || 0.8,
-    reported_by: sighting.reported_by || 'Anonymous',
+    // reported_by: sighting.reported_by || 'Anonymous',
     created_at: sighting.created_at,
     validated: sighting.validated,
     raw_text: sighting.raw_text,
