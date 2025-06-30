@@ -17,10 +17,17 @@ function generateDedupeKey(sighting: Sighting): string {
   const species = (sighting.species || '').toLowerCase().trim();
   const date = sighting.sighting_date || sighting.date || '';
   const source = (sighting.source_type || sighting.source || '').toLowerCase().trim();
-  const text = (sighting.raw_text || sighting.description || '').slice(0, 100).trim();
+  // Include full text for better differentiation
+  const text = (sighting.raw_text || sighting.description || '').trim();
   const location = (sighting.location_name || '').trim();
   
-  return `${species}|${date}|${source}|${text}|${location}`;
+  // Include coordinates in the key to prevent removing sightings at different locations
+  const lat = sighting.location?.lat || sighting.lat || 0;
+  const lon = sighting.location?.lon || sighting.lon || 0;
+  // Round coordinates to 3 decimal places (about 110m precision) to group very close duplicates
+  const coordKey = `${lat.toFixed(3)},${lon.toFixed(3)}`;
+  
+  return `${species}|${date}|${source}|${text}|${location}|${coordKey}`;
 }
 
 /**

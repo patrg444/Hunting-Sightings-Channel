@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - heading "Wildlife Sightings Channel" [level=1]
+  - text: Please log in
+- heading "Filters" [level=2]
+- button "Clear All"
+- text: Game Management Unit
+- spinbutton
+- text: Species
+- combobox:
+  - option "All Species" [selected]
+  - option "Elk"
+  - option "Deer"
+  - option "Bear"
+  - option "Moose"
+  - option "Mountain Lion"
+  - option "Turkey"
+  - option "Duck"
+  - option "Goose"
+  - option "Other"
+- text: Data Source
+- combobox:
+  - option "All Sources" [selected]
+  - option "Reddit"
+  - option "iNaturalist"
+  - option "eBird"
+  - option "Observation.org"
+  - option "14ers.com"
+  - option "SummitPost"
+  - option "Google Places"
+- text: Date Range
+- textbox
+- textbox
+- text: Search Radius
+- paragraph: Click on the map to set a center point
+- paragraph: No location selected
+- button "Apply Filters"
+- button "Toggle filters"
+- button "Zoom in"
+- button "Zoom out"
+- link "Leaflet":
+  - /url: https://leafletjs.com
+- text: ©
+- link "OpenStreetMap":
+  - /url: https://www.openstreetmap.org/copyright
+- text: contributors
+```
