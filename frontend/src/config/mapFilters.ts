@@ -1,5 +1,7 @@
 // Configuration for filtering out generic/placeholder coordinates from the map
 
+import { getOverrideRadius } from './coordinateBlacklist';
+
 interface LocationData {
   latitude: number;
   longitude: number;
@@ -23,13 +25,16 @@ export function shouldShowOnMap(location: LocationData, maxAccuracy?: number, en
     return true;
   }
   
-  // Use location accuracy/radius if available
-  const accuracyMiles = location.location_accuracy_miles || location.location_confidence_radius;
+  // Check if this is a generic coordinate that needs radius override
+  const overrideRadius = getOverrideRadius(location.latitude, location.longitude);
+  
+  // Use override radius if this is a generic coordinate, otherwise use actual accuracy
+  const accuracyMiles = overrideRadius || location.location_accuracy_miles || location.location_confidence_radius;
   const maxRadius = maxAccuracy || DEFAULT_MAX_LOCATION_RADIUS_MILES;
   
   // Only filter based on user-controlled accuracy setting
   if (accuracyMiles && accuracyMiles > maxRadius) {
-    console.log(`Filtering out location with accuracy ${accuracyMiles} miles (> ${maxRadius})`);
+    console.log(`Filtering out location with accuracy ${accuracyMiles} miles (> ${maxRadius})${overrideRadius ? ' [Generic Colorado coordinate]' : ''}`);
     return false;
   }
   

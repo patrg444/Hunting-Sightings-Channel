@@ -20,7 +20,7 @@ export const FilterSidebar: React.FC = () => {
   ];
 
   const sourceOptions = [
-    'Reddit', 'iNaturalist', '14ers.com', 'Google Places'
+    'Reddit', 'iNaturalist', '14ers', 'Google Places'
   ];
   
   // Sync GMU input with filters when they change externally
@@ -47,6 +47,8 @@ export const FilterSidebar: React.FC = () => {
 
   const handleFilterChange = (filterKey: keyof Filters, value: any) => {
     const newFilters = { ...filters, [filterKey]: value };
+    console.log('🔍 FilterSidebar: Applying filter', filterKey, '=', value);
+    console.log('🔍 FilterSidebar: New filters:', newFilters);
     // Apply filters immediately
     updateFilters(newFilters);
   };
