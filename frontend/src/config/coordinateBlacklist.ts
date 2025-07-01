@@ -16,7 +16,6 @@ export const GENERIC_COLORADO_COORDINATES: GenericCoordinate[] = [
   { lat: 39.7392, lon: -104.9903, tolerance: 0.01, description: "Denver Center", overrideRadiusMiles: 150 },
   { lat: 39.1131, lon: -105.3580, tolerance: 0.01, description: "Colorado Geometric Center", overrideRadiusMiles: 150 },
   { lat: 39.0, lon: -105.0, tolerance: 0.01, description: "Very Rounded Center", overrideRadiusMiles: 150 },
-  { lat: 39.72, lon: -105.7, tolerance: 0.01, description: "Generic Colorado Location", overrideRadiusMiles: 150 },
   
   // Add more as discovered from the coordinate analysis
 ];
