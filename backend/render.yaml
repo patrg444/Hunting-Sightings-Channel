@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: hunting-sightings-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile.stripe
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_ID
+        sync: false
+      - key: CORS_ORIGINS
+        value: '["https://huntsightings.com","https://www.huntsightings.com","http://localhost:3000"]'
+    healthCheckPath: /
+    region: oregon
