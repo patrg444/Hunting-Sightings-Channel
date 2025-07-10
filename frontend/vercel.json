@@ -6,7 +6,11 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "http://54.203.54.74:8000/api/:path*"
+      "destination": "https://hunting-sightings-backend.h3vtks23aaff8.us-west-2.cs.amazonlightsail.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
