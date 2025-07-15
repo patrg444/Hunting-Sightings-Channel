@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bell, Mail, Smartphone, MapPin, Save } from 'lucide-react';
 import { useStore } from '@/store/store';
+import api from '@/services/api';
 
 export const SettingsPage: React.FC = () => {
-  const { user } = useStore();
+  const { user, addToast } = useStore();
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(false);
   const [sightingAlerts, setSightingAlerts] = useState(true);
@@ -11,22 +12,90 @@ export const SettingsPage: React.FC = () => {
   const [locationAlerts, setLocationAlerts] = useState(true);
   const [alertRadius, setAlertRadius] = useState('25');
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Load preferences on mount
+  useEffect(() => {
+    const loadPreferences = async () => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const { data } = await api.get('/api/v1/notifications/preferences');
+        if (data) {
+          setEmailNotifications(data.email_notifications ?? true);
+          setSightingAlerts(data.sighting_alerts ?? true);
+          setWeeklyDigest(data.weekly_digest ?? false);
+          setPushNotifications(data.push_notifications ?? false);
+          setLocationAlerts(data.location_alerts ?? true);
+          setAlertRadius(String(data.alert_radius ?? 25));
+        }
+      } catch (error) {
+        console.error('Failed to load preferences:', error);
+        
+        // If the API endpoint doesn't exist yet, just use defaults
+        // This is not an error from the user's perspective
+        console.log('Using default notification preferences');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPreferences();
+  }, [user, addToast]);
 
   const handleSave = async () => {
+    if (!user) {
+      addToast({
+        type: 'error',
+        title: 'Not logged in',
+        message: 'Please log in to save preferences'
+      });
+      return;
+    }
+
     setSaving(true);
-    setMessage(null);
     
     try {
       // Save notification preferences
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
-      setMessage({ type: 'success', text: 'Notification preferences saved successfully!' });
+      await api.put('/api/v1/notifications/preferences', {
+        email_notifications: emailNotifications,
+        sighting_alerts: sightingAlerts,
+        weekly_digest: weeklyDigest,
+        push_notifications: pushNotifications,
+        location_alerts: locationAlerts,
+        alert_radius: parseInt(alertRadius)
+      });
+      
+      addToast({
+        type: 'success',
+        title: 'Preferences saved',
+        message: 'Your notification preferences have been updated'
+      });
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to save preferences. Please try again.' });
+      console.error('Failed to save preferences:', error);
+      addToast({
+        type: 'error',
+        title: 'Save failed',
+        message: 'Failed to save preferences. Please try again.'
+      });
     } finally {
       setSaving(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="spinner"></div>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Loading preferences...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -40,14 +109,6 @@ export const SettingsPage: React.FC = () => {
             Manage how you receive updates about wildlife sightings
           </p>
         </div>
-
-        {message && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-          }`}>
-            {message.text}
-          </div>
-        )}
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6">
           {/* Email Notifications */}
