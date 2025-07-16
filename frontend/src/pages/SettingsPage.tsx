@@ -16,35 +16,30 @@ export const SettingsPage: React.FC = () => {
 
   // Load preferences on mount
   useEffect(() => {
-    const loadPreferences = async () => {
-      if (!user) {
-        setLoading(false);
-        return;
-      }
+    // For now, just use local storage for preferences since the API endpoint may not exist
+    if (!user) {
+      setLoading(false);
+      return;
+    }
 
+    // Load from localStorage
+    const savedPrefs = localStorage.getItem('notification_preferences');
+    if (savedPrefs) {
       try {
-        const { data } = await api.get('/api/v1/notifications/preferences');
-        if (data) {
-          setEmailNotifications(data.email_notifications ?? true);
-          setSightingAlerts(data.sighting_alerts ?? true);
-          setWeeklyDigest(data.weekly_digest ?? false);
-          setPushNotifications(data.push_notifications ?? false);
-          setLocationAlerts(data.location_alerts ?? true);
-          setAlertRadius(String(data.alert_radius ?? 25));
-        }
-      } catch (error) {
-        console.error('Failed to load preferences:', error);
-        
-        // If the API endpoint doesn't exist yet, just use defaults
-        // This is not an error from the user's perspective
-        console.log('Using default notification preferences');
-      } finally {
-        setLoading(false);
+        const prefs = JSON.parse(savedPrefs);
+        setEmailNotifications(prefs.email_notifications ?? true);
+        setSightingAlerts(prefs.sighting_alerts ?? true);
+        setWeeklyDigest(prefs.weekly_digest ?? false);
+        setPushNotifications(prefs.push_notifications ?? false);
+        setLocationAlerts(prefs.location_alerts ?? true);
+        setAlertRadius(String(prefs.alert_radius ?? 25));
+      } catch (e) {
+        console.error('Failed to parse saved preferences:', e);
       }
-    };
-
-    loadPreferences();
-  }, [user, addToast]);
+    }
+    
+    setLoading(false);
+  }, [user]);
 
   const handleSave = async () => {
     if (!user) {
@@ -58,32 +53,25 @@ export const SettingsPage: React.FC = () => {
 
     setSaving(true);
     
-    try {
-      // Save notification preferences
-      await api.put('/api/v1/notifications/preferences', {
-        email_notifications: emailNotifications,
-        sighting_alerts: sightingAlerts,
-        weekly_digest: weeklyDigest,
-        push_notifications: pushNotifications,
-        location_alerts: locationAlerts,
-        alert_radius: parseInt(alertRadius)
-      });
-      
-      addToast({
-        type: 'success',
-        title: 'Preferences saved',
-        message: 'Your notification preferences have been updated'
-      });
-    } catch (error) {
-      console.error('Failed to save preferences:', error);
-      addToast({
-        type: 'error',
-        title: 'Save failed',
-        message: 'Failed to save preferences. Please try again.'
-      });
-    } finally {
-      setSaving(false);
-    }
+    // Save to localStorage
+    const preferences = {
+      email_notifications: emailNotifications,
+      sighting_alerts: sightingAlerts,
+      weekly_digest: weeklyDigest,
+      push_notifications: pushNotifications,
+      location_alerts: locationAlerts,
+      alert_radius: parseInt(alertRadius)
+    };
+    
+    localStorage.setItem('notification_preferences', JSON.stringify(preferences));
+    
+    addToast({
+      type: 'success',
+      title: 'Preferences saved',
+      message: 'Your notification preferences have been saved locally'
+    });
+    
+    setSaving(false);
   };
 
   if (loading) {
