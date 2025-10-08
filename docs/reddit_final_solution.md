@@ -38,7 +38,7 @@ Note: Change "script:" to "installed:" in the user agent!
 ### Step 4: Test with curl
 ```bash
 curl -X POST https://www.reddit.com/api/v1/access_token \
-  -H "User-Agent: installed:HuntingSightingsBot:1.0 (by /u/Fit-Indication-2067)" \
+  -H "User-Agent: installed:HuntingSightingsBot:1.0 (by /u/<your_reddit_username>)" \
   -u "NEW_CLIENT_ID:NEW_CLIENT_SECRET" \
   -d "grant_type=client_credentials"
 ```
