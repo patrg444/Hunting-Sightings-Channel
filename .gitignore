@@ -89,3 +89,29 @@ tmp/
 temp/
 *.tmp
 *.bak
+
+# JavaScript/Node
+node_modules/
+frontend/node_modules/
+test-deployment/node_modules/
+.next/
+.vercel/
+dist/
+build/
+
+# Vite cache
+**/.vite/
+
+# Browser/session caches
+alltrails_browser_session/
+facebook_session/
+alltrails_session/
+
+# Archives and large artifacts
+*.zip
+*.tar
+*.tar.gz
+
+# Environment files
+.env*
+!.env.example*
