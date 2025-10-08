@@ -114,7 +114,7 @@ def display_progress(stats):
 def main():
     """Monitor the scraping progress."""
     
-    log_file = "/Users/patrickgloria/Hunting-Sightings-Channel/fresh_scrape_full_output.log"
+    log_file = "fresh_scrape_full_output.log"
     
     if not os.path.exists(log_file):
         print("Error: Log file not found. Is the scraper running?")

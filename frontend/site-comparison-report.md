@@ -86,6 +86,6 @@ From the Playwright test results:
 
 ## Test Artifacts
 
-Screenshots saved in: `/Users/patrickgloria/Hunting-Sightings-Channel/frontend/screenshots-comparison/`
+Screenshots saved in: `frontend/screenshots-comparison/`
 - Full page screenshots: `deployed-site.png`, `production-site.png`
 - Map-only screenshots: `deployed-map-only.png`, `production-map-only.png`

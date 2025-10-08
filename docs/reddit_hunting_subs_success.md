@@ -73,7 +73,7 @@ Successfully implemented Reddit API with hunting-focused subreddits, resulting i
 # Reddit API
 REDDIT_CLIENT_ID=gMevaFZnBks9UWqrVz4srA
 REDDIT_CLIENT_SECRET=***REMOVED***
-REDDIT_USER_AGENT=script:HuntingSightingsBot:1.0 (by /u/Fit-Indication-2067)
+REDDIT_USER_AGENT=script:HuntingSightingsBot:1.0 (by /u/<your_reddit_username>)
 
 # OpenAI for LLM Validation
 OPENAI_API_KEY=sk-proj-YeHCBd...

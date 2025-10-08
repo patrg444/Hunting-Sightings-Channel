@@ -59,7 +59,7 @@ def debug_login():
                 login_data[name] = value
     
     # Add credentials
-    login_data['username'] = 'nicholasreichert86'
+    login_data['username'] = 'your_username'
     login_data['password'] = 'Huntingsightingchannel86'
     login_data['autologin'] = 'on'
     

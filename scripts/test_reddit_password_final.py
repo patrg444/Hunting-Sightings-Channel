@@ -15,9 +15,9 @@ def test_password_auth():
  """Test Reddit password authentication for script apps."""
  CLIENT_ID = os.getenv('REDDIT_CLIENT_ID')
  CLIENT_SECRET = os.getenv('REDDIT_CLIENT_SECRET')
- USERNAME = "Fit-Indication-2067"
+ USERNAME = "<your_reddit_username>"
  PASSWORD = "huntingsightingchannel"
- USER_AGENT = "script:HuntingSightingsBot:1.0 (by /u/Fit-Indication-2067)"
+ USER_AGENT = "script:HuntingSightingsBot:1.0 (by /u/<your_reddit_username>)"
 
  print("=== Reddit Password Authentication Test ===")
  print(f"Client ID: {CLIENT_ID}")

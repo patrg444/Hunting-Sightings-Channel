@@ -13,7 +13,8 @@ import psycopg2
 from datetime import datetime
 import hashlib
 
-DB_URL = "postgresql://patrickgloria:wildlifetracker2024@localhost:5432/wildlife_sightings_db"
+import os
+DB_URL = os.getenv("DATABASE_URL", "postgresql://localhost:5432/wildlife_sightings_db")
 
 def generate_content_hash(species, date, source, raw_text, location):
     """Generate a hash for deduplication."""

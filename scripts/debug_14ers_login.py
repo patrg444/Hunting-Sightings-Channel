@@ -54,18 +54,18 @@ def debug_login():
  # Common login field names
  login_attempts = [
  {
- 'username': 'nicholasreichert86',
+ 'username': 'your_username',
  'password': 'Huntingsightingchannel86',
  'autologin': 'on',
  'login': 'Login'
  },
  {
- 'user': 'nicholasreichert86',
+ 'user': 'your_username',
  'pass': 'Huntingsightingchannel86',
  'submit': 'Login'
  },
  {
- 'vb_login_username': 'nicholasreichert86',
+ 'vb_login_username': 'your_username',
  'vb_login_password': 'Huntingsightingchannel86',
  'do': 'login'
  }

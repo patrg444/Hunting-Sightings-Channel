@@ -172,4 +172,4 @@ self.keywords = {
 This project demonstrates **production-ready** web scraping capabilities that exceed the job's MVP requirements. The modular architecture makes it trivial to adapt for any new data source or domain. Both scrapers are fully functional and ready for demonstration.
 
 ### Contact
-Patrick Gloria - patrg444@gmail.com
+Hunting Sightings Team - support@huntsightings.com

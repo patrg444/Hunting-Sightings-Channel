@@ -132,7 +132,7 @@ def main():
     print(f"Found {found_count} out of {len(MORE_LOCATIONS)} locations")
     
     # Save results
-    output_file = '/Users/patrickgloria/Hunting-Sightings-Channel/data/more_google_places.json'
+    output_file = 'data/more_google_places.json'
     with open(output_file, 'w') as f:
         json.dump({
             'total_searched': len(MORE_LOCATIONS),

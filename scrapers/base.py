@@ -30,7 +30,7 @@ class BaseScraper(ABC):
         self.last_request_time = 0
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Hunting Sightings Bot 1.0; Contact: patrg444@gmail.com)'
+            'User-Agent': 'Mozilla/5.0 (Hunting Sightings Bot 1.0; Contact: support@huntsightings.com)'
         })
         
         # Game species keywords

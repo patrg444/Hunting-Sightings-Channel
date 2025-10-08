@@ -14,7 +14,7 @@ Your Reddit account was created using Google login, which means it doesn't have 
 
 ### 1. Go to Reddit Apps Page
 - Visit https://www.reddit.com/prefs/apps
-- Log in with your Google account (nicholasreichert86@gmail.com)
+- Log in with your Google account (your_email@example.com)
 
 ### 2. Create New App
 Click "Create App" or "Create Another App" and fill in:
@@ -39,7 +39,7 @@ Replace the current Reddit credentials in your `.env` file with the new ones:
 ```
 REDDIT_CLIENT_ID=your_new_installed_app_id
 REDDIT_CLIENT_SECRET=your_new_installed_app_secret
-REDDIT_USER_AGENT=installed:HuntingSightingsBot:1.0 (by /u/Fit-Indication-2067)
+REDDIT_USER_AGENT=installed:HuntingSightingsBot:1.0 (by /u/<your_reddit_username>)
 ```
 
 Note: Change "script:" to "installed:" in the user agent!

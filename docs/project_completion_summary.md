@@ -176,6 +176,6 @@ The Wildlife Sightings Channel project is complete and production-ready. It demo
 
 ---
 
-**Created by:** Patrick Gloria  
+**Created by:** Hunting Sightings Team  
 **Project Duration:** 4 weeks  
 **Status:** Production Ready

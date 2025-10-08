@@ -9,7 +9,7 @@
 
 ### Step 1: Create New Reddit App
 1. Go to https://www.reddit.com/prefs/apps
-2. Log in with your Reddit account (Fit-Indication-2067)
+2. Log in with your Reddit account (<your_reddit_username>)
 3. Click "Create App" or "Create Another App"
 4. Fill in:
    - **Name:** HuntingSightingsReadOnly
@@ -30,7 +30,7 @@ Replace the Reddit section in your `.env` file:
 # Reddit API Configuration
 REDDIT_CLIENT_ID=your_new_installed_app_id
 REDDIT_CLIENT_SECRET=your_new_installed_app_secret
-REDDIT_USER_AGENT=installed:HuntingSightingsBot:1.0 (by /u/Fit-Indication-2067)
+REDDIT_USER_AGENT=installed:HuntingSightingsBot:1.0 (by /u/<your_reddit_username>)
 ```
 
 Note: Change "script:" to "installed:" in the user agent!
@@ -80,4 +80,4 @@ If you absolutely need password authentication:
 2. Check if 2FA is enabled (User Settings → Safety & Privacy)
 3. If 2FA is on, disable it
 4. If password doesn't work, set a new one (User Settings → Account → Change password)
-5. Verify the app is owned by Fit-Indication-2067 at https://www.reddit.com/prefs/apps
+5. Verify the app is owned by your Reddit account at https://www.reddit.com/prefs/apps

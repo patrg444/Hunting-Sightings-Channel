@@ -15,9 +15,9 @@ def test_password_auth_debug():
  """Debug Reddit password authentication."""
  CLIENT_ID = os.getenv('REDDIT_CLIENT_ID')
  CLIENT_SECRET = os.getenv('REDDIT_CLIENT_SECRET')
- USERNAME = "Fit-Indication-2067"
+ USERNAME = "<your_reddit_username>"
  PASSWORD = "huntingsightingchannel"
- USER_AGENT = "script:HuntingSightingsBot:1.0 (by /u/Fit-Indication-2067)"
+ USER_AGENT = "script:HuntingSightingsBot:1.0 (by /u/<your_reddit_username>)"
 
  print("=== Reddit Password Authentication Debug ===")
  print(f"Client ID: {CLIENT_ID}")
@@ -70,7 +70,7 @@ def test_password_auth_debug():
  print("\n--- Test 2: Without 'u/' prefix ---")
  data2 = {
  "grant_type": "password",
- "username": "Fit-Indication-2067", # without u/
+ "username": "<your_reddit_username>", # without u/
  "password": PASSWORD
  }
 

@@ -17,7 +17,7 @@ def diagnose_14ers():
     print(f"Fetching {url}...")
     
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Hunting Sightings Bot 1.0; Contact: patrg444@gmail.com)'
+        'User-Agent': 'Mozilla/5.0 (Hunting Sightings Bot 1.0; Contact: support@huntsightings.com)'
     }
     
     try:

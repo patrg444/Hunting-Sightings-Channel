@@ -6,7 +6,7 @@ from typing import List, Dict
 
 def load_existing_config():
     """Load the existing Google Places configuration"""
-    with open('/Users/patrickgloria/Hunting-Sightings-Channel/data/google_places_config.json', 'r') as f:
+    with open('data/google_places_config.json', 'r') as f:
         return json.load(f)
 
 def load_additional_places():
@@ -15,7 +15,7 @@ def load_additional_places():
     
     # Load first batch of additional places
     try:
-        with open('/Users/patrickgloria/Hunting-Sightings-Channel/data/additional_google_places.json', 'r') as f:
+        with open('data/additional_google_places.json', 'r') as f:
             data = json.load(f)
             # Filter out places with 0 ratings or that are just roads
             for place in data['places']:
@@ -32,7 +32,7 @@ def load_additional_places():
     
     # Load second batch of additional places
     try:
-        with open('/Users/patrickgloria/Hunting-Sightings-Channel/data/more_google_places.json', 'r') as f:
+        with open('data/more_google_places.json', 'r') as f:
             data = json.load(f)
             for place in data['places']:
                 additional_places.append({
@@ -82,7 +82,7 @@ def main():
     config['comment'] = f"Verified Colorado trail place IDs for wildlife sighting extraction - {len(all_places)} locations total"
     
     # Save updated configuration
-    output_file = '/Users/patrickgloria/Hunting-Sightings-Channel/data/google_places_config_updated.json'
+    output_file = 'data/google_places_config_updated.json'
     with open(output_file, 'w') as f:
         json.dump(config, f, indent=2)
     

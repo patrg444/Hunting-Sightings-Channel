@@ -22,7 +22,7 @@ Required environment variables:
 The backend API must be running on port 8000. Open a new terminal and run:
 ```bash
 # From the project root directory
-cd /Users/patrickgloria/Hunting-Sightings-Channel/backend
+cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```

@@ -12,7 +12,7 @@ The Hunting Sightings Channel MVP is **fully functional** with robust infrastruc
  ```
  Client ID: gMexaFZnBks9UWqrVz4srA
  Client Secret: ***REMOVED***
- Username: Fit-Indication-2067
+ Username: <your_reddit_username>
  ```
 - **Possible Solutions**:
  1. Wait 24 hours for Reddit app activation
@@ -28,7 +28,7 @@ The Hunting Sightings Channel MVP is **fully functional** with robust infrastruc
 - **Issue**: Forum-based login with CSRF tokens and complex authentication
 - **Credentials Provided**:
  ```
- Username: nicholasreichert86
+ Google account: your_email@example.com
  Password: Huntingsightingchannel86
  ```
 

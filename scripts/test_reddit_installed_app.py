@@ -16,7 +16,7 @@ def test_installed_app_auth():
  """Test Reddit installed app authentication."""
  CLIENT_ID = os.getenv('REDDIT_CLIENT_ID')
  CLIENT_SECRET = os.getenv('REDDIT_CLIENT_SECRET')
- USER_AGENT = "installed:HuntingSightingsBot:1.0 (by /u/Fit-Indication-2067)"
+ USER_AGENT = "installed:HuntingSightingsBot:1.0 (by /u/<your_reddit_username>)"
 
  print("=== Reddit Installed App Authentication Test ===")
  print(f"Client ID: {CLIENT_ID}")

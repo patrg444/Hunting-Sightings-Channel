@@ -127,4 +127,4 @@ MIT License - See LICENSE file for details.
 
 ## Contact
 
-Patrick Gloria - patrg444@gmail.com
+Hunting Sightings Team - support@huntsightings.com

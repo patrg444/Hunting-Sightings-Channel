@@ -1,7 +1,7 @@
 import json
 
 try:
-    with open('/Users/patrickgloria/Hunting-Sightings-Channel/data/cache/parsed_posts.json', 'r') as f:
+    with open('data/cache/parsed_posts.json', 'r') as f:
         cache = json.load(f)
     
     # Count cache entries and sightings
